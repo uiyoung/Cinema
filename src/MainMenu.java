@@ -46,6 +46,13 @@ public class MainMenu extends CinemaFrame implements ActionListener {
 			posterLabel.setIcon(poster);
 			posterLabel.setBounds(50, 80, 320, 452);
 
+			// html 태그로 포스터 불러올 수 있다는 것
+			// JLabel label = new JLabel("<html><img height='80' width='100'
+			// src='https://developer.cdn.mozilla.net/media/img/mdn-logo-sm.png'
+			// /></html>");
+			// movies[i].add(label);
+			// label.setBounds(500, 300, 300, 300);
+
 			lblTitle = new JLabel(list.get(i).getTitle());
 			lblTitle.setFont(new Font("Yu Gothic", Font.BOLD, 30));
 			lblTitle.setBounds(20, 10, 600, 30);
@@ -57,8 +64,10 @@ public class MainMenu extends CinemaFrame implements ActionListener {
 			lblRunningTime.setBounds(400, 120, 100, 30);
 
 			taDescription = new JTextArea(list.get(i).getDescription());
-			taDescription.setBounds(400, 150, 700, 300);
 			taDescription.setEditable(false);
+			taDescription.setLineWrap(true); // 한줄이 너무 길면 자동으로 개행
+			taDescription.setBounds(400, 150, 700, 300);
+
 			movies[i].add(posterLabel);
 			movies[i].add(lblTitle);
 			movies[i].add(lblGenre);
@@ -76,10 +85,12 @@ public class MainMenu extends CinemaFrame implements ActionListener {
 
 		JButton btnNext = new JButton("▶");
 		btnNext.setActionCommand("NEXT");
+		btnNext.setFocusPainted(false);
 		btnNext.addActionListener(this);
 
 		JButton btnPrev = new JButton("◀");
 		btnPrev.setActionCommand("PREVIOUS");
+		btnPrev.setFocusPainted(false);
 		btnPrev.addActionListener(this);
 
 		// JPanel controlPanel = new JPanel();
@@ -88,13 +99,14 @@ public class MainMenu extends CinemaFrame implements ActionListener {
 		// controlPanel.add(btnNext);
 		// controlPanel.add(btnLast);
 
-		btnReserve.addActionListener(this);
-		btnMyTicket.addActionListener(this);
-		btnExit.addActionListener(this);
 		JPanel btnPanel = new JPanel();
 		btnPanel.add(btnReserve);
 		btnPanel.add(btnMyTicket);
 		btnPanel.add(btnExit);
+
+		btnReserve.addActionListener(this);
+		btnMyTicket.addActionListener(this);
+		btnExit.addActionListener(this);
 
 		add(btnPrev, BorderLayout.LINE_START);
 		add(btnNext, BorderLayout.LINE_END);

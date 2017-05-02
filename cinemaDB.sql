@@ -45,11 +45,58 @@ INSERT INTO MOVIE_TB VALUES(NULL, "LION／ライオン ～25年目のただい�
 SELECT * FROM movie_tb;
 
 /*Theater Table*/
-CREATE THEATER_TB(
-NO INT NOT NULL PRIMARY KEY,
-capactiy INT NOT NULL,
-NAME varcahr(20) NOT NULL
-);
+CREATE TABLE `theater_tb` (
+	`no` INT(11) NOT NULL,
+	`capactiy` INT(11) NOT NULL,
+	`name` VARCHAR(20) NOT NULL,
+	PRIMARY KEY (`no`)
+)
+COLLATE='utf8_general_ci'
+ENGINE=InnoDB
+;
+
+
+INSERT INTO THEATER_TB VALUES(1,50,'tokyo');
+INSERT INTO THEATER_TB VALUES(2,50,'yokohama');
+INSERT INTO THEATER_TB VALUES(3,50,'osaka');
+
+select * from theater_tb;
+
 
 /*Schdule Table*/
-CREATE TABLE SCEDULE_TB(	
+CREATE TABLE `schedule_tb` (
+	`no` INT(11) NOT NULL,
+	`date` CHAR(6) NOT NULL,
+	`movie_no` INT(11) NOT NULL,
+	`theater_no` INT(11) NOT NULL,
+	PRIMARY KEY (`no`),
+	INDEX `FK__movie_tb` (`movie_no`),
+	INDEX `FK__theater_tb` (`theater_no`),
+	CONSTRAINT `FK__movie_tb` FOREIGN KEY (`movie_no`) REFERENCES `movie_tb` (`no`),
+	CONSTRAINT `FK__theater_tb` FOREIGN KEY (`theater_no`) REFERENCES `theater_tb` (`no`)
+)
+COLLATE='utf8_general_ci'
+ENGINE=InnoDB
+;
+
+INSERT INTO schedule_tb values(1,170502,1,1);
+INSERT INTO schedule_tb values(1,170502,1,2);
+INSERT INTO schedule_tb values(1,170503,3,1);
+
+select * from SCHEDULE_TB;
+
+/*170502에 영화를 상영하는 극장 찾기*/
+select name from theater_tb where no = (select distinct movie_no from schedule_tb where date='170502');
+
+/*170502에 미녀와야수를 상영하는 극장 번호*/
+select theater_no from schedule_tb where movie_no = (select no from movie_tb where title='美女と野獣');
+
+/*170502에 미녀와야수를 상영하는 극장 찾기*/
+select t.name 
+from movie_tb m left join schedule_tb s on m.no = s.movie_no right join theater_tb t on s.theater_no = t.no 
+where m.title = '美女と野獣' and s.date = '170502';
+
+
+select distinct movie_tb.title, schedule_tb.date
+from movie_tb left join schedule_tb
+on movie_tb.no = schedule_tb.movie_no;

@@ -44,8 +44,8 @@ public class Reservation extends CinemaFrame implements ActionListener, MouseLis
 		jList1.addMouseListener(this);
 
 		JScrollPane sp = new JScrollPane(jList1);
-		sp.setBounds(40, 95, 300, 200);
 		sp.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+		sp.setBounds(40, 95, 300, 200);
 
 		btnCancel.setBounds(30, 650, 130, 65);
 		btnSeat.setBounds(1200, 650, 130, 65);
@@ -53,7 +53,7 @@ public class Reservation extends CinemaFrame implements ActionListener, MouseLis
 		btnSeat.addActionListener(this);
 
 		// Calendar for select date
-		calendarPanel.setBounds(500, 30, 350, 400);
+		calendarPanel.setBounds(500, 50, 350, 400);
 		add(calendarPanel);
 
 		add(sp);
@@ -79,7 +79,7 @@ public class Reservation extends CinemaFrame implements ActionListener, MouseLis
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		poster = new ImageIcon("images/" + jList1.getSelectedValue() + ".jpg");
+		poster = new ImageIcon("./images/" + jList1.getSelectedValue() + ".jpg");
 
 		lblPoster.setIcon(poster);
 		lblPoster.setBounds(1000, 30, 320, 452);

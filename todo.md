@@ -21,6 +21,7 @@
 
 ### Calendar
 - [ ] 영화를 선택하면 달력에 그 영화가 상영하는 날짜만 선택가능하게 만들기 or 색이 바뀌기
+- [ ] 날짜버튼 눌렀을 때 yyMMdd형식으로 날짜 리턴하기
 
 ### UI, Graphic Resource
 - [ ] seats(available, sold, selected), screen  [참고](https://w3layouts.com/movie-ticket-booking-widget-flat-responsive-widget-template/)

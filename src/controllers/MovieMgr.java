@@ -1,18 +1,21 @@
+package controllers;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import models.MovieBean;
+
 public class MovieMgr {
-	DBCon conn;
+	DBConnection db;
 
 	public MovieMgr() {
-		conn = new DBCon();
+		db = new DBConnection();
 	}
 
 	public ArrayList<MovieBean> getMovie() {
-		Connection con = null;
+		Connection conn = null;
 		Statement stmt = null;
 		ResultSet rs = null;
 		ArrayList<MovieBean> list = new ArrayList<MovieBean>();
@@ -20,8 +23,8 @@ public class MovieMgr {
 		MovieBean bean;
 
 		try {
-			con = conn.getConnection();
-			stmt = con.createStatement();
+			conn = db.getConnection();
+			stmt = conn.createStatement();
 			rs = stmt.executeQuery(sql);
 			while (rs.next()) {
 				bean = new MovieBean();
@@ -49,9 +52,9 @@ public class MovieMgr {
 					e.printStackTrace();
 				}
 			}
-			if (con != null) {
+			if (conn != null) {
 				try {
-					con.close();
+					conn.close();
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}

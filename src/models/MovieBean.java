@@ -1,3 +1,4 @@
+package models;
 public class MovieBean {
 	private String title;
 	private String genre;

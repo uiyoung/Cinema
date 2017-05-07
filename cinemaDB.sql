@@ -50,11 +50,7 @@ CREATE TABLE `theater_tb` (
 	`capactiy` INT(11) NOT NULL,
 	`name` VARCHAR(20) NOT NULL,
 	PRIMARY KEY (`no`)
-)
-COLLATE='utf8_general_ci'
-ENGINE=InnoDB
-;
-
+);
 
 INSERT INTO THEATER_TB VALUES(1,50,'tokyo');
 INSERT INTO THEATER_TB VALUES(2,50,'yokohama');
@@ -70,7 +66,7 @@ CREATE TABLE `schedule_tb` (
 	`movie_no` INT(11) NOT NULL,
 	`theater_no` INT(11) NOT NULL,
 	PRIMARY KEY (`no`),
-	INDEX `FK__movie_tb` (`movie_no`),
+	INDEX `FK__mtheater_tbcinemadbcinemadbovie_tb` (`movie_no`),
 	INDEX `FK__theater_tb` (`theater_no`),
 	CONSTRAINT `FK__movie_tb` FOREIGN KEY (`movie_no`) REFERENCES `movie_tb` (`no`),
 	CONSTRAINT `FK__theater_tb` FOREIGN KEY (`theater_no`) REFERENCES `theater_tb` (`no`)
@@ -80,8 +76,8 @@ ENGINE=InnoDB
 ;
 
 INSERT INTO schedule_tb values(1,170502,1,1);
-INSERT INTO schedule_tb values(1,170502,1,2);
-INSERT INTO schedule_tb values(1,170503,3,1);
+INSERT INTO schedule_tb values(2,170502,1,2);
+INSERT INTO schedule_tb values(3,170503,3,1);
 
 select * from SCHEDULE_TB;
 
@@ -91,8 +87,8 @@ select name from theater_tb where no = (select distinct movie_no from schedule_t
 /*170502에 미녀와야수를 상영하는 극장 번호*/
 select theater_no from schedule_tb where movie_no = (select no from movie_tb where title='美女と野獣');
 
-/*170502에 미녀와야수를 상영하는 극장 찾기*/
-select t.name 
+/*170502에 미녀와야수를 상영하는 극장 이름, 시간*/
+select t.name, s.time
 from movie_tb m left join schedule_tb s on m.no = s.movie_no right join theater_tb t on s.theater_no = t.no 
 where m.title = '美女と野獣' and s.date = '170502';
 

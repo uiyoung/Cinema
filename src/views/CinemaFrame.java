@@ -1,3 +1,4 @@
+package views;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 
@@ -9,6 +10,7 @@ public class CinemaFrame extends JFrame {
 	public CinemaFrame() {
 		try {
 			UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+			// UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
 				| UnsupportedLookAndFeelException e) {
 			e.printStackTrace();

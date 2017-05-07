@@ -1,3 +1,4 @@
+package views;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Font;
@@ -11,6 +12,9 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+
+import controllers.MovieMgr;
+import models.MovieBean;
 
 public class MainMenu extends CinemaFrame implements ActionListener {
 	ArrayList<MovieBean> list;

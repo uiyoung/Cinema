@@ -1,3 +1,4 @@
+package models;
 public class MemberBean {
 	private int no;
 	private String id;
@@ -11,7 +12,6 @@ public class MemberBean {
 	public int getNo() {
 		return no;
 	}
-
 	public void setNo(int no) {
 		this.no = no;
 	}
@@ -55,11 +55,9 @@ public class MemberBean {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-
 	public int getPoint() {
 		return point;
 	}
-
 	public void setPoint(int point) {
 		this.point = point;
 	}

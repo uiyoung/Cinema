@@ -1,3 +1,4 @@
+package views;
 import java.awt.Container;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -10,6 +11,9 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+
+import controllers.DBMgr;
+import models.MemberBean;
 
 public class SignUp extends JFrame implements ActionListener {
 	JLabel lblId = new JLabel("ID");

@@ -1,3 +1,5 @@
+package views;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
@@ -11,27 +13,30 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import models.Selected;
+
 public class CalendarPanel extends JPanel implements ActionListener {
 	String[] WEEK_DAY_NAMES = { "Su", "Mo", "Tu", "We", "Th", "Fr", "Sa" };
-	int year, month, day, todays, memoday = 0;
+	int year, month, day, memoday = 0;
 	Calendar today;
 	Calendar cal;
 	JButton btnPrev, btnNext;
 	JButton[] btnCalendar = new JButton[49];
 	JLabel lblMonth, lblYear;
-	JPanel panNorth, panWest;
+	JPanel monthControlPanel, daysPanel;
 
 	public CalendarPanel() {
+		setLayout(new BorderLayout());
 		today = Calendar.getInstance(); // 디폴트 타입 존 및 로케일을 사용해 달력생성
 		cal = new GregorianCalendar();
 		year = today.get(Calendar.YEAR);
 		month = today.get(Calendar.MONTH) + 1;// 1월 값이 0
 
-		panNorth = new JPanel();
-		panNorth.add(btnPrev = new JButton("<"));
-		panNorth.add(lblYear = new JLabel(year + "年"));
-		panNorth.add(lblMonth = new JLabel(month + "月"));
-		panNorth.add(btnNext = new JButton(">"));
+		monthControlPanel = new JPanel();
+		monthControlPanel.add(btnPrev = new JButton("<"));
+		monthControlPanel.add(lblYear = new JLabel(year + "年"));
+		monthControlPanel.add(lblMonth = new JLabel(month + "月"));
+		monthControlPanel.add(btnNext = new JButton(">"));
 		btnPrev.setContentAreaFilled(false);
 		btnNext.setContentAreaFilled(false);
 		btnPrev.setFocusPainted(false);
@@ -40,14 +45,14 @@ public class CalendarPanel extends JPanel implements ActionListener {
 		btnNext.addActionListener(this);
 		lblYear.setFont(new Font("맑은 고딕", Font.PLAIN, 18));
 		lblMonth.setFont(new Font("맑은 고딕", Font.PLAIN, 18));
-		add(panNorth, BorderLayout.PAGE_START);
+		add(monthControlPanel, BorderLayout.PAGE_START);
 
 		// 달력 날에 해당
-		panWest = new JPanel(new GridLayout(7, 7));
+		daysPanel = new JPanel(new GridLayout(7, 7));
 		gridInit();
 		calSet();
 		hideInit();
-		add(panWest, BorderLayout.CENTER);
+		add(daysPanel, BorderLayout.CENTER);
 	}// end constuctor
 
 	public void calSet() {
@@ -75,7 +80,6 @@ public class CalendarPanel extends JPanel implements ActionListener {
 				break;
 			}
 
-			todays = i;
 			if (memoday == 1) {
 				btnCalendar[i + 6 + hopping].setForeground(new Color(0, 255, 0));
 			} else {
@@ -92,40 +96,41 @@ public class CalendarPanel extends JPanel implements ActionListener {
 			 * 연산을 해주고 버튼을 변경
 			 */
 			btnCalendar[i + 6 + hopping].setText((i) + "");
-		} // for
+		}
 	}// end Calset()
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnPrev) {
-			panWest.removeAll();
+			daysPanel.removeAll();
 			updateMonth(-1);
-
 		} else if (e.getSource() == btnNext) {
-			panWest.removeAll();
+			daysPanel.removeAll();
 			updateMonth(1);
-
 		} else if (Integer.parseInt(e.getActionCommand()) >= 1 && Integer.parseInt(e.getActionCommand()) <= 31) {
 			day = Integer.parseInt(e.getActionCommand());
 			System.out.println(year + "年" + month + "月" + day + "日");
+			Selected.date = year + "" + month + "" + day + "";
+			System.out.println(Selected.date);
+			// TODO : 날짜버튼을 누르면 yyMMdd 형식으로 나오게 구현
 
 			// setVisible(false);
 			// calSet();
 		}
-	}// end actionperformed()
+	}
 
+	// 일이 찍히지 않은 나머지 버튼을 비활성화
 	public void hideInit() {
 		for (int i = 0; i < btnCalendar.length; i++) {
 			if ((btnCalendar[i].getText()).equals(""))
 				btnCalendar[i].setEnabled(false);
-			// 일이 찍히지 않은 나머지 버튼을 비활성화
 		}
-	}// end hideInit()
+	}
 
 	public void gridInit() {
 		// 일월화수목금토 버튼
 		for (int i = 0; i < WEEK_DAY_NAMES.length; i++) {
-			panWest.add(btnCalendar[i] = new JButton(WEEK_DAY_NAMES[i]));
+			daysPanel.add(btnCalendar[i] = new JButton(WEEK_DAY_NAMES[i]));
 			btnCalendar[i].setContentAreaFilled(false);
 			btnCalendar[i].setBorderPainted(false);
 			btnCalendar[i].setOpaque(true);
@@ -141,7 +146,7 @@ public class CalendarPanel extends JPanel implements ActionListener {
 		}
 		// 날짜(숫자) 버튼
 		for (int i = WEEK_DAY_NAMES.length; i < 49; i++) {
-			panWest.add(btnCalendar[i] = new JButton(""));
+			daysPanel.add(btnCalendar[i] = new JButton(""));
 			btnCalendar[i].setContentAreaFilled(false);
 			btnCalendar[i].setBorderPainted(false);
 			btnCalendar[i].setFocusPainted(true);
@@ -151,13 +156,10 @@ public class CalendarPanel extends JPanel implements ActionListener {
 
 	public void panelInit() {
 		GridLayout gridLayout1 = new GridLayout(7, 7);
-		panWest.setLayout(gridLayout1);
+		daysPanel.setLayout(gridLayout1);
 	}
 
 	public void updateMonth(int gap) {
-		// String month2 = cal.getDisplayName(Calendar.MONTH, Calendar.LONG,
-		// Locale.US);
-
 		month += (gap);
 		if (month <= 0) {
 			month = 12;

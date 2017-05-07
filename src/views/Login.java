@@ -1,3 +1,4 @@
+package views;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,6 +12,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+
+import controllers.DBMgr;
+import models.MemberBean;
 
 public class Login extends JFrame implements ActionListener {
 	JTextField tfId = new JTextField();

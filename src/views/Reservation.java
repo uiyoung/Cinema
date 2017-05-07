@@ -22,7 +22,6 @@ import javax.swing.event.ListSelectionListener;
 import controllers.DBMgr;
 import controllers.MovieMgr;
 import models.MovieBean;
-import models.Selected;
 
 public class Reservation extends CinemaFrame implements ActionListener, MouseListener {
 	DBMgr dbMgr = new DBMgr();
@@ -79,8 +78,7 @@ public class Reservation extends CinemaFrame implements ActionListener, MouseLis
 
 					// 이걸 달력의 날짜버튼액션리스너에 붙이고 날짜를 변수로 바꾸기
 					schedulesListModel.removeAllElements();
-					// schedules = dbMgr.getSchedule(title, "170502");
-					schedules = dbMgr.getSchedule(title, Selected.date);
+					schedules = dbMgr.getSchedule(title, "170502");
 					if (schedules.size() == 0) {
 						schedulesListModel.addElement("상영 정보가 없습니다.");
 						listSchedule.setEnabled(false);

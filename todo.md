@@ -26,5 +26,7 @@
 ### UI, Graphic Resource
 - [ ] seats(available, sold, selected), screen  [참고](https://w3layouts.com/movie-ticket-booking-widget-flat-responsive-widget-template/)
 - [ ] MainMenu SetBounds 정리
-- [ ] Reservation 예매정보 JTextArea 사용
+- [ ] Reservation 예매정보 JTextField 사용
+- [ ] JButton 크기 동일하게
+- [ ] 메인 공지사항, 현재 상영 영화 수
 - [ ] 日本語

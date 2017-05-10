@@ -14,6 +14,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.event.ListSelectionEvent;
@@ -38,7 +39,6 @@ public class Reservation extends CinemaFrame implements ActionListener, MouseLis
 	JScrollPane spSchedule = new JScrollPane();
 	ImageIcon poster;
 	JLabel lblPoster = new JLabel();
-	// TODO : JTextArea 사용할까?
 	// TODO:예매 정보 : 영화제목, 일자, 시간, 인원, 금액 나오는 라벨 만들기
 	JLabel lblTitle = new JLabel();
 	JLabel lblDate = new JLabel();
@@ -96,7 +96,7 @@ public class Reservation extends CinemaFrame implements ActionListener, MouseLis
 		spMovie.setBounds(60, 50, 320, 100);
 
 		lblPoster.setBounds(60, 170, 320, 452);
-		btnCancel.setBounds(30, 650, 130, 65);
+		btnCancel.setBounds(30, 650, 100, 60);
 		btnCancel.addActionListener(this);
 
 		firstPanel.add(label1);
@@ -187,10 +187,17 @@ public class Reservation extends CinemaFrame implements ActionListener, MouseLis
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnSeat) {
+			if (title == null || theater == null || selectedNumOfTicket == null) {
+				JOptionPane.showMessageDialog(null, "예매정보가 올바르지 않습니다.", "예매오류", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
 			System.out.println(title);
 			System.out.println(date);
 			System.out.println(theater);
 			System.out.println(selectedNumOfTicket);
+
+			new Seat(title, date, theater, selectedNumOfTicket);
+			dispose();
 
 			// 영화제목, 관람일, 영화관, 인원이 선택안된 경우 showMessageDialog(~를 선택해 주세요)
 			// if (DATE == " " || title == " " || TIME == " " || theater == " "

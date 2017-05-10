@@ -63,10 +63,11 @@ select * from theater_tb;
 CREATE TABLE `schedule_tb` (
 	`no` INT(11) NOT NULL,
 	`date` CHAR(6) NOT NULL,
+	`time` CHAR(5) NOT NULL,
 	`movie_no` INT(11) NOT NULL,
 	`theater_no` INT(11) NOT NULL,
 	PRIMARY KEY (`no`),
-	INDEX `FK__mtheater_tbcinemadbcinemadbovie_tb` (`movie_no`),
+	INDEX `FK__movie_tb` (`movie_no`),
 	INDEX `FK__theater_tb` (`theater_no`),
 	CONSTRAINT `FK__movie_tb` FOREIGN KEY (`movie_no`) REFERENCES `movie_tb` (`no`),
 	CONSTRAINT `FK__theater_tb` FOREIGN KEY (`theater_no`) REFERENCES `theater_tb` (`no`)
@@ -75,9 +76,10 @@ COLLATE='utf8_general_ci'
 ENGINE=InnoDB
 ;
 
-INSERT INTO schedule_tb values(1,170502,1,1);
-INSERT INTO schedule_tb values(2,170502,1,2);
-INSERT INTO schedule_tb values(3,170503,3,1);
+/* 상영 일정 삽입 */
+INSERT INTO schedule_tb values(1,'170502','14:00',1,1);
+INSERT INTO schedule_tb values(2,'170502','19:00',1,2);
+INSERT INTO schedule_tb values(3,'170503','22:00',3,1);
 
 select * from SCHEDULE_TB;
 
@@ -96,3 +98,23 @@ where m.title = '美女と野獣' and s.date = '170502';
 select distinct movie_tb.title, schedule_tb.date
 from movie_tb left join schedule_tb
 on movie_tb.no = schedule_tb.movie_no;
+
+
+/* SEAT table */
+CREATE TABLE `seat_tb` (
+	`theater_no` INT(11) NOT NULL,
+	`seat_no` VARCHAR(10) NOT NULL,
+	`state` CHAR(3) NOT NULL DEFAULT 'n',	/*예매 여부*/
+	PRIMARY KEY (`seat_no`, `theater_no`),
+	INDEX `FK__seat_theater_tb` (`theater_no`),
+	CONSTRAINT `FK__seate_theater_tb` FOREIGN KEY (`theater_no`) REFERENCES `theater_tb` (`no`)
+)
+COLLATE='utf8_general_ci'
+ENGINE=InnoDB
+;
+
+/* 좌석 삽입 */
+INSERT INTO `cinemadb`.`seat_tb` (`theater_no`, `seat_no`) VALUES ('1', 'A01');
+
+select * from seat_tb;
+

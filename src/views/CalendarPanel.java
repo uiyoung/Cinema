@@ -18,8 +18,7 @@ import models.Selected;
 public class CalendarPanel extends JPanel implements ActionListener {
 	String[] WEEK_DAY_NAMES = { "Su", "Mo", "Tu", "We", "Th", "Fr", "Sa" };
 	int year, month, day, memoday = 0;
-	Calendar today;
-	Calendar cal;
+	Calendar today, cal;
 	JButton btnPrev, btnNext;
 	JButton[] btnCalendar = new JButton[49];
 	JLabel lblMonth, lblYear;

@@ -23,7 +23,7 @@ DESC MEMBER_TB;
 SELECT * FROM MEMBER_TB;
 
 /*Insert member info*/
-INSERT INTO MEMBER_TB VALUES (NULL, "zaeki", "1234", "member0", "970717", "01027839433", 5000);
+INSERT INTO MEMBER_TB VALUES (NULL, "user", "1234", "캉테", "970717", "01027839433", 5000);
 
 /*Movie Table*/
 CREATE TABLE MOVIE_TB(
@@ -83,16 +83,16 @@ INSERT INTO schedule_tb values(3,'201753','22:00',3,1);
 
 select * from SCHEDULE_TB;
 
-/*170502에 영화를 상영하는 극장 찾기*/
-select name from theater_tb where no = (select distinct movie_no from schedule_tb where date='170502');
+/*201752에 영화를 상영하는 극장 찾기*/
+select name from theater_tb where no = (select distinct movie_no from schedule_tb where date='201752');
 
-/*170502에 미녀와야수를 상영하는 극장 번호*/
+/*201752에 미녀와야수를 상영하는 극장 번호*/
 select theater_no from schedule_tb where movie_no = (select no from movie_tb where title='美女と野獣');
 
-/*170502에 미녀와야수를 상영하는 극장 이름, 시간*/
+/*201752에 미녀와야수를 상영하는 극장 이름, 시간*/
 select t.name, s.time
 from movie_tb m left join schedule_tb s on m.no = s.movie_no right join theater_tb t on s.theater_no = t.no 
-where m.title = '美女と野獣' and s.date = '170502';
+where m.title = '美女と野獣' and s.date = '201752';
 
 
 select distinct movie_tb.title, schedule_tb.date
@@ -118,3 +118,4 @@ INSERT INTO `cinemadb`.`seat_tb` (`theater_no`, `seat_no`) VALUES ('1', 'A01');
 
 select * from seat_tb;
 
+/* 201752 일자의 tokyo, 14:00 스케쥴의 영화관 좌석정보 불러오기 */

@@ -21,8 +21,8 @@
 => 박우재
 
 ### Admin App
-- [ ] 영화정보 입력
-- [ ] 상영 schedule 입력
+- [ ] 영화 정보 입력 - movie_tb에 insert, update, delete
+- [ ] 상영 schedule 입력 - schedule_tb에 insert, update, delete. 콤보박스 사용하여 날자는 201752 형식으로 입력.
 - [ ] 매출 확인, 통계 그래프   
 => 신민정, 이민영
 

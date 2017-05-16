@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
@@ -44,10 +45,10 @@ public class Seat extends CinemaFrame implements ActionListener {
 	MemberBean bean; // DTO
 
 	public Seat(String title, String date, String theater, String ticket) {
-        this.title = title;
+		this.title = title;
 		this.date = date;
-        this.theater = theater;
-        setTitle("좌석선택");
+		this.theater = theater;
+		setTitle("좌석선택");
 
 		setLayout(null);
 
@@ -60,14 +61,14 @@ public class Seat extends CinemaFrame implements ActionListener {
 		lblScreen.setOpaque(true);
 		add(lblScreen);
 
-        // 버튼
+		// 버튼
 		resv.addActionListener(this);
 		prev.addActionListener(this);
 		resv.setBounds(1200, 650, 130, 65);
 		prev.setBounds(40, 650, 130, 65);
 
-		// ImageIcon on = new ImageIcon("images/seaton.gif");
-		// ImageIcon off = new ImageIcon("images/seatoff.gif");
+		ImageIcon on = new ImageIcon("images/seaton.png");
+		ImageIcon off = new ImageIcon("images/seatoff.png");
 		// ImageIcon i1 = new ImageIcon("images/i1.gif");
 		// ImageIcon i2 = new ImageIcon("images/i2.gif");
 		// ImageIcon i3 = new ImageIcon("images/i3.gif");
@@ -83,62 +84,62 @@ public class Seat extends CinemaFrame implements ActionListener {
 		// s3.setIcon(i3);
 
 		center.setLayout(null);
-		center.setBounds(450, 200, 762, 500);
-        center.setOpaque(false);
+		center.setBounds(450, 140, 762, 500);
+		center.setOpaque(false);
 
-        cen.setBounds(0, 0, 762, 500);
-        cen.setLayout(null);
-        cen.setOpaque(false);
+		cen.setBounds(0, 0, 762, 500);
+		cen.setLayout(null);
+		cen.setOpaque(false);
 
-        int x = 0, y = 0;
-        for (int i = 0; i < str.length; i++) {
-            cen = new JLabel(str[i]);
-            cen.setOpaque(false);
+		int x = 0, y = 0;
+		for (int i = 0; i < str.length; i++) {
+			cen = new JLabel(str[i]);
+			cen.setOpaque(false);
 
-            if (i % 10 == 0 && i != 0) {
-                x = 0;
-                y += 50;
-            }
-            cen.setBounds(x + 12, y, 75, 45);
-            x += 77;
-            center.add(cen);
-        }
+			if (i % 10 == 0 && i != 0) {
+				x = 0;
+				y += 50;
+			}
+			cen.setBounds(x + 12, y, 75, 45);
+			x += 77;
+			center.add(cen);
+		}
 
-        int posXpanSeat = 0, posYpanSeat = 0;
-        for (int i = 1; i <= 10; i++) {
-            for (int j = 1; j <= 10; j++) {
-				// seats[i][j] = new JCheckBox(null, on);
-				seats[i][j] = new JCheckBox();
-                seats[i][j].setOpaque(false);
-                seats[i][j].setBounds(posXpanSeat, posYpanSeat, 70, 45);
-                posXpanSeat += 77;
-				// seats[i][j].setSelectedIcon(off);
-                // seat[i].setEnabled(false);
-                center.add(seats[i][j]);
-            }
-            posXpanSeat = 0;
-            posYpanSeat += 50;
-        }
+		int posXpanSeat = 0, posYpanSeat = 0;
+		for (int i = 1; i <= 10; i++) {
+			for (int j = 1; j <= 10; j++) {
+				seats[i][j] = new JCheckBox(null, on);
+//				seats[i][j] = new JCheckBox();
+				seats[i][j].setOpaque(false);
+				seats[i][j].setBounds(posXpanSeat, posYpanSeat, 70, 45);
+				posXpanSeat += 77;
+				seats[i][j].setSelectedIcon(off);
+				// seat[i].setEnabled(false);
+				center.add(seats[i][j]);
+			}
+			posXpanSeat = 0;
+			posYpanSeat += 50;
+		}
 
 		// add(s1);
 		// add(s2);
 		// add(s3);
-        add(center);
-        add(resv);
-        add(prev);
+		add(center);
+		add(resv);
+		add(prev);
 
-        // list = mgr.seatload(title, date, time);
-        //
-        // for (int t = 0; t < list.size(); t++) {
-        // int yy=list.get(t).getSeaty();
-        // int xx=list.get(t).getSeatx();
-        // seats[yy][xx].setEnabled(false);
-        //
-        // }
+		// list = mgr.seatload(title, date, time);
+		//
+		// for (int t = 0; t < list.size(); t++) {
+		// int yy=list.get(t).getSeaty();
+		// int xx=list.get(t).getSeatx();
+		// seats[yy][xx].setEnabled(false);
+		//
+		// }
 
 		setVisible(true);
 		repaint();
-    }
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {

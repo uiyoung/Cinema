@@ -77,9 +77,9 @@ ENGINE=InnoDB
 ;
 
 /* 상영 일정 삽입 */
-INSERT INTO schedule_tb values(1,'170502','14:00',1,1);
-INSERT INTO schedule_tb values(2,'170502','19:00',1,2);
-INSERT INTO schedule_tb values(3,'170503','22:00',3,1);
+INSERT INTO schedule_tb values(1,'201752','14:00',1,1);
+INSERT INTO schedule_tb values(2,'201752','19:00',1,2);
+INSERT INTO schedule_tb values(3,'201753','22:00',3,1);
 
 select * from SCHEDULE_TB;
 

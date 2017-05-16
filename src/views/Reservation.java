@@ -36,7 +36,6 @@ public class Reservation extends CinemaFrame implements ActionListener, MouseLis
 	String title, date, theater, time, selectedNumOfTicket;
 
 	JPanel firstPanel, secondPanel, thirdPanel;
-	// CalendarPanel calendarPanel = new CalendarPanel();
 	JList<String> listMovie, listSchedule;
 	DefaultListModel<String> schedulesListModel;
 	JComboBox<String> cb;
@@ -93,22 +92,9 @@ public class Reservation extends CinemaFrame implements ActionListener, MouseLis
 					title = listMovie.getSelectedValue();
 					lblTitle.setText(title);
 					poster = new ImageIcon("./images/" + listMovie.getSelectedValue() + ".jpg");
-
+					schedulesListModel.removeAllElements();
 					lblTitle.setText(title);
 					lblPoster.setIcon(poster);
-
-					// 이걸 달력의 날짜버튼액션리스너에 붙이고 날짜를 변수로 바꾸기
-					schedulesListModel.removeAllElements();
-					schedules = dbMgr.getSchedule(title, date);
-					if (schedules.size() == 0) {
-						schedulesListModel.addElement("상영 정보가 없습니다.");
-						listSchedule.setEnabled(false);
-						return;
-					}
-
-					for (int i = 0; i < schedules.size(); i++) {
-						schedulesListModel.addElement(schedules.get(i));
-					}
 				}
 			}
 		});
@@ -142,12 +128,12 @@ public class Reservation extends CinemaFrame implements ActionListener, MouseLis
 		schedulesListModel = new DefaultListModel<>();
 		schedulesListModel.addElement("영화와 날짜를 선택해 주세요");
 		listSchedule = new JList<>(schedulesListModel);
+		listSchedule.setEnabled(false);
 		listSchedule.addListSelectionListener(new ListSelectionListener() {
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
 				if (!e.getValueIsAdjusting() && listSchedule.hasFocus()) {
 					theater = listSchedule.getSelectedValue();
-
 					lblTheater.setText(theater);
 				}
 			}
@@ -160,7 +146,7 @@ public class Reservation extends CinemaFrame implements ActionListener, MouseLis
 		label4.setBounds(40, 450, 100, 30);
 
 		// combo box for select num of tickets
-		String[] numOfTickets = { "1명", "2명", "3명", "4명", "5명" };
+		String[] numOfTickets = { "1", "2", "3", "4", "5" };
 		cb = new JComboBox<String>(numOfTickets);
 		selectedNumOfTicket = (String) cb.getSelectedItem();
 		cb.addActionListener(this);
@@ -200,9 +186,6 @@ public class Reservation extends CinemaFrame implements ActionListener, MouseLis
 	}
 
 	///////////////////////// CALENDAR THINGS //////////////////////////
-	CalendarListener calendarListener = new CalendarListener();
-
-	// Calendar
 	public void initCalendar() {
 		calendarPanel = new JPanel(new BorderLayout());
 		today = Calendar.getInstance(); // 디폴트 타입 존 및 로케일을 사용해 달력생성
@@ -218,8 +201,20 @@ public class Reservation extends CinemaFrame implements ActionListener, MouseLis
 		btnNext.setContentAreaFilled(false);
 		btnPrev.setFocusPainted(false);
 		btnNext.setFocusPainted(false);
-		btnPrev.addActionListener(calendarListener);
-		btnNext.addActionListener(calendarListener);
+		btnPrev.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				daysPanel.removeAll();
+				updateMonth(-1);
+			}
+		});
+		btnNext.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				daysPanel.removeAll();
+				updateMonth(1);
+			}
+		});
 		lblYear.setFont(new Font("Yu Gothic", Font.PLAIN, 18));
 		lblMonth.setFont(new Font("Yu Gothic", Font.PLAIN, 18));
 		calendarPanel.add(monthControlPanel, BorderLayout.PAGE_START);
@@ -308,7 +303,37 @@ public class Reservation extends CinemaFrame implements ActionListener, MouseLis
 			btnCalendar[i].setContentAreaFilled(false);
 			btnCalendar[i].setBorderPainted(false);
 			btnCalendar[i].setFocusPainted(true);
-			btnCalendar[i].addActionListener(calendarListener);
+			btnCalendar[i].addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					if (Integer.parseInt(e.getActionCommand()) >= 1 && Integer.parseInt(e.getActionCommand()) <= 31) {
+						day = Integer.parseInt(e.getActionCommand());
+						date = year + "" + month + "" + day + "";
+						// TODO : 날짜버튼을 누르면 yyMMdd 형식으로 나오게 구현
+
+						// update 영화관, 시간선택 list
+						schedulesListModel.removeAllElements();
+						schedules = dbMgr.getSchedule(title, date);
+
+						if (schedules.size() == 0) {
+							schedulesListModel.addElement("상영 정보가 없습니다.");
+							listSchedule.setEnabled(false);
+							theater = null;
+							lblTheater.setText("");
+							return;
+						} else {
+							listSchedule.setEnabled(true);
+						}
+
+						for (int i = 0; i < schedules.size(); i++) {
+							schedulesListModel.addElement(schedules.get(i));
+						}
+
+						// calSet();
+						lblDate.setText(year + "年" + month + "月" + day + "日");
+					}
+				}
+			});
 		}
 	}
 
@@ -341,15 +366,22 @@ public class Reservation extends CinemaFrame implements ActionListener, MouseLis
 		/* for combobox */
 		if (e.getSource() == cb) {
 			selectedNumOfTicket = (String) cb.getSelectedItem();
-			lblTicketAmount.setText(selectedNumOfTicket);
+			lblTicketAmount.setText(selectedNumOfTicket + "명");
 		}
 
 		/* for buttons */
 		if (e.getSource() == btnSeat) {
-			if (title == null || theater == null || selectedNumOfTicket == null) {
-				JOptionPane.showMessageDialog(null, "예매정보가 올바르지 않습니다.", "예매오류", JOptionPane.ERROR_MESSAGE);
+			if (title == null) {
+				JOptionPane.showMessageDialog(null, "영화를 선택해주세요.", "예매오류", JOptionPane.ERROR_MESSAGE);
+				return;
+			} else if (theater == null) {
+				JOptionPane.showMessageDialog(null, "스케줄을 선택해주세요.", "예매오류", JOptionPane.ERROR_MESSAGE);
+				return;
+			} else if (selectedNumOfTicket == null) {
+				JOptionPane.showMessageDialog(null, "인원을 선택해주세요.", "예매오류", JOptionPane.ERROR_MESSAGE);
 				return;
 			}
+
 			System.out.println(title);
 			System.out.println(date);
 			System.out.println(theater);
@@ -362,27 +394,6 @@ public class Reservation extends CinemaFrame implements ActionListener, MouseLis
 		if (e.getSource() == btnCancel) {
 			new MainMenu();
 			dispose();
-		}
-	}
-
-	class CalendarListener implements ActionListener {
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			if (e.getSource() == btnPrev) {
-				daysPanel.removeAll();
-				updateMonth(-1);
-			} else if (e.getSource() == btnNext) {
-				daysPanel.removeAll();
-				updateMonth(1);
-			} else if (Integer.parseInt(e.getActionCommand()) >= 1 && Integer.parseInt(e.getActionCommand()) <= 31) {
-				day = Integer.parseInt(e.getActionCommand());
-				date = year + "" + month + "" + day + "";
-				System.out.println(date);
-				// TODO : 날짜버튼을 누르면 yyMMdd 형식으로 나오게 구현
-
-				// calSet();
-				lblDate.setText(year + "年" + month + "月" + day + "日");
-			}
 		}
 	}
 

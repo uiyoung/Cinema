@@ -34,17 +34,22 @@ public class Seat extends CinemaFrame implements ActionListener {
 	JPanel seatPanel;
 	JLabel lblSeatNumber = new JLabel();
 	JCheckBox[][] seats = new JCheckBox[10][10];
-	String[] seatNumbers = { "A01", "A02", "A03", "A04", "A05", "A06", "A07", "A08", "A09", "A10", "B01", "B02", "B03",
-			"B04", "B05", "B06", "B07", "B08", "B09", "B10", "C01", "C02", "C03", "C04", "C05", "C06", "C07", "C08",
-			"C09", "C10", "D01", "D02", "D03", "D04", "D05", "D06", "D07", "D08", "D09", "D10", "E01", "E02", "E03",
-			"E04", "E05", "E06", "E07", "E08", "E09", "E10", "F01", "F02", "F03", "F04", "F05", "F06", "F07", "F08",
-			"F09", "F10", "G01", "G02", "G03", "G04", "G05", "G06", "G07", "G08", "G09", "G10", "H01", "H02", "H03",
-			"H04", "H05", "H06", "H07", "H08", "H09", "H10", "I01", "I02", "I03", "I04", "I05", "I06", "I07", "I08",
-			"I09", "I10", "J01", "J02", "J03", "J04", "J05", "J06", "J07", "J08", "J09", "J10" };
+	String[] seatNumbers;
+	// String[] seatNumbers = { "A01", "A02", "A03", "A04", "A05", "A06", "A07",
+	// "A08", "A09", "A10", "B01", "B02", "B03",
+	// "B04", "B05", "B06", "B07", "B08", "B09", "B10", "C01", "C02", "C03",
+	// "C04", "C05", "C06", "C07", "C08",
+	// "C09", "C10", "D01", "D02", "D03", "D04", "D05", "D06", "D07", "D08",
+	// "D09", "D10", "E01", "E02", "E03",
+	// "E04", "E05", "E06", "E07", "E08", "E09", "E10", "F01", "F02", "F03",
+	// "F04", "F05", "F06", "F07", "F08",
+	// "F09", "F10", "G01", "G02", "G03", "G04", "G05", "G06", "G07", "G08",
+	// "G09", "G10", "H01", "H02", "H03",
+	// "H04", "H05", "H06", "H07", "H08", "H09", "H10", "I01", "I02", "I03",
+	// "I04", "I05", "I06", "I07", "I08",
+	// "I09", "I10", "J01", "J02", "J03", "J04", "J05", "J06", "J07", "J08",
+	// "J09", "J10" };
 
-	//TODO : db에서 좌석정보 불러와서 체크박스 만들기
-	String[] seatNumbers2 = new String[list.size()];
-	
 	public Seat(String title, String date, String theater, String ticket) {
 		this.title = title;
 		this.date = date;
@@ -53,15 +58,22 @@ public class Seat extends CinemaFrame implements ActionListener {
 		setLayout(null);
 		setTitle("좌석선택");
 
+		// test
+		list = mgr.getSeats(theater, date);
+		for (int i = 0; i < list.size(); i++) {
+			System.out.println(list.get(i).getSeatNo() + "," + list.get(i).getState());
+		}
+
+		// TODO : db에서 좌석정보 불러와서 체크박스 만들기
+		seatNumbers = new String[list.size()];
+		for (int i = 0; i < seatNumbers.length; i++) {
+			seatNumbers[i] = list.get(i).getSeatNo();
+			System.out.println(seatNumbers[i]);
+		}
+
 		initScreenLabel();
 		initSeats();
 		initButtons();
-		
-		//test
-		list = mgr.getSeats("tokyo","201752");
-		for (int i = 0; i < list.size(); i++) {
-			System.out.println(list.get(i).getSeatNo()+","+list.get(i).getState());
-		}
 
 		setVisible(true);
 		repaint();
@@ -205,6 +217,6 @@ public class Seat extends CinemaFrame implements ActionListener {
 
 	public static void main(String[] args) {
 		// new Seat(title, date, theater, ticket);
-		new Seat("11", "11", "11", "11");
+		// new Seat("11", "11", "11", "11");
 	}
 }

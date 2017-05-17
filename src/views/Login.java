@@ -99,7 +99,7 @@ public class Login extends JFrame implements ActionListener {
 					staticName = list.get(i).getName();
 					staticPassword = list.get(i).getPassword();
 					JOptionPane.showMessageDialog(null, staticName + "님 환영합니다.", "Login", JOptionPane.DEFAULT_OPTION);
-					new Reservation();
+					new MainMenu();
 					dispose();
 
 					return;

@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import models.MemberBean;
 import models.SeatBean;
 import models.Selected;
+import models.TheaterBean;
 
 public class DBMgr {
 	DBConnection db;
@@ -20,15 +21,108 @@ public class DBMgr {
 		db = new DBConnection();
 	}
 
-	//좌석정보 불러오기
-	public ArrayList<SeatBean> getSeats(String theater, String date){
+	// ~영화를 상영하는 ~극장의 ~일자의 상영시간 리스트 불러오기
+	public ArrayList<String> getTime(String title, String theater, String date) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<String> list = new ArrayList<String>();
+		String sql = "select time from movie_tb m left join schedule_tb s on m.no = s.movie_no right join theater_tb t on s.theater_no = t.no where m.title=?and t.name=? and s.date=? ";
+
+		try {
+			conn = db.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, title);
+			pstmt.setString(2, theater);
+			pstmt.setString(3, date);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				list.add(rs.getString("time"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			// if (conn != null) {
+			// try {
+			// conn.close();
+			// } catch (SQLException e) {
+			// e.printStackTrace();
+			// }
+			// }
+		}
+		return list;
+	}
+
+	// ~영화를 상영하고 있는 극장 리스트 불러오기
+	public ArrayList<TheaterBean> getTheaters(String title) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<TheaterBean> list = new ArrayList<>();
+		String sql = "select distinct t.name from movie_tb m left join schedule_tb s on m.no = s.movie_no right join theater_tb t on s.theater_no = t.no  where m.title = ?";
+		TheaterBean bean;
+
+		try {
+			conn = db.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, title);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				bean = new TheaterBean();
+				bean.setName(rs.getString("name"));
+				list.add(bean);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			// if (conn != null) {
+			// try {
+			// conn.close();
+			// } catch (SQLException e) {
+			// e.printStackTrace();
+			// }
+			// }
+		}
+		return list;
+	}
+
+	// 좌석정보 불러오기
+	public ArrayList<SeatBean> getSeats(String theater, String date) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		ArrayList<SeatBean> list = new ArrayList<>();
 		String sql = "select seat_no, date, state from theater_tb join seat_tb where theater_tb.name=? and date=?";
 		SeatBean bean;
-		
+
 		try {
 			conn = db.getConnection();
 			pstmt = conn.prepareStatement(sql);
@@ -68,8 +162,9 @@ public class DBMgr {
 		}
 		return list;
 	}
-	
+
 	// 달력에서 날짜를 누르면 그 날짜에 상영하는 회차 목록(극장이름, 시간)이 return되는 메서드
+	@Deprecated // TODO : 제거
 	public ArrayList<String> getSchedule(String title, String date) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;

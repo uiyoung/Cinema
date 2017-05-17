@@ -2,7 +2,6 @@ package models;
 
 public class TheaterBean {
 	private int no;
-	private int capacity;
 	private String name;
 
 	// Getters and Setters
@@ -12,14 +11,6 @@ public class TheaterBean {
 
 	public void setNo(int no) {
 		this.no = no;
-	}
-
-	public int getCapacity() {
-		return capacity;
-	}
-
-	public void setCapacity(int capacity) {
-		this.capacity = capacity;
 	}
 
 	public String getName() {

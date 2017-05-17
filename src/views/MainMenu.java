@@ -137,7 +137,8 @@ public class MainMenu extends CinemaFrame implements ActionListener {
 		}
 
 		if (e.getSource() == btnReserve) {
-			new Login();
+			new Reservation();
+			dispose();
 		}
 		if (e.getSource() == btnMyTicket) {
 			// new MyTicket();
@@ -148,9 +149,5 @@ public class MainMenu extends CinemaFrame implements ActionListener {
 			if (choice == JOptionPane.YES_OPTION)
 				System.exit(0);
 		}
-	}
-
-	public static void main(String[] args) {
-		new MainMenu();
 	}
 }

@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 
 import models.Selected;
 
+//TODO: remove this class
 public class CalendarPanel extends JPanel implements ActionListener {
 	String[] WEEK_DAY_NAMES = { "Su", "Mo", "Tu", "We", "Th", "Fr", "Sa" };
 	int year, month, day, memoday = 0;

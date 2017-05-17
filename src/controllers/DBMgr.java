@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import models.MemberBean;
+import models.SeatBean;
 import models.Selected;
 
 public class DBMgr {
@@ -19,6 +20,55 @@ public class DBMgr {
 		db = new DBConnection();
 	}
 
+	//좌석정보 불러오기
+	public ArrayList<SeatBean> getSeats(String theater, String date){
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<SeatBean> list = new ArrayList<>();
+		String sql = "select seat_no, date, state from theater_tb join seat_tb where theater_tb.name=? and date=?";
+		SeatBean bean;
+		
+		try {
+			conn = db.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, theater);
+			pstmt.setString(2, date);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				bean = new SeatBean();
+				bean.setSeatNo(rs.getString("seat_no"));
+				bean.setState(rs.getString("state"));
+				list.add(bean);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			// if (conn != null) {
+			// try {
+			// conn.close();
+			// } catch (SQLException e) {
+			// e.printStackTrace();
+			// }
+			// }
+		}
+		return list;
+	}
+	
 	// 달력에서 날짜를 누르면 그 날짜에 상영하는 회차 목록(극장이름, 시간)이 return되는 메서드
 	public ArrayList<String> getSchedule(String title, String date) {
 		Connection conn = null;

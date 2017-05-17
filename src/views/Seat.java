@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -15,10 +16,11 @@ import javax.swing.SwingConstants;
 
 import controllers.DBMgr;
 import models.MemberBean;
+import models.SeatBean;
 
 public class Seat extends CinemaFrame implements ActionListener {
 	DBMgr mgr = new DBMgr(); // DAO
-	// ArrayList<SeatBean> list;
+	ArrayList<SeatBean> list;
 	MemberBean bean; // DTO
 
 	int num = 0;
@@ -40,6 +42,9 @@ public class Seat extends CinemaFrame implements ActionListener {
 			"H04", "H05", "H06", "H07", "H08", "H09", "H10", "I01", "I02", "I03", "I04", "I05", "I06", "I07", "I08",
 			"I09", "I10", "J01", "J02", "J03", "J04", "J05", "J06", "J07", "J08", "J09", "J10" };
 
+	//TODO : db에서 좌석정보 불러와서 체크박스 만들기
+	String[] seatNumbers2 = new String[list.size()];
+	
 	public Seat(String title, String date, String theater, String ticket) {
 		this.title = title;
 		this.date = date;
@@ -51,6 +56,12 @@ public class Seat extends CinemaFrame implements ActionListener {
 		initScreenLabel();
 		initSeats();
 		initButtons();
+		
+		//test
+		list = mgr.getSeats("tokyo","201752");
+		for (int i = 0; i < list.size(); i++) {
+			System.out.println(list.get(i).getSeatNo()+","+list.get(i).getState());
+		}
 
 		setVisible(true);
 		repaint();
@@ -180,7 +191,6 @@ public class Seat extends CinemaFrame implements ActionListener {
 							// mgr.inmovie(date, title, time, theater, seat,
 							// num, id);
 						}
-
 					}
 				}
 				// 예약이 완료되면 seat[i]를 setEnable(false)처리

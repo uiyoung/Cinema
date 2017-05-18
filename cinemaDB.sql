@@ -70,12 +70,14 @@ CREATE TABLE `schedule_tb` (
 	INDEX `FK__movie_tb` (`movie_no`),
 	INDEX `FK__theater_tb` (`theater_no`),
 	INDEX `date` (`date`),
+	INDEX `time` (`time`),
 	CONSTRAINT `FK_schedule_tb_movie_tb` FOREIGN KEY (`movie_no`) REFERENCES `movie_tb` (`no`),
 	CONSTRAINT `FK_schedule_tb_theater_tb` FOREIGN KEY (`theater_no`) REFERENCES `theater_tb` (`no`)
 )
 COLLATE='utf8_general_ci'
 ENGINE=InnoDB
 ;
+
 
 /* 상영 일정 삽입 */
 INSERT INTO schedule_tb values(1,'201752','14:00',1,1);	/*201752, 14:00에 미녀와야수를 tokyo영화관에서 상영한다*/
@@ -107,22 +109,7 @@ from movie_tb m left join schedule_tb s on m.no = s.movie_no right join theater_
 where m.title = '美女と野獣' and t.name='tokyo' and s.date = '201752' ;
 
 
-/* Seat table */
-CREATE TABLE `seat_tb` (
-	`theater_no` INT(11) NOT NULL,
-	`seat_no` VARCHAR(10) NOT NULL,
-	`date` VARCHAR(10) NOT NULL,
-	`state` CHAR(3) NOT NULL DEFAULT 'n',
-	PRIMARY KEY (`seat_no`, `theater_no`),
-	INDEX `FK__seat_theater_tb` (`theater_no`),
-	INDEX `date` (`date`),
-   FOREIGN KEY (`theater_no`) REFERENCES `theater_tb` (`no`)
-)
-COLLATE='utf8_general_ci'
-ENGINE=InnoDB
-;
-
-/*new Seat Table*/
+/* Seat Table */
 CREATE TABLE `seat_tb` (
 	`theater_no` INT(11) NOT NULL,
 	`seat_no` VARCHAR(10) NOT NULL,
@@ -130,11 +117,12 @@ CREATE TABLE `seat_tb` (
 	`time` CHAR(5) NOT NULL,
 	`state` CHAR(3) NOT NULL DEFAULT 'n',
 	PRIMARY KEY (`theater_no`, `seat_no`),
-	INDEX `FK__schedule_tb` (`date`),
-	INDEX `FK__schedule_tb_2` (`time`),
-	CONSTRAINT `FK__schedule_tb` FOREIGN KEY (`date`) REFERENCES `schedule_tb` (`date`),
-	CONSTRAINT `FK__schedule_tb_2` FOREIGN KEY (`time`) REFERENCES `schedule_tb` (`time`),
-	CONSTRAINT `FK__theater_tb` FOREIGN KEY (`theater_no`) REFERENCES `theater_tb` (`no`)
+	INDEX `FK__schedule_tb` (`theater_no`),
+	INDEX `date` (`date`),
+	INDEX `time` (`time`),
+	CONSTRAINT `seat_tb_ibfk_1` FOREIGN KEY (`theater_no`) REFERENCES `theater_tb` (`no`),
+	CONSTRAINT `seat_tb_ibfk_2` FOREIGN KEY (`date`) REFERENCES `schedule_tb` (`date`),
+	CONSTRAINT `seat_tb_ibfk_3` FOREIGN KEY (`time`) REFERENCES `schedule_tb` (`time`)
 )
 COLLATE='utf8_general_ci'
 ENGINE=InnoDB

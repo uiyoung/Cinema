@@ -20,51 +20,40 @@ import models.SeatBean;
 
 public class Seat extends CinemaFrame implements ActionListener {
 	DBMgr mgr = new DBMgr(); // DAO
-	ArrayList<SeatBean> list;
 	MemberBean bean; // DTO
+	ArrayList<SeatBean> list;
 
 	int num = 0;
 	String c[] = { "0", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J" };
 
-	String title, date, theater;
+	String title, theater, date, time, ticket;
 	// String id = Login.staticid;
 	String seat;
 
 	JButton btnPayment, btnPrev;
 	JPanel seatPanel;
 	JLabel lblSeatNumber = new JLabel();
-	JCheckBox[][] seats = new JCheckBox[10][10];
+	JCheckBox[][] seats;
 	String[] seatNumbers;
-	// String[] seatNumbers = { "A01", "A02", "A03", "A04", "A05", "A06", "A07",
-	// "A08", "A09", "A10", "B01", "B02", "B03",
-	// "B04", "B05", "B06", "B07", "B08", "B09", "B10", "C01", "C02", "C03",
-	// "C04", "C05", "C06", "C07", "C08",
-	// "C09", "C10", "D01", "D02", "D03", "D04", "D05", "D06", "D07", "D08",
-	// "D09", "D10", "E01", "E02", "E03",
-	// "E04", "E05", "E06", "E07", "E08", "E09", "E10", "F01", "F02", "F03",
-	// "F04", "F05", "F06", "F07", "F08",
-	// "F09", "F10", "G01", "G02", "G03", "G04", "G05", "G06", "G07", "G08",
-	// "G09", "G10", "H01", "H02", "H03",
-	// "H04", "H05", "H06", "H07", "H08", "H09", "H10", "I01", "I02", "I03",
-	// "I04", "I05", "I06", "I07", "I08",
-	// "I09", "I10", "J01", "J02", "J03", "J04", "J05", "J06", "J07", "J08",
-	// "J09", "J10" };
 
-	public Seat(String title, String date, String theater, String ticket) {
+	public Seat(String title, String theater, String date, String time, String ticket) {
 		this.title = title;
-		this.date = date;
 		this.theater = theater;
+		this.time = time;
+		this.date = date;
+		this.ticket = ticket;
 
 		setLayout(null);
 		setTitle("좌석선택");
 
 		// test
-		list = mgr.getSeats(theater, date);
+		list = mgr.getSeats(theater, date, time);
 		for (int i = 0; i < list.size(); i++) {
 			System.out.println(list.get(i).getSeatNo() + "," + list.get(i).getState());
 		}
 
 		// TODO : db에서 좌석정보 불러와서 체크박스 만들기
+		// TODO : initSeats에 집어넣기
 		seatNumbers = new String[list.size()];
 		for (int i = 0; i < seatNumbers.length; i++) {
 			seatNumbers[i] = list.get(i).getSeatNo();
@@ -91,7 +80,6 @@ public class Seat extends CinemaFrame implements ActionListener {
 	}
 
 	private void initSeats() {
-		// seatPanel.setLayout(null);
 		seatPanel = new JPanel(null);
 		seatPanel.setBounds(450, 140, 762, 500);
 
@@ -114,19 +102,21 @@ public class Seat extends CinemaFrame implements ActionListener {
 		}
 
 		// CheckBoxes for select seats
-		int posXpanSeat = 0, posYpanSeat = 0;
+		seats = new JCheckBox[list.size() / 10][10];
+		// list.size()/10 : db에저장된 좌석의 수/10은 db의 좌석의 행의 수를 의미
+		int posX = 0, posY = 0;
 		for (int i = 0; i < seats.length; i++) { // 행
 			for (int j = 0; j < seats[i].length; j++) { // 열
 				seats[i][j] = new JCheckBox(available);
-				seats[i][j].setBounds(posXpanSeat, posYpanSeat, 70, 45);
-				posXpanSeat += 77;
 				seats[i][j].setRolloverIcon(sold);
 				seats[i][j].setSelectedIcon(sold);
 				seats[i][j].setOpaque(false);
+				seats[i][j].setBounds(posX, posY, 70, 45);
+				posX += 77;
 				seatPanel.add(seats[i][j]);
 			}
-			posXpanSeat = 0;
-			posYpanSeat += 50;
+			posX = 0;
+			posY += 50;
 		}
 
 		// TODO : sold 상태의 좌석의 체크박스는 disable 상태로 만들기
@@ -181,12 +171,17 @@ public class Seat extends CinemaFrame implements ActionListener {
 		}
 
 		if (e.getSource() == btnPayment) {
-			/*
-			 * 체크여부 확인 필요 boolean checked = false; for (int i = 1; i <= 10; i++)
-			 * { for (int j = 1; j <= 10; j++) {
-			 * seats[i][j].setSelected(checked); } } if(checked){
-			 * System.out.println("a"); } else System.out.println("b");
-			 */
+			// 체크여부 확인 필요
+			boolean checked = false;
+			for (int i = 0; i < seats.length; i++) {
+				for (int j = 0; j < seats[i].length; j++) {
+					seats[i][j].setSelected(checked);
+				}
+			}
+			if (checked) {
+				System.out.println("a");
+			} else
+				System.out.println("b");
 
 			int result = JOptionPane.showConfirmDialog(null, "예약하시겠습니까?", "예약", JOptionPane.YES_NO_OPTION);
 			// DB에서 중복검사필요
@@ -209,14 +204,13 @@ public class Seat extends CinemaFrame implements ActionListener {
 			}
 
 			// TODO: 좌석이 선택안된경우 에러메세지
-
-			// JOptionPane.showMessageDialog(null, "좌석을 선택해 주세요", "좌석선택안함",
+			// JOptionPane.showMessageDialog(null, "좌석을 선택해 주세요", "error",
 			// JOptionPane.WARNING_MESSAGE);
 		}
 	}
 
 	public static void main(String[] args) {
-		// new Seat(title, date, theater, ticket);
-		// new Seat("11", "11", "11", "11");
+		new Seat("美女と野獣", "tokyo", "201752", "14:00", "1");
+		// new Seat("美女と野獣", "11", "11", "11");
 	}
 }

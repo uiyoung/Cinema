@@ -27,7 +27,7 @@ public class DBMgr {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		ArrayList<String> list = new ArrayList<String>();
-		String sql = "select time from movie_tb m left join schedule_tb s on m.no = s.movie_no right join theater_tb t on s.theater_no = t.no where m.title=?and t.name=? and s.date=? ";
+		String sql = "select time from movie_tb m left join schedule_tb s on m.no = s.movie_no right join theater_tb t on s.theater_no = t.no where m.title=?and t.name=? and s.date=?";
 
 		try {
 			conn = db.getConnection();
@@ -114,13 +114,13 @@ public class DBMgr {
 		return list;
 	}
 
-	// 좌석정보 불러오기
-	public ArrayList<SeatBean> getSeats(String theater, String date) {
+	// ~극장의 ~일자 좌석정보 불러오기
+	public ArrayList<SeatBean> getSeats(String theater, String date, String time) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		ArrayList<SeatBean> list = new ArrayList<>();
-		String sql = "select seat_no, date, state from theater_tb join seat_tb where theater_tb.name=? and date=?";
+		String sql = "select seat_no, date,time, state from theater_tb join seat_tb where theater_tb.name=? and date=? and time=?";
 		SeatBean bean;
 
 		try {
@@ -128,10 +128,13 @@ public class DBMgr {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, theater);
 			pstmt.setString(2, date);
+			pstmt.setString(3, time);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				bean = new SeatBean();
 				bean.setSeatNo(rs.getString("seat_no"));
+				bean.setDate(rs.getString("date"));
+				bean.setTime(rs.getString("time"));
 				bean.setState(rs.getString("state"));
 				list.add(bean);
 			}

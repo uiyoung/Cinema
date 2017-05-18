@@ -50,14 +50,13 @@ public class Reservation extends CinemaFrame implements ActionListener, MouseLis
 	JButton btnSeat = new JButton("Select Seat");
 
 	// Calendar things
-	String[] WEEK_DAY_NAMES = { "Su", "Mo", "Tu", "We", "Th", "Fr", "Sa" };
-	int year, month, day, memoday;
+	JPanel calendarPanel, monthControlPanel, daysPanel;
 	Calendar today, cal;
+	int year, month, day, memoday;
+	String[] WEEK_DAY_NAMES = { "Su", "Mo", "Tu", "We", "Th", "Fr", "Sa" };
 	JButton btnPrev, btnNext;
 	JButton[] btnCalendar = new JButton[49];
 	JLabel lblMonth, lblYear;
-	JPanel monthControlPanel, daysPanel;
-	JPanel calendarPanel;
 
 	public Reservation() {
 		setTitle("Reservation");
@@ -72,7 +71,7 @@ public class Reservation extends CinemaFrame implements ActionListener, MouseLis
 
 	private void initFirstPanel() {
 		JPanel firstPanel = new JPanel(null);
-		firstPanel.setBackground(Color.gray);
+		firstPanel.setBackground(Color.GRAY);
 		JLabel label1 = new JLabel("1. 영화 선택");
 		label1.setBounds(60, 10, 100, 30);
 
@@ -103,7 +102,7 @@ public class Reservation extends CinemaFrame implements ActionListener, MouseLis
 						theaterListModel.addElement("해당 영화를 상영 중인 극장이 없습니다.");
 						listTheater.setEnabled(false);
 						theater = null;
-						lblTheater.setText("");
+						lblTheater.setText(theater);
 						return;
 					} else {
 						listTheater.setEnabled(true);
@@ -143,10 +142,14 @@ public class Reservation extends CinemaFrame implements ActionListener, MouseLis
 		listTheater.addListSelectionListener(new ListSelectionListener() {
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
-				if (!e.getValueIsAdjusting() && listTheater.hasFocus()) {
-					theater = listTheater.getSelectedValue();
-					lblTheater.setText(theater);
-				}
+				theater = listTheater.getSelectedValue();
+				lblTheater.setText(theater);
+				date = null;
+				time = null;
+				lblDate.setText(date);
+				lblTime.setText(time);
+				timesListModel.removeAllElements(); // 시간 목록 초기화
+				time = null;
 			}
 		});
 		JScrollPane spTheater = new JScrollPane(listTheater);
@@ -160,7 +163,6 @@ public class Reservation extends CinemaFrame implements ActionListener, MouseLis
 		initCalendar();
 
 		// JList for select time
-		// times = dbMgr.getTime(title, theater, date);
 		timesListModel = new DefaultListModel<>();
 		timesListModel.addElement("날짜를 선택해 주세요");
 		listTime = new JList<>(timesListModel);
@@ -349,10 +351,17 @@ public class Reservation extends CinemaFrame implements ActionListener, MouseLis
 			btnCalendar[i].addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
+					if (title == null) {
+						JOptionPane.showMessageDialog(null, "영화를 선택해주세요.", "예매오류", JOptionPane.ERROR_MESSAGE);
+						return;
+					} else if (theater == null) {
+						JOptionPane.showMessageDialog(null, "극장을 선택해주세요.", "예매오류", JOptionPane.ERROR_MESSAGE);
+						return;
+					}
+
 					if (Integer.parseInt(e.getActionCommand()) >= 1 && Integer.parseInt(e.getActionCommand()) <= 31) {
 						day = Integer.parseInt(e.getActionCommand());
 						date = year + "" + month + "" + day + "";
-						lblDate.setText(year + "年" + month + "月" + day + "日");
 						// TODO : 날짜버튼을 누르면 yyMMdd 형식으로 나오게 구현
 
 						// update 시간선택 JList
@@ -360,10 +369,12 @@ public class Reservation extends CinemaFrame implements ActionListener, MouseLis
 						times = dbMgr.getTime(title, theater, date);
 						// System.out.println(times.get(0));
 						if (times.size() == 0) {
+							date = null;
+							time = null;
+							lblDate.setText(date);
+							lblTime.setText(time);
 							timesListModel.addElement("해당일에 상영 스케줄이 없습니다.");
 							listTime.setEnabled(false);
-							time = null;
-							lblTime.setText("");
 							return;
 						} else {
 							listTime.setEnabled(true);
@@ -371,6 +382,7 @@ public class Reservation extends CinemaFrame implements ActionListener, MouseLis
 						for (int i = 0; i < times.size(); i++) {
 							timesListModel.addElement(times.get(i));
 						}
+						lblDate.setText(year + "年" + month + "月" + day + "日");
 						// calSet();
 					}
 				}
@@ -427,11 +439,12 @@ public class Reservation extends CinemaFrame implements ActionListener, MouseLis
 			}
 
 			System.out.println(title);
-			System.out.println(date);
 			System.out.println(theater);
+			System.out.println(date);
+			System.out.println(time);
 			System.out.println(numOfTicket);
 
-			new Seat(title, date, theater, numOfTicket);
+			new Seat(title, theater, date, time, numOfTicket);
 			dispose();
 		}
 

@@ -3,6 +3,7 @@ package models;
 public class SeatBean {
 	private String seatNo;
 	private String date;
+	private String time;
 	private String state;
 
 	// Getters and Setters
@@ -22,6 +23,14 @@ public class SeatBean {
 		this.date = date;
 	}
 
+	public String getTime() {
+		return time;
+	}
+
+	public void setTime(String time) {
+		this.time = time;
+	}
+
 	public String getState() {
 		return state;
 	}
@@ -29,5 +38,4 @@ public class SeatBean {
 	public void setState(String state) {
 		this.state = state;
 	}
-
 }

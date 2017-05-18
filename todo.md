@@ -2,11 +2,6 @@
 - [ ] Bean->DTO
 - [ ] Mgr->DAO
 
-### Sign in
-- [ ] id 중복확인
-- [ ] id,pw 찾기
-- [ ] 로그인 후에 영화선택페이지 이동
-
 ### Reservation
 - [x] 영화 선택
 - [x] 날짜 선택
@@ -20,6 +15,15 @@
 - [ ] 회원 탈퇴 
 - [ ] 비밀번호 변경   
 => 박우재
+
+### new MainMenu
+- [ ] 기존 MainMenu를 영화정보 보기로 바꾸고 새로운 메인메뉴를 만든다.   
+로그인->메인메뉴(공지사항, 상영영화 정보, 마이티켓, 종료) flat style 버튼
+
+### Sign in
+- [ ] id 중복확인
+- [ ] id,pw 찾기
+- [ ] 로그인 후에 영화선택페이지 이동
 
 ### Admin App
 - [ ] 영화 정보 입력 - movie_tb에 insert, update, delete

@@ -122,24 +122,57 @@ COLLATE='utf8_general_ci'
 ENGINE=InnoDB
 ;
 
-/* 좌석정보 삽입 */
-INSERT INTO `cinemadb`.`seat_tb` (`theater_no`, `seat_no`, `date`) VALUES ('1', 'A01', '201752');
-INSERT INTO `cinemadb`.`seat_tb` (`theater_no`, `seat_no`, `date`) VALUES ('1', 'A02', '201752');
-INSERT INTO `cinemadb`.`seat_tb` (`theater_no`, `seat_no`, `date`) VALUES ('1', 'A03', '201752');
-INSERT INTO `cinemadb`.`seat_tb` (`theater_no`, `seat_no`, `date`) VALUES ('1', 'A04', '201752');
-INSERT INTO `cinemadb`.`seat_tb` (`theater_no`, `seat_no`, `date`) VALUES ('1', 'A05', '201752');
-INSERT INTO `cinemadb`.`seat_tb` (`theater_no`, `seat_no`, `date`) VALUES ('1', 'A06', '201752');
-INSERT INTO `cinemadb`.`seat_tb` (`theater_no`, `seat_no`, `date`) VALUES ('1', 'A07', '201752');
-INSERT INTO `cinemadb`.`seat_tb` (`theater_no`, `seat_no`, `date`) VALUES ('1', 'A08', '201752');
-INSERT INTO `cinemadb`.`seat_tb` (`theater_no`, `seat_no`, `date`) VALUES ('1', 'A09', '201752');
-INSERT INTO `cinemadb`.`seat_tb` (`theater_no`, `seat_no`, `date`) VALUES ('1', 'A10', '201752');
+/*new Seat Table*/
+CREATE TABLE `seat_tb` (
+	`theater_no` INT(11) NOT NULL,
+	`seat_no` VARCHAR(10) NOT NULL,
+	`date` VARCHAR(10) NOT NULL,
+	`time` CHAR(5) NOT NULL,
+	`state` CHAR(3) NOT NULL DEFAULT 'n',
+	PRIMARY KEY (`theater_no`, `seat_no`),
+	INDEX `FK__schedule_tb` (`date`),
+	INDEX `FK__schedule_tb_2` (`time`),
+	CONSTRAINT `FK__schedule_tb` FOREIGN KEY (`date`) REFERENCES `schedule_tb` (`date`),
+	CONSTRAINT `FK__schedule_tb_2` FOREIGN KEY (`time`) REFERENCES `schedule_tb` (`time`),
+	CONSTRAINT `FK__theater_tb` FOREIGN KEY (`theater_no`) REFERENCES `theater_tb` (`no`)
+)
+COLLATE='utf8_general_ci'
+ENGINE=InnoDB
+;
 
+
+
+
+/* 좌석정보 삽입 */
+INSERT INTO `cinemadb`.`seat_tb` (`theater_no`, `seat_no`, `date`, `time`) VALUES ('1', 'A01', '201752', '14:00');
+INSERT INTO `cinemadb`.`seat_tb` (`theater_no`, `seat_no`, `date`, `time`) VALUES ('1', 'A02', '201752', '14:00');
+INSERT INTO `cinemadb`.`seat_tb` (`theater_no`, `seat_no`, `date`, `time`) VALUES ('1', 'A03', '201752', '14:00');
+INSERT INTO `cinemadb`.`seat_tb` (`theater_no`, `seat_no`, `date`, `time`) VALUES ('1', 'A04', '201752', '14:00');
+INSERT INTO `cinemadb`.`seat_tb` (`theater_no`, `seat_no`, `date`, `time`) VALUES ('1', 'A05', '201752', '14:00');
+INSERT INTO `cinemadb`.`seat_tb` (`theater_no`, `seat_no`, `date`, `time`) VALUES ('1', 'A06', '201752', '14:00');
+INSERT INTO `cinemadb`.`seat_tb` (`theater_no`, `seat_no`, `date`, `time`) VALUES ('1', 'A07', '201752', '14:00');
+INSERT INTO `cinemadb`.`seat_tb` (`theater_no`, `seat_no`, `date`, `time`) VALUES ('1', 'A08', '201752', '14:00');
+INSERT INTO `cinemadb`.`seat_tb` (`theater_no`, `seat_no`, `date`, `time`) VALUES ('1', 'A09', '201752', '14:00');
+INSERT INTO `cinemadb`.`seat_tb` (`theater_no`, `seat_no`, `date`, `time`) VALUES ('1', 'A10', '201752', '14:00');
+INSERT INTO `cinemadb`.`seat_tb` (`theater_no`, `seat_no`, `date`, `time`) VALUES ('1', 'B01', '201752', '14:00');
+INSERT INTO `cinemadb`.`seat_tb` (`theater_no`, `seat_no`, `date`, `time`) VALUES ('1', 'B02', '201752', '14:00');
+INSERT INTO `cinemadb`.`seat_tb` (`theater_no`, `seat_no`, `date`, `time`) VALUES ('1', 'B03', '201752', '14:00');
+INSERT INTO `cinemadb`.`seat_tb` (`theater_no`, `seat_no`, `date`, `time`) VALUES ('1', 'B04', '201752', '14:00');
+INSERT INTO `cinemadb`.`seat_tb` (`theater_no`, `seat_no`, `date`, `time`) VALUES ('1', 'B05', '201752', '14:00');
+INSERT INTO `cinemadb`.`seat_tb` (`theater_no`, `seat_no`, `date`, `time`) VALUES ('1', 'B06', '201752', '14:00');
+INSERT INTO `cinemadb`.`seat_tb` (`theater_no`, `seat_no`, `date`, `time`) VALUES ('1', 'B07', '201752', '14:00');
+INSERT INTO `cinemadb`.`seat_tb` (`theater_no`, `seat_no`, `date`, `time`) VALUES ('1', 'B08', '201752', '14:00');
+INSERT INTO `cinemadb`.`seat_tb` (`theater_no`, `seat_no`, `date`, `time`) VALUES ('1', 'B09', '201752', '14:00');
+INSERT INTO `cinemadb`.`seat_tb` (`theater_no`, `seat_no`, `date`, `time`) VALUES ('1', 'B10', '201752', '14:00');
 
 /* TODO: 201752 일자의 tokyo, 14:00 스케쥴의 영화관 좌석정보 불러오기 */
 
-/* tokyo 영화관 좌석번호, 날짜, 예매상태 불러오기 */
+/* tokyo극장의  좌석번호, 날짜, 예매상태 불러오기 */
 select seat_no, date, state 
 from theater_tb join seat_tb 
 where theater_tb.name="tokyo";
 
-
+/* TODO : 201752일자의 14:00시 tokyo극장의  좌석번호, 예매상태 불러오기  */
+select seat_no, date, state
+from theater_tb join seat_tb 
+where theater_tb.name='tokyo' and date='201752' and time='14:00';

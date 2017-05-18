@@ -88,18 +88,18 @@ public class Seat extends CinemaFrame implements ActionListener {
 		ImageIcon sold = new ImageIcon("images/seatSold.png");
 
 		// Labels for show seat number
-		int x = 0, y = 0;
-		for (int i = 0; i < seatNumbers.length; i++) {
-			lblSeatNumber = new JLabel(seatNumbers[i]);
-
-			if (i % 10 == 0 && i != 0) {
-				x = 0;
-				y += 50;
-			}
-			lblSeatNumber.setBounds(x + 12, y, 75, 45);
-			x += 77;
-			seatPanel.add(lblSeatNumber);
-		}
+		// int x = 0, y = 0;
+		// for (int i = 0; i < seatNumbers.length; i++) {
+		// lblSeatNumber = new JLabel(seatNumbers[i]);
+		//
+		// if (i % 10 == 0 && i != 0) {
+		// x = 0;
+		// y += 50;
+		// }
+		// lblSeatNumber.setBounds(x + 12, y, 75, 45);
+		// x += 77;
+		// seatPanel.add(lblSeatNumber);
+		// }
 
 		// CheckBoxes for select seats
 		seats = new JCheckBox[list.size() / 10][10];
@@ -108,6 +108,12 @@ public class Seat extends CinemaFrame implements ActionListener {
 		for (int i = 0; i < seats.length; i++) { // 행
 			for (int j = 0; j < seats[i].length; j++) { // 열
 				seats[i][j] = new JCheckBox(available);
+				// seats[i][j] = new JCheckBox();
+				// seats[i][j].setIcon(available);
+				/* seat[i][j] 번째의 좌석번호는 db에 저장된 ij번째 값과 같다. */
+				String seatNo = list.get(Integer.parseInt(i + "" + j)).getSeatNo();
+				seats[i][j].setText(seatNo);
+				seats[i][j].setToolTipText("좌석번호:" + seatNo);
 				seats[i][j].setRolloverIcon(sold);
 				seats[i][j].setSelectedIcon(sold);
 				seats[i][j].setOpaque(false);
@@ -171,29 +177,26 @@ public class Seat extends CinemaFrame implements ActionListener {
 		}
 
 		if (e.getSource() == btnPayment) {
-			// 체크여부 확인 필요
-			boolean checked = false;
+			// 체크여부 확인 TODO:ItemListener사용해서 체크여부 확인
 			for (int i = 0; i < seats.length; i++) {
 				for (int j = 0; j < seats[i].length; j++) {
-					seats[i][j].setSelected(checked);
+					if (seats[i][j].isSelected())
+						System.out.print("선택된 좌석:" + seats[i][j].getText());
 				}
 			}
-			if (checked) {
-				System.out.println("a");
-			} else
-				System.out.println("b");
 
 			int result = JOptionPane.showConfirmDialog(null, "예약하시겠습니까?", "예약", JOptionPane.YES_NO_OPTION);
 			// DB에서 중복검사필요
 			if (result == JOptionPane.CLOSED_OPTION) {
 			} else if (result == JOptionPane.YES_OPTION) {
 				JOptionPane.showMessageDialog(null, "예약되었습니다.", "예약완료", JOptionPane.INFORMATION_MESSAGE);
-				for (int i = 1; i <= 10; i++) {
-					for (int j = 1; j <= 10; j++) {
+
+				for (int i = 0; i < seats.length; i++) {
+					for (int j = 0; j < seats[i].length; j++) {
 						if (seats[i][j].isSelected()) {
 							seats[i][j].setEnabled(false);
 							seat = c[i] + Integer.toString(j);
-
+							System.out.println(seat);
 							// mgr.seatinsert(title, date, time, i, j);
 							// mgr.inmovie(date, title, time, theater, seat,
 							// num, id);

@@ -36,6 +36,7 @@
 - [ ] 날짜버튼 눌렀을 때 yyMMdd형식으로 날짜 리턴하기
 
 ### UI, Graphic Resource
+- [ ] Reservations 디자인 수정 [참고](http://hangunsworld.com/blog/1775)
 - [ ] seats(available, sold, selected), screen  [참고](https://w3layouts.com/movie-ticket-booking-widget-flat-responsive-widget-template/)
 - [ ] MainMenu SetBounds 정리
 - [ ] Reservation 3번째 패널의 예매정보에 JLabel과 JTextField 사용 ex)영화제목:, 날짜:, 영화관:, 시간:, 인원:

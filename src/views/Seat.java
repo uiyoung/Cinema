@@ -98,7 +98,7 @@ public class Seat extends CinemaFrame implements ActionListener {
 			for (int j = 0; j < seats[i].length; j++) { // 열
 				seats[i][j] = new JCheckBox(available);
 				/* seat[i][j] 번째의 좌석번호는 db에 저장된 ij번째 값과 같다. */
-				String seatNo = list.get(Integer.parseInt(i + "" + j)).getSeatNo();
+				String seatNo = list.get(Integer.parseInt(i + "" + j)).getSeat_no();
 				seats[i][j].setText(seatNo);
 				seats[i][j].setToolTipText("좌석번호:" + seatNo);
 				seats[i][j].setRolloverIcon(sold);
@@ -179,22 +179,6 @@ public class Seat extends CinemaFrame implements ActionListener {
 
 			new Payment(title, theater, date, time, ticket, seat);
 			dispose();
-
-			// TODO: payment로 옮기기
-			/*
-			 * int result = JOptionPane.showConfirmDialog(null, "예매하시겠습니까?",
-			 * "예매", JOptionPane.YES_NO_OPTION); if (result ==
-			 * JOptionPane.CLOSED_OPTION) { } else if (result ==
-			 * JOptionPane.YES_OPTION) { JOptionPane.showMessageDialog(null,
-			 * "예매되었습니다.", "예매완료", JOptionPane.INFORMATION_MESSAGE);
-			 * 
-			 * for (int i = 0; i < seats.length; i++) { for (int j = 0; j <
-			 * seats[i].length; j++) { if (seats[i][j].isSelected()) {
-			 * seats[i][j].setEnabled(false); seat = c[i] + Integer.toString(j);
-			 * System.out.println(seat); // mgr.seatinsert(title, date, time, i
-			 * , j); // mgr.inmovie(date, title, time, theater, seat, // num,
-			 * id); } } } }
-			 */
 		}
 	}
 

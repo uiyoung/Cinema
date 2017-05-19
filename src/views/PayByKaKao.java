@@ -1,9 +1,15 @@
 package views;
 
 
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
+import java.awt.Choice;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
 
 public class PayByKaKao extends JFrame implements ActionListener{
 	Choice choice;
@@ -22,7 +28,6 @@ public class PayByKaKao extends JFrame implements ActionListener{
         choice.add("BC");
         choice.add("NH");
 		
-		
 		bt = new JButton("입력완료");
 		kakaoPay = new JLabel("카카오결제");
 		kakao = new JLabel("카드선택");
@@ -38,7 +43,6 @@ public class PayByKaKao extends JFrame implements ActionListener{
 		choice.setBounds(150, 75, 120, 15);
 		passwdT.setBounds(150, 115, 80, 20);
 		
-		
 		add(bt);
 		add(kakaoPay);
 		add(choice);
@@ -53,20 +57,13 @@ public class PayByKaKao extends JFrame implements ActionListener{
 
 	public static void main(String[] args) {
 		new PayByKaKao();
-
 	}
-
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==bt){
 			dispose();
 		}
-		
 	}
-	   
-	
-	
-	
 }
 

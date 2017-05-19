@@ -1,8 +1,14 @@
 package views;
 
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
+import java.awt.Choice;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
 
 public class PayByAccount extends JFrame implements ActionListener{
 	Choice choice;
@@ -20,7 +26,6 @@ public class PayByAccount extends JFrame implements ActionListener{
         choice.add("Shinhan");
         choice.add("KB");
         choice.add("Woori");
-		
 		
 		bt = new JButton("입력완료");
 		accountpay = new JLabel("계좌결제");
@@ -41,7 +46,6 @@ public class PayByAccount extends JFrame implements ActionListener{
 		number1.setBounds(150, 95, 100, 20);
 		passwdT.setBounds(150, 125, 80, 20);
 		
-		
 		add(bt);
 		add(accountpay);
 		add(choice);
@@ -52,13 +56,11 @@ public class PayByAccount extends JFrame implements ActionListener{
 		add(passwdT);
 		
 		bt.addActionListener(this);
-		
 		this.setVisible(true);
 	}
 
 	public static void main(String[] args) {
 		new PayByAccount();
-
 	}
 
 	@Override
@@ -66,7 +68,6 @@ public class PayByAccount extends JFrame implements ActionListener{
 		if(e.getSource()==bt){
 			dispose();
 		}
-		
 	}    
 }
 

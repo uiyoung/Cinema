@@ -1,10 +1,10 @@
 package views;
+
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -17,43 +17,44 @@ import controllers.DBMgr;
 import models.MemberBean;
 
 public class Login extends JFrame implements ActionListener {
-	JTextField tfId = new JTextField();
-	JTextField tfPassword = new JPasswordField();
-	JLabel lblId = new JLabel("ID");
-	JLabel lblPassword = new JLabel("PW");
-	JButton btnLogin = new JButton("Login");
-	JButton btnCancel = new JButton("Cancel");
-	JButton btnSignUp = new JButton("Sign Up");
-	JButton btnFind = new JButton("Find");
-	JPanel loginPanel = new JPanel();
-
-	static String staticId;
-	static String staticName;
-	static String staticPhone;
-	static String staticPassword;
-
+	static String staticId, staticPassword, staticName, staticBirthdate, staticPhone;
 	DBMgr mgr = new DBMgr(); // DAO
 	MemberBean bean; // DTO
 	ArrayList<MemberBean> list;
 
+	JPanel loginPanel;
+	JLabel lblId, lblPassword;
+	JTextField tfId, tfPassword;
+	JButton btnLogin, btnCancel, btnSignUp, btnFind;
+
 	public Login() {
+		setTitle("Login");
+		setSize(400, 600);
+
+		init();
+	}
+
+	private void init() {
 		list = mgr.login();
+		loginPanel = new JPanel(null);
 
-		ImageIcon icon = new ImageIcon("images/login.gif");
-		JLabel logo = new JLabel();
-		logo.setBounds(0, 0, 1100, 800);
-		logo.setIcon(icon);
-
-		loginPanel.setLayout(null);
-
+		lblId = new JLabel("ID");
+		lblPassword = new JLabel("PW");
 		lblId.setFont(new Font("Consolas", Font.PLAIN, 15));
 		lblId.setBounds(80, 130, 70, 30);
 		lblPassword.setFont(new Font("Consolas", Font.PLAIN, 15));
 		lblPassword.setBounds(80, 180, 70, 30);
 
+		tfId = new JTextField();
+		tfPassword = new JPasswordField();
 		tfId.setBounds(100, 150, 220, 30);
+		tfId.requestFocus();
 		tfPassword.setBounds(100, 200, 220, 30);
 
+		btnLogin = new JButton("Login");
+		btnCancel = new JButton("Cancel");
+		btnSignUp = new JButton("Sign Up");
+		btnFind = new JButton("Find");
 		btnLogin.setBounds(100, 250, 220, 30);
 		btnLogin.setFont(new Font("Consolas", Font.PLAIN, 15));
 		btnSignUp.setBounds(250, 350, 100, 40);
@@ -62,7 +63,6 @@ public class Login extends JFrame implements ActionListener {
 		btnFind.setFont(new Font("Consolas", Font.PLAIN, 15));
 		btnCancel.setBounds(250, 450, 100, 40);
 		btnCancel.setFont(new Font("Consolas", Font.PLAIN, 15));
-
 		btnLogin.addActionListener(this);
 		btnSignUp.addActionListener(this);
 		btnFind.addActionListener(this); // id/pw 찾기
@@ -76,12 +76,7 @@ public class Login extends JFrame implements ActionListener {
 		loginPanel.add(btnCancel);
 		loginPanel.add(btnSignUp);
 		loginPanel.add(btnFind);
-		loginPanel.add(logo);
 		add(loginPanel);
-		tfId.requestFocus();
-
-		setSize(400, 600);
-		setTitle("Login");
 		setVisible(true);
 	}
 
@@ -95,10 +90,12 @@ public class Login extends JFrame implements ActionListener {
 			for (int i = 0; i < list.size(); i++) {
 				if (id.equals(list.get(i).getId()) && pw.equals(list.get(i).getPassword())) {
 					staticId = id;
-					staticPhone = list.get(i).getPhone();
-					staticName = list.get(i).getName();
 					staticPassword = list.get(i).getPassword();
+					staticName = list.get(i).getName();
+					staticBirthdate = list.get(i).getBirthdate();
+					staticPhone = list.get(i).getPhone();
 					JOptionPane.showMessageDialog(null, staticName + "님 환영합니다.", "Login", JOptionPane.DEFAULT_OPTION);
+
 					new MainMenu();
 					dispose();
 

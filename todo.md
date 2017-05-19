@@ -37,10 +37,11 @@
 
 ### UI, Graphic Resource
 - [ ] Reservations 디자인 수정 [참고](http://hangunsworld.com/blog/1775)
-- [ ] seats(available, sold, selected), screen  [참고](https://w3layouts.com/movie-ticket-booking-widget-flat-responsive-widget-template/)
+- [ ] Seats(available, sold, selected), screen  [참고](https://w3layouts.com/movie-ticket-booking-widget-flat-responsive-widget-template/)
 - [ ] MainMenu SetBounds 정리
 - [ ] Reservation 3번째 패널의 예매정보에 JLabel과 JTextField 사용 ex)영화제목:, 날짜:, 영화관:, 시간:, 인원:
 - [ ] Reservation.java의 JList 목록 가운데정렬
 - [ ] JButton 크기 동일하게
+- [ ] Pay - 스레드 이용해서 결제되는 것 처럼 효과
 - [ ] 메인 공지사항, 현재 상영 영화 수
 - [ ] 日本語

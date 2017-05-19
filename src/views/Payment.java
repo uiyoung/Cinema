@@ -1,12 +1,22 @@
 package views;
 
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+
+import controllers.DBMgr;
 
 public class Payment extends CinemaFrame implements ActionListener {
+	DBMgr mgr = new DBMgr(); // DAO
 	String title, theater, date, time, ticket, seat;
-
+	int price;
 	JPanel firstPanel = new JPanel();
 	JPanel secondPanel = new JPanel();
 	JLabel titleT, theaterT, timeT, personNumT, seatNumT, moneyT;
@@ -23,6 +33,7 @@ public class Payment extends CinemaFrame implements ActionListener {
 		this.time = time;
 		this.ticket = ticket;
 		this.seat = seat;
+		price = (Integer.parseInt(ticket) * 1800);
 
 		setTitle("결제");
 		setLayout(new GridLayout(1, 2));
@@ -45,23 +56,23 @@ public class Payment extends CinemaFrame implements ActionListener {
 
 		lblPayment = new JLabel("결제수단");
 		moneyT = new JLabel("총결제금액");
-		lblPrice = new JLabel((Integer.parseInt(ticket) * 18000) + "원");
+		lblPrice = new JLabel(price + "円");
 
 		btnPrev = new JButton("이전");
 		btnReserve = new JButton("예매");
 
-		titleT.setFont(new Font("Yu Gothic", Font.BOLD, 25));
-		timeT.setFont(new Font("Yu Gothic", Font.BOLD, 25));
-		theaterT.setFont(new Font("Yu Gothic", Font.BOLD, 25));
-		personNumT.setFont(new Font("Yu Gothic", Font.BOLD, 25));
-		seatNumT.setFont(new Font("Yu Gothic", Font.BOLD, 25));
+		titleT.setFont(new Font("맑은 고딕", Font.BOLD, 25));
+		timeT.setFont(new Font("맑은 고딕", Font.BOLD, 25));
+		theaterT.setFont(new Font("맑은 고딕", Font.BOLD, 25));
+		personNumT.setFont(new Font("맑은 고딕", Font.BOLD, 25));
+		seatNumT.setFont(new Font("맑은 고딕", Font.BOLD, 25));
 		lblTitle.setFont(new Font("Yu Gothic", Font.BOLD, 25));
 		lblTime.setFont(new Font("Yu Gothic", Font.BOLD, 25));
 		lblTheater.setFont(new Font("Yu Gothic", Font.BOLD, 25));
 		lblPersonNum.setFont(new Font("Yu Gothic", Font.BOLD, 25));
 		lblSeatNo.setFont(new Font("Yu Gothic", Font.BOLD, 25));
-		lblPayment.setFont(new Font("Yu Gothic", Font.BOLD, 30));
-		moneyT.setFont(new Font("Yu Gothic", Font.BOLD, 30));
+		lblPayment.setFont(new Font("맑은 고딕", Font.BOLD, 30));
+		moneyT.setFont(new Font("맑은 고딕", Font.BOLD, 30));
 		lblPrice.setFont(new Font("Yu Gothic", Font.BOLD, 40));
 
 		titleT.setBounds(200, 500, 200, 100);
@@ -143,8 +154,17 @@ public class Payment extends CinemaFrame implements ActionListener {
 		}
 
 		if (e.getSource() == btnReserve) {
-			// TODO : ticket_tb에 예매정보 insert하기 (title, theater, date, time,
-			// ticket, seat, price)
+			int result = JOptionPane.showConfirmDialog(null, "예매하시겠습니까?", "예매", JOptionPane.YES_NO_OPTION);
+			if (result == JOptionPane.CLOSED_OPTION) {
+			} else if (result == JOptionPane.YES_OPTION) {
+				JOptionPane.showMessageDialog(null, "예매되었습니다.", "예매완료", JOptionPane.INFORMATION_MESSAGE);
+				mgr.insertTicket(title, theater, date, time, seat, price, Login.staticId);
+				// TODO: 해당좌석 state y로 바꾸기
+				mgr.reserveSeat(theater, date, time, seat);
+				dispose();
+				new MainMenu();
+			}
+
 		}
 		if (e.getSource() == btnPrev) {
 			new Reservation();

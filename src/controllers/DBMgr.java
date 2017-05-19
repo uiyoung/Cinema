@@ -20,6 +20,47 @@ public class DBMgr {
 	public DBMgr() {
 		db = new DBConnection();
 	}
+	
+	
+	
+	
+	// 티켓 생성
+	public void insertTicket(String title, String theater, String date, String time, String seat, int price,
+			String user_id) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String sql = "INSERT INTO `cinemadb`.`ticket_tb` (`title`, `theater_name`, `date`, `time`, `seat_no`, `price`, `user_id`) VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+		try {
+			conn = db.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, title);
+			pstmt.setString(2, theater);
+			pstmt.setString(3, date);
+			pstmt.setString(4, time);
+			pstmt.setString(5, seat);
+			pstmt.setInt(6, price);
+			pstmt.setString(7, user_id);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			// if (conn != null) {
+			// try {
+			// conn.close();
+			// } catch (SQLException e) {
+			// e.printStackTrace();
+			// }
+			// }
+		}
+	}
 
 	// ~영화를 상영하는 ~극장의 ~일자의 상영시간 리스트 불러오기
 	public ArrayList<String> getTime(String title, String theater, String date) {
@@ -132,9 +173,10 @@ public class DBMgr {
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				bean = new SeatBean();
-				bean.setSeatNo(rs.getString("seat_no"));
+				bean.setTheater_no("theater_no");
 				bean.setDate(rs.getString("date"));
 				bean.setTime(rs.getString("time"));
+				bean.setSeat_no(rs.getString("seat_no"));
 				bean.setState(rs.getString("state"));
 				list.add(bean);
 			}
@@ -294,4 +336,46 @@ public class DBMgr {
 		}
 		return list;
 	}
+
+
+
+	// TODO : ~극장 ~일자 ~시간의 ~좌석의 예매상태 y로 바꾸기
+	public void reserveSeat(String theater, String date, String time, String seat) {
+		//UPDATE `cinemadb`.`seat_tb` SET `state`='y' WHERE `theater_no`=1 AND `seat_no`='B10';
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String sql = "update seat_tb as s join theater_tb as t on s.theater_no = t.no and t.name=? and s.date=? and s.time=? and s.seat_no=? set s.state='y'";
+
+		try {
+			conn = db.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, theater);
+			pstmt.setString(2, date);
+			pstmt.setString(3, time);
+			pstmt.setString(4, seat);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			// if (conn != null) {
+			// try {
+			// conn.close();
+			// } catch (SQLException e) {
+			// e.printStackTrace();
+			// }
+			// }
+		}
+		
+	}
+
+
+
+
 }

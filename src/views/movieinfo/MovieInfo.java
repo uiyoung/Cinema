@@ -1,4 +1,4 @@
-package views;
+package views.movieinfo;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Font;
@@ -15,15 +15,16 @@ import javax.swing.JTextArea;
 
 import controllers.MovieMgr;
 import models.MovieBean;
+import views.CinemaFrame;
+import views.myticket.MyTicket;
+import views.reservation.Reservation;
 
-public class MainMenu extends CinemaFrame implements ActionListener {
-	ArrayList<MovieBean> list;
+public class MovieInfo extends CinemaFrame implements ActionListener {
 	MovieMgr mgr = new MovieMgr();
 	MovieBean bean;
+	ArrayList<MovieBean> list;
 
-	JLabel lblTitle;
-	JLabel lblGenre;
-	JLabel lblRunningTime;
+	JLabel lblTitle, lblGenre, lblRunningTime;
 	JTextArea taDescription;
 
 	JButton btnReserve = new JButton("Reserve");
@@ -31,9 +32,9 @@ public class MainMenu extends CinemaFrame implements ActionListener {
 	JButton btnExit = new JButton("Exit");
 
 	private ImageIcon poster = null;
-	final JPanel cards;
+	private final JPanel cards;
 
-	public MainMenu() {
+	public MovieInfo() {
 		list = mgr.getMovie();
 
 		// Create the panel that contains the "cards".
@@ -117,7 +118,7 @@ public class MainMenu extends CinemaFrame implements ActionListener {
 		add(cards, BorderLayout.CENTER);
 		add(btnPanel, BorderLayout.PAGE_END);
 
-		setTitle("マネシネマ");
+		setTitle("シネマ");
 		setVisible(true);
 	}
 
@@ -141,7 +142,7 @@ public class MainMenu extends CinemaFrame implements ActionListener {
 			dispose();
 		}
 		if (e.getSource() == btnMyTicket) {
-			// new MyTicket();
+			new MyTicket();
 		}
 		if (e.getSource() == btnExit) {
 			int choice = JOptionPane.showConfirmDialog(null, "wanna exit?", "exit", JOptionPane.YES_NO_OPTION);

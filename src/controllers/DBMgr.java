@@ -9,21 +9,16 @@ import java.util.ArrayList;
 
 import models.MemberBean;
 import models.SeatBean;
-import models.Selected;
 import models.TheaterBean;
 
 public class DBMgr {
 	DBConnection db;
-
 	final int EVENT_POINT = 5000; // 회원가입 이벤트 point
 
 	public DBMgr() {
 		db = new DBConnection();
 	}
-	
-	
-	
-	
+
 	// 티켓 생성
 	public void insertTicket(String title, String theater, String date, String time, String seat, int price,
 			String user_id) {
@@ -208,53 +203,6 @@ public class DBMgr {
 		return list;
 	}
 
-	// 달력에서 날짜를 누르면 그 날짜에 상영하는 회차 목록(극장이름, 시간)이 return되는 메서드
-	@Deprecated // TODO : 제거
-	public ArrayList<String> getSchedule(String title, String date) {
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		ArrayList<String> list = new ArrayList<String>();
-		String sql = "select t.name, s.time from movie_tb m left join schedule_tb s on m.no = s.movie_no right join theater_tb t on s.theater_no = t.no where m.title = ? and s.date = ?";
-		Selected selected;
-
-		try {
-			conn = db.getConnection();
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, title);
-			pstmt.setString(2, date);
-			rs = pstmt.executeQuery();
-			while (rs.next()) {
-				list.add(rs.getString("name") + ", " + rs.getString("time"));
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-			// if (conn != null) {
-			// try {
-			// conn.close();
-			// } catch (SQLException e) {
-			// e.printStackTrace();
-			// }
-			// }
-		}
-		return list;
-	}
-
 	public ArrayList<MemberBean> signUp(String id, String password, String name, String birthdate, String phone) {
 		Connection conn = null;
 		Statement stmt = null;
@@ -337,11 +285,113 @@ public class DBMgr {
 		return list;
 	}
 
+	/* --------------------------우재----------------------------------- */
+	public ArrayList<MemberBean> updateMember(String name,
+			/* String birthdate, */String phone/* ,String point */) {
+		Connection con = null; // 내 pc의 db에 접속
+		PreparedStatement pstmt = null;
+		ArrayList<MemberBean> list = new ArrayList<MemberBean>();
+		String sql = "update MEMBER_TB set NAME = ?, phone = ?"; // birthdate =
+																	// ?, POINT
+																	// = ? 수정되면
+																	// 2번째와 4번째
+																	// 순으로 추가할 것
+		try {
+			con = db.getConnection();
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, name);
+			// pstmt.setString(2, birthdate);
+			pstmt.setString(2, phone);// 수정되면 숫자 3로 바꿀 것
+			// pstmt.setString(4, point);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				pstmt.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		} // try catch
+		return list;
+	}
 
+	public ArrayList<MemberBean> UpdatePw(String id, String password) {
+		Connection con = null; // 내 pc의 db에 접속
+		Statement stmt = null; // db에 sql을 적을 수 있는 판을 만듬
+		ResultSet rs = null; // sql한 결과를 담는 그릇을 만든다.
+		ArrayList<MemberBean> list = new ArrayList<MemberBean>();
+		String sql = "select *from MEMBER_TB where id = '" + id + "' AND  PASSWORD = '" + password + "'";
+		try {
+			con = db.getConnection();
+			stmt = con.createStatement();
+			rs = stmt.executeQuery(sql);
+			while (rs.next()) {
+				MemberBean bean = new MemberBean();
+				bean.setPassword(rs.getString("PASSWORD"));
+				list.add(bean);
+			} // while
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				rs.close();
+				stmt.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		} // try catch
+		return list;
+	}
 
-	// TODO : ~극장 ~일자 ~시간의 ~좌석의 예매상태 y로 바꾸기
+	public ArrayList<MemberBean> UpdatePw2(String password) {
+		Connection con = null; // 내 pc의 db에 접속
+		PreparedStatement pstmt = null;
+		ArrayList<MemberBean> list = new ArrayList<MemberBean>();
+		String sql = "update MEMBER_TB set PASSWORD = ?";
+		try {
+			con = db.getConnection();
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, password);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				pstmt.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		} // try catch
+		return list;
+	}
+
+	public ArrayList<MemberBean> deleteMb(String id, String password) {
+		Connection con = null;
+		Statement stmt = null;
+		ArrayList<MemberBean> list = new ArrayList<MemberBean>();
+		String sql = "delete from MEMBER_TB where id = '" + id + "' AND PASSWORD = '" + password + "'";
+		try {
+			con = db.getConnection();
+			stmt = con.createStatement();
+			stmt.executeUpdate(sql);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				stmt.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		} // try catch
+		return list;
+	}
+	/* ----------------------end of 우재----------------------------------- */
+
+	// ~극장 ~일자 ~시간의 ~좌석의 예매상태 y로 바꾸기
 	public void reserveSeat(String theater, String date, String time, String seat) {
-		//UPDATE `cinemadb`.`seat_tb` SET `state`='y' WHERE `theater_no`=1 AND `seat_no`='B10';
+		// UPDATE `cinemadb`.`seat_tb` SET `state`='y' WHERE `theater_no`=1 AND
+		// `seat_no`='B10';
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		String sql = "update seat_tb as s join theater_tb as t on s.theater_no = t.no and t.name=? and s.date=? and s.time=? and s.seat_no=? set s.state='y'";
@@ -372,10 +422,5 @@ public class DBMgr {
 			// }
 			// }
 		}
-		
 	}
-
-
-
-
 }

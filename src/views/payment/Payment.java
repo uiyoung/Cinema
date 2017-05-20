@@ -1,4 +1,4 @@
-package views;
+package views.payment;
 
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -12,6 +12,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import controllers.DBMgr;
+import views.CinemaFrame;
+import views.login.Login;
+import views.movieinfo.MovieInfo;
+import views.reservation.Reservation;
 
 public class Payment extends CinemaFrame implements ActionListener {
 	DBMgr mgr = new DBMgr(); // DAO
@@ -147,7 +151,7 @@ public class Payment extends CinemaFrame implements ActionListener {
 			new PayByPhone();
 		}
 		if (e.getSource() == btnPayByKakao) {
-			new PayByAccount();
+			new PayByKaKao();
 		}
 		if (e.getSource() == btnPayByAccount) {
 			new PayByAccount();
@@ -161,13 +165,13 @@ public class Payment extends CinemaFrame implements ActionListener {
 				mgr.insertTicket(title, theater, date, time, seat, price, Login.staticId);
 				// TODO: 해당좌석 state y로 바꾸기
 				mgr.reserveSeat(theater, date, time, seat);
+				new MovieInfo();
 				dispose();
-				new MainMenu();
 			}
-
 		}
 		if (e.getSource() == btnPrev) {
 			new Reservation();
+			dispose();
 		}
 	}
 

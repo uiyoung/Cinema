@@ -1,7 +1,9 @@
-package views;
+package views.payment;
 
 import java.awt.Choice;
+import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -52,6 +54,7 @@ public class PayByCredit extends JFrame implements ActionListener{
 		number4.setBounds(300, 95, 40, 20);
 		passwdT.setBounds(150, 125, 80, 20);
 		
+		bt.addActionListener(this);
 		add(bt);
 		add(creditpay);
 		add(choice);
@@ -63,14 +66,16 @@ public class PayByCredit extends JFrame implements ActionListener{
 		add(number3);
 		add(number4);
 		add(passwdT);
-		
-		bt.addActionListener(this);
+
+		// set location in center of screen
+		Dimension dim1 = Toolkit.getDefaultToolkit().getScreenSize();
+		Dimension dim2 = this.getSize();
+		int x, y;
+		x = (int) (dim1.getWidth() / 2 - dim2.getWidth() / 2);
+		y = (int) (dim1.getHeight() / 2 - dim2.getHeight() / 2);
+		setLocation(x, y);
 		
 		this.setVisible(true);
-	}
-
-	public static void main(String[] args) {
-		new PayByCredit();
 	}
 
 	@Override

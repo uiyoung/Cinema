@@ -1,25 +1,34 @@
-package views;
+package views.payment;
 
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
+import java.awt.Choice;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class PayByPhone extends JFrame implements ActionListener{
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+
+public class PayByPhone extends JFrame implements ActionListener {
 	Choice choice;
 	JButton bt;
 	JLabel phonepay, phone, number, passwd;
 	JTextField number1, number2, number3, number4, passwdT;
-	public PayByPhone(){
+
+	public PayByPhone() {
 		this.setTitle("핸드폰결제");
 		this.setLayout(null);
 		this.setSize(400, 300);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+
 		choice = new Choice();
-        choice.add("SKT");
-        choice.add("KT");
-        choice.add("LGU+");
-		
+		choice.add("SKT");
+		choice.add("KT");
+		choice.add("LGU+");
+
 		bt = new JButton("입력완료");
 		phonepay = new JLabel("핸드폰결제");
 		phone = new JLabel("통신사");
@@ -29,10 +38,10 @@ public class PayByPhone extends JFrame implements ActionListener{
 		number2 = new JTextField(10);
 		number3 = new JTextField(10);
 		passwdT = new JTextField(20);
-		
+
 		phonepay.setFont(new Font("굴림", Font.BOLD, 20));
-		
-		bt.setBounds(120,180,100,30);
+
+		bt.setBounds(120, 180, 100, 30);
 		phonepay.setBounds(50, 10, 150, 50);
 		phone.setBounds(50, 50, 100, 50);
 		number.setBounds(50, 80, 100, 50);
@@ -42,8 +51,8 @@ public class PayByPhone extends JFrame implements ActionListener{
 		number2.setBounds(200, 95, 40, 20);
 		number3.setBounds(250, 95, 40, 20);
 		passwdT.setBounds(150, 125, 80, 20);
-		
-		
+		bt.addActionListener(this);
+
 		add(bt);
 		add(phonepay);
 		add(choice);
@@ -54,27 +63,22 @@ public class PayByPhone extends JFrame implements ActionListener{
 		add(number2);
 		add(number3);
 		add(passwdT);
-		
-		bt.addActionListener(this);
-		
+
+		// set location in center of screen
+		Dimension dim1 = Toolkit.getDefaultToolkit().getScreenSize();
+		Dimension dim2 = this.getSize();
+		int x, y;
+		x = (int) (dim1.getWidth() / 2 - dim2.getWidth() / 2);
+		y = (int) (dim1.getHeight() / 2 - dim2.getHeight() / 2);
+		setLocation(x, y);
+
 		this.setVisible(true);
-	}
-
-	public static void main(String[] args) {
-		new PayByPhone();
-
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(e.getSource()==bt){
+		if (e.getSource() == bt) {
 			dispose();
 		}
-		
-	}    
-	   
-	
-	
-	
+	}
 }
-

@@ -1,4 +1,4 @@
-package views;
+package views.reservation;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -28,6 +28,9 @@ import controllers.DBMgr;
 import controllers.MovieMgr;
 import models.MovieBean;
 import models.TheaterBean;
+import views.CinemaFrame;
+import views.movieinfo.MovieInfo;
+import views.seat.Seat;
 
 public class Reservation extends CinemaFrame implements ActionListener, MouseListener {
 	DBMgr dbMgr = new DBMgr();
@@ -449,7 +452,7 @@ public class Reservation extends CinemaFrame implements ActionListener, MouseLis
 		}
 
 		if (e.getSource() == btnCancel) {
-			new MainMenu();
+			new MovieInfo();
 			dispose();
 		}
 	}

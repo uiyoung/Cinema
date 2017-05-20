@@ -1,6 +1,8 @@
-package views;
+package views.login;
 
+import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -15,9 +17,11 @@ import javax.swing.JTextField;
 
 import controllers.DBMgr;
 import models.MemberBean;
+import views.movieinfo.MovieInfo;
 
 public class Login extends JFrame implements ActionListener {
-	static String staticId, staticPassword, staticName, staticBirthdate, staticPhone;
+	public static String staticId, staticPassword, staticName, staticBirthdate, staticPhone;
+	public static int staticPoint;
 	DBMgr mgr = new DBMgr(); // DAO
 	MemberBean bean; // DTO
 	ArrayList<MemberBean> list;
@@ -30,7 +34,6 @@ public class Login extends JFrame implements ActionListener {
 	public Login() {
 		setTitle("Login");
 		setSize(400, 600);
-
 		init();
 	}
 
@@ -77,6 +80,15 @@ public class Login extends JFrame implements ActionListener {
 		loginPanel.add(btnSignUp);
 		loginPanel.add(btnFind);
 		add(loginPanel);
+
+		// set location in center of screen
+		Dimension dim1 = Toolkit.getDefaultToolkit().getScreenSize();
+		Dimension dim2 = this.getSize();
+		int x, y;
+		x = (int) (dim1.getWidth() / 2 - dim2.getWidth() / 2);
+		y = (int) (dim1.getHeight() / 2 - dim2.getHeight() / 2);
+		setLocation(x, y);
+
 		setVisible(true);
 	}
 
@@ -94,9 +106,10 @@ public class Login extends JFrame implements ActionListener {
 					staticName = list.get(i).getName();
 					staticBirthdate = list.get(i).getBirthdate();
 					staticPhone = list.get(i).getPhone();
+					staticPoint = list.get(i).getPoint();
 					JOptionPane.showMessageDialog(null, staticName + "님 환영합니다.", "Login", JOptionPane.DEFAULT_OPTION);
 
-					new MainMenu();
+					new MovieInfo();
 					dispose();
 
 					return;

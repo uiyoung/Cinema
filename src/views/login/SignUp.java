@@ -1,4 +1,4 @@
-package views;
+package views.login;
 import java.awt.Container;
 import java.awt.Font;
 import java.awt.event.ActionEvent;

@@ -1,4 +1,4 @@
-package views;
+package views.seat;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -17,6 +17,9 @@ import javax.swing.SwingConstants;
 import controllers.DBMgr;
 import models.MemberBean;
 import models.SeatBean;
+import views.CinemaFrame;
+import views.payment.Payment;
+import views.reservation.Reservation;
 
 public class Seat extends CinemaFrame implements ActionListener {
 	DBMgr mgr = new DBMgr(); // DAO

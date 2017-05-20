@@ -6,6 +6,7 @@ public class TicketBean {
 	private String theater_name;
 	private String date;
 	private String time;
+	private String seat_no;
 	private int price;
 
 	// Getters and Setters
@@ -47,6 +48,14 @@ public class TicketBean {
 
 	public void setTime(String time) {
 		this.time = time;
+	}
+
+	public String getSeat_no() {
+		return seat_no;
+	}
+
+	public void setSeat_no(String seat_no) {
+		this.seat_no = seat_no;
 	}
 
 	public int getPrice() {

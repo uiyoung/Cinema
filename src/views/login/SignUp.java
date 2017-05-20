@@ -1,6 +1,8 @@
 package views.login;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -79,6 +81,14 @@ public class SignUp extends JFrame implements ActionListener {
 		c.add(tfPhone);
 		c.add(btnSignUp);
 		c.add(btnCancel);
+
+		// set location in center of screen
+		Dimension dim1 = Toolkit.getDefaultToolkit().getScreenSize();
+		Dimension dim2 = this.getSize();
+		int x, y;
+		x = (int) (dim1.getWidth() / 2 - dim2.getWidth() / 2);
+		y = (int) (dim1.getHeight() / 2 - dim2.getHeight() / 2);
+		setLocation(x, y);
 
 		setVisible(true);
 	}

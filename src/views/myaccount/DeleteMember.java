@@ -1,4 +1,4 @@
-package views.myticket;
+package views.myaccount;
 
 import java.awt.Color;
 import java.awt.Container;
@@ -17,18 +17,19 @@ import views.CinemaFrame;
 import views.login.Login;
 
 public class DeleteMember extends CinemaFrame implements ActionListener {
-	JLabel lab = new JLabel("회원 탈퇴");
-	JPanel pan = new JPanel();
-
-	JLabel lab1 = new JLabel("비밀번호 : ");
-	JTextField txtf = new JTextField(10);
-	JPanel cpan = new JPanel();
-
-	JButton bt = new JButton("탈퇴");
-	JButton bt1 = new JButton("취소");
-	JPanel span = new JPanel();
 	DBMgr mgr = new DBMgr();
 	ArrayList<MemberBean> list;
+
+	JPanel pan = new JPanel();
+	JLabel lab = new JLabel("회원 탈퇴");
+
+	JPanel cpan = new JPanel();
+	JLabel lab1 = new JLabel("비밀번호 : ");
+	JTextField txtf = new JTextField(10);
+
+	JPanel span = new JPanel();
+	JButton bt = new JButton("탈퇴");
+	JButton bt1 = new JButton("취소");
 
 	public DeleteMember() {
 		this.setSize(300, 200);
@@ -64,14 +65,13 @@ public class DeleteMember extends CinemaFrame implements ActionListener {
 			// JOptionPane.showMessageDialog(null, "탈퇴되었습니다");
 			// password가 틀릴 경우
 			// JOptionPane.showMessageDialog(null, "비밀번호를 확인하여 주십시오");
+
 			dispose();
 
 		} else if (e.getActionCommand().equals("취소")) {
 			txtf.setText(" ");
-			new MyTicket();
+			new MyAccount();
 			dispose();
 		}
-
 	}
-
 }

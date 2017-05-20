@@ -1,7 +1,6 @@
 package views.myticket;
 
-import java.awt.Container;
-import java.awt.GridLayout;
+import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -10,138 +9,135 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
+import javax.swing.border.EtchedBorder;
+import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 
 import controllers.DBMgr;
-import models.MemberBean;
+import models.TicketBean;
 import views.CinemaFrame;
+import views.CinemaMenu;
 import views.login.Login;
 
 public class MyTicket extends CinemaFrame implements ActionListener {
 	DBMgr mgr = new DBMgr();
-	ArrayList<MemberBean> list;
-	MemberBean bean;
+	ArrayList<TicketBean> list;
+	TicketBean bean;
 
-	JButton bt = new JButton("예매 정보 확인");
-	JButton bt2 = new JButton("회원 탈퇴");
-	JButton bt3 = new JButton("비밀번호 변경");
-	JPanel pan1 = new JPanel();
-
-	JButton bt1 = new JButton("회원 정보 수정");
-	JLabel lab = new JLabel("비밀번호 : ");
-	JTextField txtf = new JPasswordField(10);
-	JButton bt4 = new JButton("확인");
-	JPanel pan2 = new JPanel();
-
-	JLabel lab1 = new JLabel("\n  ID");
-	JTextField txtf1 = new JTextField(10);
-	JLabel lab2 = new JLabel("\n  이름");
-	JTextField txtf2 = new JTextField(10);
-	JLabel lab3 = new JLabel("\n  생년월일");
-	JTextField txtf3 = new JTextField(10);
-	JLabel lab4 = new JLabel("\n  핸드폰 번호");
-	JTextField txtf4 = new JTextField(10);
-	JLabel lab5 = new JLabel("\n  잔여포인트");
-	JTextField txtf5 = new JTextField(10);
-	JButton bt5 = new JButton("저장");
-	JButton bt6 = new JButton("돌아가기");
-	JPanel pan3 = new JPanel();
+	JTable table;
+	DefaultTableModel tableModel;
+	JScrollPane sp;
+	JButton btnBack, btnCancelReserve;
 
 	public MyTicket() {
-		this.setSize(400, 270);
-		this.setTitle("MyTicket");
+		setTitle("MyTicket");
 		init();
 	}
 
 	private void init() {
-		txtf1.setText(Login.staticId);
-		txtf2.setText(Login.staticName);
-		txtf3.setText(Login.staticBirthdate);
-		txtf4.setText(Login.staticPhone);
-		txtf5.setText(Login.staticPoint + "点");
+		setLayout(new BorderLayout());
 
-		Container con = this.getContentPane();
-		pan1.add(bt);
-		pan1.add(bt3);
-		pan1.add(bt2);
+		JPanel tablePanel = new JPanel(new BorderLayout());
+		list = mgr.getTicketInfo(Login.staticId);
+		String[] columnNames = { "예매번호", "영화제목", "극장", "상영날짜", "상영시간", "좌석", "가격" };
+		String[][] records = new String[list.size()][columnNames.length];
+		for (int i = 0; i < list.size(); i++) {
+			bean = list.get(i);
+			records[i][0] = Integer.toString(bean.getNo());
+			records[i][1] = bean.getTitle();
+			records[i][2] = bean.getTheater_name();
+			records[i][3] = bean.getDate();
+			records[i][4] = bean.getTime();
+			records[i][5] = bean.getSeat_no();
+			records[i][6] = bean.getPrice() + "円";
+		}
 
-		pan2.add(bt1);
-		pan2.add(lab);
-		pan2.add(txtf);
-		pan2.add(bt4);
-		txtf.setEditable(false);
+		// table 수정 못하게 DefaultTableModel 사용
+		tableModel = new DefaultTableModel(records, columnNames) {
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
+		table = new JTable(tableModel);
+		jTableSet();
+		sp = new JScrollPane(table);
+		tablePanel.setBorder(new TitledBorder(new EtchedBorder(), "예매 목록"));
+		tablePanel.add(sp, BorderLayout.CENTER);
 
-		pan3.setLayout(new GridLayout(6, 1));
-		pan3.add(lab1);
-		pan3.add(txtf1);
-		pan3.add(lab2);
-		pan3.add(txtf2);
-		pan3.add(lab3);
-		pan3.add(txtf3);
-		pan3.add(lab4);
-		pan3.add(txtf4);
-		pan3.add(lab5);
-		pan3.add(txtf5);
-		pan3.add(bt5);
-		pan3.add(bt6);
+		JPanel btnPanel = new JPanel();
+		btnBack = new JButton("back");
+		btnBack.addActionListener(this);
+		btnCancelReserve = new JButton("예매 취소");
+		btnCancelReserve.addActionListener(this);
+		btnPanel.add(btnBack);
+		btnPanel.add(btnCancelReserve);
 
-		txtf1.setEditable(false);
-		txtf2.setEditable(false);
-		txtf3.setEditable(false);
-		txtf4.setEditable(false);
-		txtf5.setEditable(false);
+		add(tablePanel, BorderLayout.CENTER);
+		add(btnPanel, BorderLayout.PAGE_END);
+		setVisible(true);
+	}
 
-		// bt.addActionListener(this);
-		bt1.addActionListener(this);
-		bt2.addActionListener(this);
-		bt3.addActionListener(this);
-		bt6.addActionListener(this);
+	private void jTableSet() {
+		// 이동과 길이조절 여러개 선택되는 것을 방지한다.
+		table.getTableHeader().setReorderingAllowed(false);
+		table.getTableHeader().setResizingAllowed(false);
+		table.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 
-		con.add("North", pan1);
-		con.add("Center", pan2);
-		con.add("South", pan3);
+		// column 정렬에 필요한 메서드
+		DefaultTableCellRenderer cellAlignCenter = new DefaultTableCellRenderer();
+		cellAlignCenter.setHorizontalAlignment(JLabel.CENTER);
+		DefaultTableCellRenderer cellAlignRight = new DefaultTableCellRenderer();
+		cellAlignRight.setHorizontalAlignment(JLabel.RIGHT);
+		DefaultTableCellRenderer cellAlignLeft = new DefaultTableCellRenderer();
+		cellAlignLeft.setHorizontalAlignment(JLabel.LEFT);
+
+		// column별 size 조절&정렬
+		table.getColumnModel().getColumn(0).setPreferredWidth(2);
+		table.getColumnModel().getColumn(0).setCellRenderer(cellAlignCenter);
+		table.getColumnModel().getColumn(1).setPreferredWidth(10);
+		table.getColumnModel().getColumn(1).setCellRenderer(cellAlignCenter);
+		table.getColumnModel().getColumn(2).setPreferredWidth(5);
+		table.getColumnModel().getColumn(2).setCellRenderer(cellAlignCenter);
+		table.getColumnModel().getColumn(3).setPreferredWidth(5);
+		table.getColumnModel().getColumn(3).setCellRenderer(cellAlignCenter);
+		table.getColumnModel().getColumn(4).setPreferredWidth(5);
+		table.getColumnModel().getColumn(4).setCellRenderer(cellAlignCenter);
+		table.getColumnModel().getColumn(5).setPreferredWidth(5);
+		table.getColumnModel().getColumn(5).setCellRenderer(cellAlignCenter);
+		table.getColumnModel().getColumn(6).setPreferredWidth(5);
+		table.getColumnModel().getColumn(6).setCellRenderer(cellAlignCenter);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getActionCommand().equals("저장")) {
-			String name = txtf2.getText();
-			// String birthdate = txtf3.getText();
-			String phone = txtf4.getText();
-			// String point = txtf5.getText();//point를 int값으로 저장하는 방법 질문할 것
-			mgr.updateMember(name, /* birthdate, */ phone/* , point */);
-			//
-			JOptionPane.showMessageDialog(null, "회원정보가 저장되었습니다");
-			txtf2.setEditable(false);
-			// txtf3.setEditable(false);
-			txtf4.setEditable(false);
-			// txtf5.setEditable(false);
-			txtf.setText("");
-			txtf.setEditable(false);
+		if (e.getSource() == btnBack) {
+			new CinemaMenu();
 			dispose();
-			new MyTicket();
-		} else if (e.getActionCommand().equals("돌아가기")) {
-			dispose();
-		} else if (e.getActionCommand().equals("회원 탈퇴")) {
-			dispose();
-			new DeleteMember();
-		} else if (e.getActionCommand().equals("비밀번호 변경")) {
-			dispose();
-			new UpdatePW();
-		} else if (e.getActionCommand().equals("회원 정보 수정")) {
-			txtf.setEditable(true);
-			bt4.addActionListener(this);
-		} else if (e.getActionCommand().equals("확인")) {
-			String password = txtf.getText();
-			if (Login.staticPassword.equals(password)) {
-				txtf2.setEditable(true);
-				txtf3.setEditable(true);
-				txtf4.setEditable(true);
-				bt5.addActionListener(this);
-			} else {
-				JOptionPane.showMessageDialog(null, "비밀번호를 확인해주세요");
+		}
+		if (e.getSource() == btnCancelReserve) {
+			for (int i = 0; i < table.getRowCount(); i++) {
+				if (table.isRowSelected(i)) {
+					// 선택된 row의 ticket_no
+					System.out.println(table.getModel().getValueAt(table.getSelectedRow(), 0));
+
+					int result = JOptionPane.showConfirmDialog(null, "예매를 취소하시겠습니까?", "예매 취소",
+							JOptionPane.YES_NO_OPTION);
+					if (result == JOptionPane.CLOSED_OPTION) {
+					} else if (result == JOptionPane.YES_OPTION) {
+						// TODO : 티켓 삭제하는 코드 DELETE FROM `cinemadb`.`ticket_tb`
+						// WHERE
+						// `no`=13;
+						// TODO : 좌석 state='n'으로 바꾸는 코드
+						// TODO : 적립포인트 회수하는 코드
+					}
+					return;
+				}
 			}
+			JOptionPane.showMessageDialog(null, "취소할 예매목록을 선택해 주세요 ", "Error", JOptionPane.DEFAULT_OPTION);
 		}
 	}
 }

@@ -17,7 +17,7 @@ import javax.swing.JTextField;
 
 import controllers.DBMgr;
 import models.MemberBean;
-import views.movieinfo.MovieInfo;
+import views.CinemaMenu;
 
 public class Login extends JFrame implements ActionListener {
 	public static String staticId, staticPassword, staticName, staticBirthdate, staticPhone;
@@ -29,7 +29,7 @@ public class Login extends JFrame implements ActionListener {
 	JPanel loginPanel;
 	JLabel lblId, lblPassword;
 	JTextField tfId, tfPassword;
-	JButton btnLogin, btnCancel, btnSignUp, btnFind;
+	JButton btnLogin, btnExit, btnSignUp, btnFind;
 
 	public Login() {
 		setTitle("Login");
@@ -55,7 +55,7 @@ public class Login extends JFrame implements ActionListener {
 		tfPassword.setBounds(100, 200, 220, 30);
 
 		btnLogin = new JButton("Login");
-		btnCancel = new JButton("Cancel");
+		btnExit = new JButton("Exit");
 		btnSignUp = new JButton("Sign Up");
 		btnFind = new JButton("Find");
 		btnLogin.setBounds(100, 250, 220, 30);
@@ -64,19 +64,19 @@ public class Login extends JFrame implements ActionListener {
 		btnSignUp.setFont(new Font("Consolas", Font.PLAIN, 15));
 		btnFind.setBounds(250, 400, 100, 40);
 		btnFind.setFont(new Font("Consolas", Font.PLAIN, 15));
-		btnCancel.setBounds(250, 450, 100, 40);
-		btnCancel.setFont(new Font("Consolas", Font.PLAIN, 15));
+		btnExit.setBounds(250, 450, 100, 40);
+		btnExit.setFont(new Font("Consolas", Font.PLAIN, 15));
 		btnLogin.addActionListener(this);
 		btnSignUp.addActionListener(this);
 		btnFind.addActionListener(this); // id/pw 찾기
-		btnCancel.addActionListener(this);
+		btnExit.addActionListener(this);
 
 		loginPanel.add(lblId);
 		loginPanel.add(lblPassword);
 		loginPanel.add(tfId);
 		loginPanel.add(tfPassword);
 		loginPanel.add(btnLogin);
-		loginPanel.add(btnCancel);
+		loginPanel.add(btnExit);
 		loginPanel.add(btnSignUp);
 		loginPanel.add(btnFind);
 		add(loginPanel);
@@ -101,7 +101,7 @@ public class Login extends JFrame implements ActionListener {
 			String pw = tfPassword.getText();
 			for (int i = 0; i < list.size(); i++) {
 				if (id.equals(list.get(i).getId()) && pw.equals(list.get(i).getPassword())) {
-					staticId = id;
+					staticId = list.get(i).getId();
 					staticPassword = list.get(i).getPassword();
 					staticName = list.get(i).getName();
 					staticBirthdate = list.get(i).getBirthdate();
@@ -109,7 +109,7 @@ public class Login extends JFrame implements ActionListener {
 					staticPoint = list.get(i).getPoint();
 					JOptionPane.showMessageDialog(null, staticName + "님 환영합니다.", "Login", JOptionPane.DEFAULT_OPTION);
 
-					new MovieInfo();
+					new CinemaMenu();
 					dispose();
 
 					return;
@@ -129,8 +129,8 @@ public class Login extends JFrame implements ActionListener {
 			// new Find();
 		}
 
-		if (e.getSource() == btnCancel) {
-			dispose();
+		if (e.getSource() == btnExit) {
+			System.exit(0);
 		}
 	}
 

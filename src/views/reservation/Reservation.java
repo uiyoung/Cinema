@@ -6,8 +6,6 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -29,10 +27,11 @@ import controllers.MovieMgr;
 import models.MovieBean;
 import models.TheaterBean;
 import views.CinemaFrame;
+import views.CinemaMenu;
 import views.movieinfo.MovieInfo;
 import views.seat.Seat;
 
-public class Reservation extends CinemaFrame implements ActionListener, MouseListener {
+public class Reservation extends CinemaFrame implements ActionListener {
 	DBMgr dbMgr = new DBMgr();
 	MovieMgr movieMgr = new MovieMgr();
 	ArrayList<MovieBean> movies;
@@ -49,26 +48,23 @@ public class Reservation extends CinemaFrame implements ActionListener, MouseLis
 	JLabel lblPoster = new JLabel();
 	// TODO:예매 정보 : 영화제목, 일자, 시간, 인원, 금액 나오는 라벨 만들기
 	JLabel lblTitle, lblTheater, lblDate, lblTicketAmount, lblTime;
-	JButton btnCancel = new JButton("Cancel");
-	JButton btnSeat = new JButton("Select Seat");
+	JButton btnBackToMain, btnMovieInfo, btnSeat;
 
 	// Calendar things
 	JPanel calendarPanel, monthControlPanel, daysPanel;
 	Calendar today, cal;
 	int year, month, day, memoday;
 	String[] WEEK_DAY_NAMES = { "Su", "Mo", "Tu", "We", "Th", "Fr", "Sa" };
-	JButton btnPrev, btnNext;
+	JButton btnPrevMonth, btnNextMonth;
 	JButton[] btnCalendar = new JButton[49];
 	JLabel lblMonth, lblYear;
 
 	public Reservation() {
 		setTitle("Reservation");
 		setLayout(new GridLayout(1, 3));
-
 		initFirstPanel();
 		initSecondPanel();
 		initThirdPanel();
-
 		setVisible(true);
 	}
 
@@ -100,6 +96,7 @@ public class Reservation extends CinemaFrame implements ActionListener, MouseLis
 
 					lblTitle.setText(title);
 					lblPoster.setIcon(poster);
+					lblPoster.setBounds(60, 170, 320, 452);
 
 					if (theaters.size() == 0) {
 						theaterListModel.addElement("해당 영화를 상영 중인 극장이 없습니다.");
@@ -121,14 +118,21 @@ public class Reservation extends CinemaFrame implements ActionListener, MouseLis
 		spMovie.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 		spMovie.setBounds(60, 50, 320, 100);
 
-		lblPoster.setBounds(60, 170, 320, 452);
-		btnCancel.setBounds(30, 650, 100, 60);
-		btnCancel.addActionListener(this);
+		btnSeat = new JButton("Select Seat");
+
+		btnMovieInfo = new JButton("Movie Info");
+		btnMovieInfo.setBounds(300, 650, 130, 65);
+		btnMovieInfo.addActionListener(this);
+
+		btnBackToMain = new JButton("Main Menu");
+		btnBackToMain.setBounds(30, 650, 130, 65);
+		btnBackToMain.addActionListener(this);
 
 		firstPanel.add(label1);
 		firstPanel.add(spMovie);
 		firstPanel.add(lblPoster);
-		firstPanel.add(btnCancel);
+		firstPanel.add(btnBackToMain);
+		firstPanel.add(btnMovieInfo);
 		add(firstPanel);
 	}
 
@@ -218,6 +222,8 @@ public class Reservation extends CinemaFrame implements ActionListener, MouseLis
 		lblDate.setBounds(40, 360, 100, 30);
 		lblTime.setBounds(40, 390, 100, 30);
 		lblTicketAmount.setBounds(40, 420, 100, 30);
+
+		btnSeat = new JButton("Select Seat");
 		btnSeat.setBounds(300, 650, 130, 65);
 		btnSeat.addActionListener(this);
 
@@ -241,22 +247,22 @@ public class Reservation extends CinemaFrame implements ActionListener, MouseLis
 		year = today.get(Calendar.YEAR);
 		month = today.get(Calendar.MONTH) + 1;// 1월 값이 0
 		monthControlPanel = new JPanel();
-		monthControlPanel.add(btnPrev = new JButton("<"));
+		monthControlPanel.add(btnPrevMonth = new JButton("<"));
 		monthControlPanel.add(lblYear = new JLabel(year + "年"));
 		monthControlPanel.add(lblMonth = new JLabel(month + "月"));
-		monthControlPanel.add(btnNext = new JButton(">"));
-		btnPrev.setContentAreaFilled(false);
-		btnNext.setContentAreaFilled(false);
-		btnPrev.setFocusPainted(false);
-		btnNext.setFocusPainted(false);
-		btnPrev.addActionListener(new ActionListener() {
+		monthControlPanel.add(btnNextMonth = new JButton(">"));
+		btnPrevMonth.setContentAreaFilled(false);
+		btnNextMonth.setContentAreaFilled(false);
+		btnPrevMonth.setFocusPainted(false);
+		btnNextMonth.setFocusPainted(false);
+		btnPrevMonth.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				daysPanel.removeAll();
 				updateMonth(-1);
 			}
 		});
-		btnNext.addActionListener(new ActionListener() {
+		btnNextMonth.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				daysPanel.removeAll();
@@ -415,7 +421,7 @@ public class Reservation extends CinemaFrame implements ActionListener, MouseLis
 		lblYear.setText(year + "年");
 		lblMonth.setText(month + "月");
 	}
-	///////////////////////// END CALENDAR THINGS //////////////////////////
+	///////////////////////// END of CALENDAR THINGS //////////////////////////
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -441,40 +447,24 @@ public class Reservation extends CinemaFrame implements ActionListener, MouseLis
 				return;
 			}
 
-			System.out.println(title);
-			System.out.println(theater);
-			System.out.println(date);
-			System.out.println(time);
-			System.out.println(numOfTicket);
+			// TODO : 해당 title, theater, date, time 의 좌석 정보를 불러와서 좌석이 꽉 찼거나
+			// 좌석정보가 없는경우 에러메세지 ex)mgr.checkSeat(title, theater, date, time);
 
 			new Seat(title, theater, date, time, numOfTicket);
 			dispose();
 		}
 
-		if (e.getSource() == btnCancel) {
+		if (e.getSource() == btnMovieInfo) {
 			new MovieInfo();
 			dispose();
+
+			// TODO : 현재 선택한 영화의 정보가 나오게.
 		}
-	}
 
-	@Override
-	public void mouseClicked(MouseEvent e) {
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent e) {
-	}
-
-	@Override
-	public void mouseExited(MouseEvent e) {
-	}
-
-	@Override
-	public void mousePressed(MouseEvent e) {
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent e) {
+		if (e.getSource() == btnBackToMain) {
+			new CinemaMenu();
+			dispose();
+		}
 	}
 
 	public static void main(String[] args) {

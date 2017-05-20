@@ -1,4 +1,5 @@
 package views.movieinfo;
+
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Font;
@@ -9,14 +10,13 @@ import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
 import controllers.MovieMgr;
 import models.MovieBean;
 import views.CinemaFrame;
-import views.myticket.MyTicket;
+import views.CinemaMenu;
 import views.reservation.Reservation;
 
 public class MovieInfo extends CinemaFrame implements ActionListener {
@@ -26,10 +26,7 @@ public class MovieInfo extends CinemaFrame implements ActionListener {
 
 	JLabel lblTitle, lblGenre, lblRunningTime;
 	JTextArea taDescription;
-
-	JButton btnReserve = new JButton("Reserve");
-	JButton btnMyTicket = new JButton("My Ticket");
-	JButton btnExit = new JButton("Exit");
+	JButton btnBack, btnReserve;
 
 	private ImageIcon poster = null;
 	private final JPanel cards;
@@ -46,10 +43,10 @@ public class MovieInfo extends CinemaFrame implements ActionListener {
 			movies[i] = new JPanel();
 			movies[i].setLayout(null);
 
-			JLabel posterLabel = new JLabel();
+			JLabel lblPoster = new JLabel();
 			poster = new ImageIcon("images/" + list.get(i).getTitle() + ".jpg");
-			posterLabel.setIcon(poster);
-			posterLabel.setBounds(50, 80, 320, 452);
+			lblPoster.setIcon(poster);
+			lblPoster.setBounds(50, 80, 320, 452);
 
 			// html 태그로 포스터 불러올 수 있다는 것
 			// JLabel label = new JLabel("<html><img height='80' width='100'
@@ -73,7 +70,7 @@ public class MovieInfo extends CinemaFrame implements ActionListener {
 			taDescription.setLineWrap(true); // 한줄이 너무 길면 자동으로 개행
 			taDescription.setBounds(400, 150, 700, 300);
 
-			movies[i].add(posterLabel);
+			movies[i].add(lblPoster);
 			movies[i].add(lblTitle);
 			movies[i].add(lblGenre);
 			movies[i].add(lblRunningTime);
@@ -98,27 +95,21 @@ public class MovieInfo extends CinemaFrame implements ActionListener {
 		btnPrev.setFocusPainted(false);
 		btnPrev.addActionListener(this);
 
-		// JPanel controlPanel = new JPanel();
-		// controlPanel.add(btnFirst);
-		// controlPanel.add(btnPrev);
-		// controlPanel.add(btnNext);
-		// controlPanel.add(btnLast);
-
 		JPanel btnPanel = new JPanel();
+		btnBack = new JButton("Back");
+		btnReserve = new JButton("Reserve");
+		btnPanel.add(btnBack);
 		btnPanel.add(btnReserve);
-		btnPanel.add(btnMyTicket);
-		btnPanel.add(btnExit);
 
 		btnReserve.addActionListener(this);
-		btnMyTicket.addActionListener(this);
-		btnExit.addActionListener(this);
+		btnBack.addActionListener(this);
 
 		add(btnPrev, BorderLayout.LINE_START);
 		add(btnNext, BorderLayout.LINE_END);
 		add(cards, BorderLayout.CENTER);
 		add(btnPanel, BorderLayout.PAGE_END);
 
-		setTitle("シネマ");
+		setTitle("상영영화 정보");
 		setVisible(true);
 	}
 
@@ -140,15 +131,13 @@ public class MovieInfo extends CinemaFrame implements ActionListener {
 		if (e.getSource() == btnReserve) {
 			new Reservation();
 			dispose();
-		}
-		if (e.getSource() == btnMyTicket) {
-			new MyTicket();
-		}
-		if (e.getSource() == btnExit) {
-			int choice = JOptionPane.showConfirmDialog(null, "wanna exit?", "exit", JOptionPane.YES_NO_OPTION);
 
-			if (choice == JOptionPane.YES_OPTION)
-				System.exit(0);
+			// TODO : 해당 영화가 Reserve 페이지에서 선택되어지게 매개변수로 넘기기.
+			// new Reserve(title);
+		}
+		if (e.getSource() == btnBack) {
+			new CinemaMenu();
+			dispose();
 		}
 	}
 }

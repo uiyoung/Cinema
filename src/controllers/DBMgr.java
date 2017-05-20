@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import models.MemberBean;
 import models.SeatBean;
 import models.TheaterBean;
+import models.TicketBean;
 
 public class DBMgr {
 	DBConnection db;
@@ -224,13 +225,13 @@ public class DBMgr {
 					e.printStackTrace();
 				}
 			}
-			if (conn != null) {
-				try {
-					conn.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
+			// if (conn != null) {
+			// try {
+			// conn.close();
+			// } catch (SQLException e) {
+			// e.printStackTrace();
+			// }
+			// }
 		}
 		return list;
 	}
@@ -240,8 +241,8 @@ public class DBMgr {
 		Statement stmt = null;
 		ResultSet rs = null;
 		ArrayList<MemberBean> list = new ArrayList<MemberBean>();
-		String sql = "SELECT * FROM MEMBER_TB";
 		MemberBean bean;
+		String sql = "SELECT * FROM MEMBER_TB";
 
 		try {
 			conn = db.getConnection();
@@ -422,5 +423,58 @@ public class DBMgr {
 			// }
 			// }
 		}
+	}
+
+	// ~아이디의 티켓정보를 불러온다.
+	public ArrayList<TicketBean> getTicketInfo(String id) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<TicketBean> list = new ArrayList<>();
+		String sql = "select * from ticket_tb where user_id=?";
+		TicketBean bean;
+
+		try {
+			conn = db.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				bean = new TicketBean();
+				bean.setNo(rs.getInt("no"));
+				bean.setTitle(rs.getString("title"));
+				bean.setTheater_name(rs.getString("theater_name"));
+				bean.setDate(rs.getString("date"));
+				bean.setTime(rs.getString("time"));
+				bean.setSeat_no(rs.getString("seat_no"));
+				bean.setPrice(rs.getInt("price"));
+				list.add(bean);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			// if (conn != null) {
+			// try {
+			// conn.close();
+			// } catch (SQLException e) {
+			// e.printStackTrace();
+			// }
+			// }
+		}
+		return list;
 	}
 }

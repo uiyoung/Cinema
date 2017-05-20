@@ -13,8 +13,8 @@ import javax.swing.JPanel;
 
 import controllers.DBMgr;
 import views.CinemaFrame;
+import views.CinemaMenu;
 import views.login.Login;
-import views.movieinfo.MovieInfo;
 import views.reservation.Reservation;
 
 public class Payment extends CinemaFrame implements ActionListener {
@@ -161,11 +161,15 @@ public class Payment extends CinemaFrame implements ActionListener {
 			int result = JOptionPane.showConfirmDialog(null, "예매하시겠습니까?", "예매", JOptionPane.YES_NO_OPTION);
 			if (result == JOptionPane.CLOSED_OPTION) {
 			} else if (result == JOptionPane.YES_OPTION) {
-				JOptionPane.showMessageDialog(null, "예매되었습니다.", "예매완료", JOptionPane.INFORMATION_MESSAGE);
+				// ticket 테이블에 티켓 생성
 				mgr.insertTicket(title, theater, date, time, seat, price, Login.staticId);
-				// TODO: 해당좌석 state y로 바꾸기
+				// 해당좌석 state y로 바꾸기
 				mgr.reserveSeat(theater, date, time, seat);
-				new MovieInfo();
+
+				// TODO : 4좌석 선택했을 시 위 쿼리를 4개 실행
+
+				JOptionPane.showMessageDialog(null, "예매되었습니다.", "예매", JOptionPane.INFORMATION_MESSAGE);
+				new CinemaMenu();
 				dispose();
 			}
 		}
@@ -173,9 +177,5 @@ public class Payment extends CinemaFrame implements ActionListener {
 			new Reservation();
 			dispose();
 		}
-	}
-
-	public static void main(String[] args) {
-		new Payment("美女と野獣", "tokyo", "201752", "14:00", "1", "A02");
 	}
 }

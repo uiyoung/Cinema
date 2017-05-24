@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -61,13 +62,18 @@ public class DeleteMember extends CinemaFrame implements ActionListener {
 			String id = Login.staticId;
 			String password = txtf.getText();
 			list = mgr.deleteMb(id, password);
-			// password가 맞을 경우
-			// JOptionPane.showMessageDialog(null, "탈퇴되었습니다");
-			// password가 틀릴 경우
-			// JOptionPane.showMessageDialog(null, "비밀번호를 확인하여 주십시오");
-
-			dispose();
-
+			if (Login.staticPassword.equals(password)) {
+				JOptionPane.showMessageDialog(null, "탈퇴되었습니다");
+				/* 열려있는 모든 창 닫기 */
+				java.awt.Window win[] = java.awt.Window.getWindows();
+				for (int i = 0; i < win.length; i++) {
+					win[i].dispose();
+					win[i] = null;
+				}
+				new Login();
+			} else {
+				JOptionPane.showMessageDialog(null, "비밀번호를 확인해주세요");
+			}
 		} else if (e.getActionCommand().equals("취소")) {
 			txtf.setText(" ");
 			new MyAccount();

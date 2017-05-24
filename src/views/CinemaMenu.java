@@ -6,13 +6,14 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
+import views.login.Login;
 import views.movieinfo.MovieInfo;
 import views.myaccount.MyAccount;
 import views.myticket.MyTicket;
 import views.reservation.Reservation;
 
 public class CinemaMenu extends CinemaFrame implements ActionListener {
-	JButton btnMovieInfo, btnReserve, btnMyTicket, btnMyAccount, btnExit;
+	private JButton btnMovieInfo, btnReserve, btnMyTicket, btnMyAccount, btnLogout, btnExit;
 
 	public CinemaMenu() {
 		setTitle("cinema");
@@ -25,24 +26,28 @@ public class CinemaMenu extends CinemaFrame implements ActionListener {
 		btnReserve = new JButton("영화 예매");
 		btnMyTicket = new JButton("MyTicket");
 		btnMyAccount = new JButton("MyAccount");
+		btnLogout = new JButton("Logout");
 		btnExit = new JButton("Exit");
 
 		btnMovieInfo.setBounds(1100, 350, 200, 60);
 		btnReserve.setBounds(1100, 410, 200, 60);
 		btnMyTicket.setBounds(1100, 470, 200, 60);
 		btnMyAccount.setBounds(1100, 530, 200, 60);
-		btnExit.setBounds(1100, 590, 200, 60);
+		btnLogout.setBounds(1100, 590, 200, 60);
+		btnExit.setBounds(1100, 650, 200, 60);
 
 		btnMovieInfo.addActionListener(this);
 		btnReserve.addActionListener(this);
 		btnMyTicket.addActionListener(this);
 		btnMyAccount.addActionListener(this);
+		btnLogout.addActionListener(this);
 		btnExit.addActionListener(this);
 
 		add(btnMovieInfo);
 		add(btnReserve);
 		add(btnMyTicket);
 		add(btnMyAccount);
+		add(btnLogout);
 		add(btnExit);
 		setVisible(true);
 		repaint();
@@ -65,6 +70,12 @@ public class CinemaMenu extends CinemaFrame implements ActionListener {
 		if (e.getSource() == btnMyAccount) {
 			new MyAccount();
 		}
+
+		if (e.getSource() == btnLogout) {
+			new Login();
+			dispose();
+		}
+
 		if (e.getSource() == btnExit) {
 			int choice = JOptionPane.showConfirmDialog(null, "wanna exit?", "exit", JOptionPane.YES_NO_OPTION);
 			if (choice == JOptionPane.YES_OPTION)

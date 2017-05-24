@@ -22,14 +22,14 @@ import views.CinemaMenu;
 public class Login extends JFrame implements ActionListener {
 	public static String staticId, staticPassword, staticName, staticBirthdate, staticPhone;
 	public static int staticPoint;
-	DBMgr mgr = new DBMgr(); // DAO
-	MemberBean bean; // DTO
-	ArrayList<MemberBean> list;
+	private DBMgr mgr = new DBMgr(); // DAO
+	private MemberBean bean; // DTO
+	private ArrayList<MemberBean> list;
 
-	JPanel loginPanel;
-	JLabel lblId, lblPassword;
-	JTextField tfId, tfPassword;
-	JButton btnLogin, btnExit, btnSignUp, btnFind;
+	private JPanel loginPanel;
+	private JLabel lblId, lblPassword;
+	private JTextField tfId, tfPassword;
+	private JButton btnLogin, btnExit, btnSignUp, btnFind;
 
 	public Login() {
 		setTitle("Login");

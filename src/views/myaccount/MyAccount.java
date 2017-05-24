@@ -46,7 +46,7 @@ public class MyAccount extends CinemaFrame implements ActionListener {
 	JLabel lab5 = new JLabel("\n  잔여포인트");
 	JTextField txtf5 = new JTextField(10);
 	JButton bt5 = new JButton("저장");
-	JButton bt6 = new JButton("취소");
+	JButton bt6 = new JButton("닫기");
 	JPanel pan3 = new JPanel();
 
 	public MyAccount() {
@@ -129,6 +129,7 @@ public class MyAccount extends CinemaFrame implements ActionListener {
 			bt4.addActionListener(this);
 		}
 		if (e.getActionCommand().equals("확인")) {
+
 			String password = txtf.getText();
 			if (Login.staticPassword.equals(password)) {
 				txtf2.setEditable(true);
@@ -140,21 +141,29 @@ public class MyAccount extends CinemaFrame implements ActionListener {
 			}
 		}
 		if (e.getActionCommand().equals("저장")) {
+			String id = Login.staticId;
 			String name = txtf2.getText();
 			String birthdate = txtf3.getText();
 			String phone = txtf4.getText();
-			// String point = txtf5.getText();//point를 int값으로 저장하는 방법 질문할 것
-			mgr.updateMember(name, /* birthdate, */ phone/* , point */);
+
+			list = mgr.updateMember(id, name, birthdate, phone);
 			JOptionPane.showMessageDialog(null, "회원정보가 저장되었습니다");
-			txtf.setText("");
 			txtf.setEditable(false);
 			txtf2.setEditable(false);
 			txtf3.setEditable(false);
 			txtf4.setEditable(false);
-			new MyAccount();
+			// txtf.setText("");
+			// txtf2.setText(list.get(0).getName());
+			// txtf3.setText(list.get(0).getBirthdate());
+			// txtf4.setText(list.get(0).getPhone());
+
 			dispose();
+			Login.staticName = txtf2.getText();
+			Login.staticBirthdate = txtf3.getText();
+			Login.staticPhone = txtf4.getText();
+			new MyAccount();
 		}
-		if (e.getActionCommand().equals("취소")) {
+		if (e.getActionCommand().equals("닫기")) {
 			dispose();
 		}
 	}

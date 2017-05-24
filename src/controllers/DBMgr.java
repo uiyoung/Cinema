@@ -320,23 +320,19 @@ public class DBMgr {
 	}
 
 	/* --------------------------우재----------------------------------- */
-	public ArrayList<MemberBean> updateMember(String name,
-			/* String birthdate, */String phone/* ,String point */) {
+	public ArrayList<MemberBean> updateMember(String id, String name, String birthdate,
+			String phone/* ,String point */) {
 		Connection con = null; // 내 pc의 db에 접속
 		PreparedStatement pstmt = null;
 		ArrayList<MemberBean> list = new ArrayList<MemberBean>();
-		String sql = "update MEMBER_TB set NAME = ?, phone = ?"; // birthdate =
-																	// ?, POINT
-																	// = ? 수정되면
-																	// 2번째와 4번째
-																	// 순으로 추가할 것
+		String sql = "update MEMBER_TB set NAME = ?, birthdate = ?, phone = ? where id=?";
 		try {
 			con = db.getConnection();
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, name);
-			// pstmt.setString(2, birthdate);
-			pstmt.setString(2, phone);// 수정되면 숫자 3로 바꿀 것
-			// pstmt.setString(4, point);
+			pstmt.setString(2, birthdate);
+			pstmt.setString(3, phone);
+			pstmt.setString(4, id);
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -355,7 +351,13 @@ public class DBMgr {
 		Statement stmt = null; // db에 sql을 적을 수 있는 판을 만듬
 		ResultSet rs = null; // sql한 결과를 담는 그릇을 만든다.
 		ArrayList<MemberBean> list = new ArrayList<MemberBean>();
-		String sql = "select *from MEMBER_TB where id = '" + id + "' AND  PASSWORD = '" + password + "'";
+		String sql = "select *from MEMBER_TB where id = '" + id + "'"; // AND
+																		// PASSWORD
+																		// = '"
+																		// +
+																		// password
+																		// +
+																		// "'";
 		try {
 			con = db.getConnection();
 			stmt = con.createStatement();
@@ -377,6 +379,7 @@ public class DBMgr {
 		} // try catch
 		return list;
 	}
+
 
 	public ArrayList<MemberBean> UpdatePw2(String password) {
 		Connection con = null; // 내 pc의 db에 접속

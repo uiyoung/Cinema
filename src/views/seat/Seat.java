@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
@@ -23,21 +25,18 @@ import views.payment.Payment;
 import views.reservation.Reservation;
 
 public class Seat extends CinemaFrame implements ActionListener {
-	DBMgr mgr = new DBMgr(); // DAO
-	MemberBean bean; // DTO
-	ArrayList<SeatBean> list;
+	private DBMgr mgr = new DBMgr(); // DAO
+	private MemberBean bean; // DTO
+	private ArrayList<SeatBean> list;
 
-	int num = 0;
-	String c[] = { "0", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J" };
-
-	String title, theater, date, time, ticket, seat;
-	// String id = Login.staticid;
-
-	JButton btnPayment, btnPrev;
-	JPanel seatPanel;
-	JLabel lblSeatNumber = new JLabel();
-	JCheckBox[][] seats;
-	String[] seatNumbers;
+	private String c[] = { "0", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J" };
+	private String title, theater, date, time, ticket, seat;
+	private int selectionCounter = 0;
+	private JButton btnPayment, btnReset, btnPrev;
+	private JPanel seatPanel;
+	private JLabel lblSeatNumber = new JLabel();
+	private JCheckBox[][] seats;
+	private String[] seatNumbers;
 
 	public Seat(String title, String theater, String date, String time, String ticket) {
 		this.title = title;
@@ -108,6 +107,30 @@ public class Seat extends CinemaFrame implements ActionListener {
 				seats[i][j].setRolloverIcon(sold);
 				seats[i][j].setSelectedIcon(sold);
 				seats[i][j].setOpaque(false);
+				seats[i][j].addItemListener(new ItemListener() {
+					private final int MAX_SELECTIONS = Integer.parseInt(ticket);
+
+					@Override
+					public void itemStateChanged(ItemEvent e) {
+						JCheckBox source = (JCheckBox) e.getSource();
+
+						if (source.isSelected()) {
+							selectionCounter++;
+						}
+
+						if (selectionCounter >= MAX_SELECTIONS) {
+							for (int i = 0; i < seats.length; i++) {
+								for (int j = 0; j < seats[i].length; j++) {
+									seats[i][j].setEnabled(false);
+									if (seats[i][j].isSelected()) {
+										seats[i][j].setEnabled(true);
+									}
+								}
+							}
+						}
+						System.out.println(selectionCounter);
+					}
+				});
 				seats[i][j].setBounds(posX, posY, 70, 45);
 				posX += 77;
 
@@ -147,25 +170,23 @@ public class Seat extends CinemaFrame implements ActionListener {
 	}
 
 	private void initButtons() {
-		btnPayment = new JButton("payment");
 		btnPrev = new JButton("prev");
-		btnPayment.addActionListener(this);
+		btnReset = new JButton("reset");
+		btnPayment = new JButton("payment");
 		btnPrev.addActionListener(this);
-		btnPayment.setBounds(1200, 650, 130, 65);
+		btnReset.addActionListener(this);
+		btnPayment.addActionListener(this);
 		btnPrev.setBounds(40, 650, 130, 65);
-		add(btnPayment);
+		btnReset.setBounds(1050, 650, 130, 65);
+		btnPayment.setBounds(1200, 650, 130, 65);
 		add(btnPrev);
+		add(btnReset);
+		add(btnPayment);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == btnPrev) {
-			new Reservation();
-			dispose();
-		}
-
 		if (e.getSource() == btnPayment) {
-			// 체크여부 확인 TODO:ItemListener사용해서 체크여부 확인
 			boolean isChecked = false;
 			for (int i = 0; i < seats.length; i++) {
 				for (int j = 0; j < seats[i].length; j++) {
@@ -184,9 +205,34 @@ public class Seat extends CinemaFrame implements ActionListener {
 			new Payment(title, theater, date, time, ticket, seat);
 			dispose();
 		}
+
+		if (e.getSource() == btnReset) {
+			for (int i = 0; i < seats.length; i++) {
+				for (int j = 0; j < seats[i].length; j++) {
+					seats[i][j].setEnabled(true);
+					seats[i][j].setSelected(false);
+					selectionCounter = 0;
+				}
+			}
+
+			for (int i = 0; i < seats.length; i++) {
+				for (int j = 0; j < seats[i].length; j++) {
+					// sold 상태의 좌석의 체크박스는 disable 상태로 만들기
+					String seatNo = list.get(Integer.parseInt(i + "" + j)).getSeat_no();
+					if (list.get(Integer.parseInt(i + "" + j)).getState().equals("y")) {
+						seats[i][j].setEnabled(false);
+						seats[i][j].setToolTipText("좌석번호:" + seatNo + " sold");
+					}
+				}
+			}
+		}
+		if (e.getSource() == btnPrev) {
+			new Reservation();
+			dispose();
+		}
 	}
 
 	public static void main(String[] args) {
-		new Seat("美女と野獣", "tokyo", "201752", "14:00", "1");
+		new Seat("美女と野獣", "tokyo", "201752", "14:00", "3");
 	}
 }

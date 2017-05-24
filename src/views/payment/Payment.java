@@ -12,6 +12,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import controllers.DBMgr;
+import models.Selected;
 import views.CinemaFrame;
 import views.CinemaMenu;
 import views.login.Login;
@@ -161,13 +162,14 @@ public class Payment extends CinemaFrame implements ActionListener {
 			int result = JOptionPane.showConfirmDialog(null, "예매하시겠습니까?", "예매", JOptionPane.YES_NO_OPTION);
 			if (result == JOptionPane.CLOSED_OPTION) {
 			} else if (result == JOptionPane.YES_OPTION) {
-				// ticket 테이블에 티켓 생성
-				mgr.insertTicket(title, theater, date, time, seat, price, Login.staticId);
-				// 해당좌석 state y로 바꾸기
-				mgr.reserveSeat(theater, date, time, seat);
-
-				// TODO : 4좌석 선택했을 시 위 쿼리를 4개 실행
-
+				
+				for (int i = 0; i < Selected.seats.size(); i++) {
+					// ticket 테이블에 티켓 생성
+					mgr.insertTicket(title, theater, date, time, Selected.seats.get(i), price, Login.staticId);
+					// 해당좌석 state y로 바꾸기
+					mgr.reserveSeat(theater, date, time, Selected.seats.get(i));
+				}
+				
 				JOptionPane.showMessageDialog(null, "예매되었습니다.", "예매", JOptionPane.INFORMATION_MESSAGE);
 				new CinemaMenu();
 				dispose();

@@ -122,17 +122,26 @@ public class MyTicket extends CinemaFrame implements ActionListener {
 			for (int i = 0; i < table.getRowCount(); i++) {
 				if (table.isRowSelected(i)) {
 					// 선택된 row의 ticket_no
-					System.out.println(table.getModel().getValueAt(table.getSelectedRow(), 0));
+					int ticketNo = Integer.parseInt(table.getModel().getValueAt(table.getSelectedRow(), 0).toString());
+					String theater = table.getModel().getValueAt(table.getSelectedRow(), 2).toString();
+					String date = table.getModel().getValueAt(table.getSelectedRow(), 3).toString();
+					String time = table.getModel().getValueAt(table.getSelectedRow(), 4).toString();
+					String seat = table.getModel().getValueAt(table.getSelectedRow(), 5).toString();
+
+					System.out.println(ticketNo);
+					System.out.println(theater + "," + date + "," + time + "," + seat);
 
 					int result = JOptionPane.showConfirmDialog(null, "예매를 취소하시겠습니까?", "예매 취소",
 							JOptionPane.YES_NO_OPTION);
 					if (result == JOptionPane.CLOSED_OPTION) {
 					} else if (result == JOptionPane.YES_OPTION) {
-						// TODO : 티켓 삭제하는 코드 DELETE FROM `cinemadb`.`ticket_tb`
-						// WHERE
-						// `no`=13;
-						// TODO : 좌석 state='n'으로 바꾸는 코드
+						// 티켓 취소
+						mgr.cancelTicket(ticketNo);
+						// 좌석 state='n'으로 바꾸는 코드
+						mgr.cancelSeat(theater, date, time, seat);
 						// TODO : 적립포인트 회수하는 코드
+						dispose();
+						new MyTicket();
 					}
 					return;
 				}

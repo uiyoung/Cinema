@@ -17,6 +17,7 @@ import javax.swing.SwingConstants;
 import controllers.DBMgr;
 import models.MemberBean;
 import models.SeatBean;
+import models.Selected;
 import views.CinemaFrame;
 import views.payment.Payment;
 import views.reservation.Reservation;
@@ -171,7 +172,7 @@ public class Seat extends CinemaFrame implements ActionListener {
 					if (seats[i][j].isSelected()) {
 						isChecked = true;
 						seat = seats[i][j].getText();
-						System.out.println("선택된 좌석:" + seat);
+						Selected.seats.add(seat);
 					}
 				}
 			}
@@ -187,6 +188,5 @@ public class Seat extends CinemaFrame implements ActionListener {
 
 	public static void main(String[] args) {
 		new Seat("美女と野獣", "tokyo", "201752", "14:00", "1");
-		// new Seat("美女と野獣", "11", "11", "11");
 	}
 }

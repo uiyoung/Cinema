@@ -20,6 +20,39 @@ public class DBMgr {
 		db = new DBConnection();
 	}
 
+	// ticket 취소
+	public void cancelTicket(int no) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String sql = "DELETE FROM `cinemadb`.`ticket_tb` WHERE `no`=?";
+
+		try {
+			conn = db.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			// if (conn != null) {
+			// try {
+			// conn.close();
+			// } catch (SQLException e) {
+			// e.printStackTrace();
+			// }
+			// }
+		}
+	}
+	
+	
+	
 	// 티켓 생성
 	public void insertTicket(String title, String theater, String date, String time, String seat, int price,
 			String user_id) {
@@ -391,8 +424,6 @@ public class DBMgr {
 
 	// ~극장 ~일자 ~시간의 ~좌석의 예매상태 y로 바꾸기
 	public void reserveSeat(String theater, String date, String time, String seat) {
-		// UPDATE `cinemadb`.`seat_tb` SET `state`='y' WHERE `theater_no`=1 AND
-		// `seat_no`='B10';
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		String sql = "update seat_tb as s join theater_tb as t on s.theater_no = t.no and t.name=? and s.date=? and s.time=? and s.seat_no=? set s.state='y'";
@@ -424,6 +455,40 @@ public class DBMgr {
 			// }
 		}
 	}
+	
+	// ~극장 ~일자 ~시간의 ~좌석의 예매상태 n으로 바꾸기
+		public void cancelSeat(String theater, String date, String time, String seat) {
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			String sql = "update seat_tb as s join theater_tb as t on s.theater_no = t.no and t.name=? and s.date=? and s.time=? and s.seat_no=? set s.state='n'";
+
+			try {
+				conn = db.getConnection();
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, theater);
+				pstmt.setString(2, date);
+				pstmt.setString(3, time);
+				pstmt.setString(4, seat);
+				pstmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				if (pstmt != null) {
+					try {
+						pstmt.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+				// if (conn != null) {
+				// try {
+				// conn.close();
+				// } catch (SQLException e) {
+				// e.printStackTrace();
+				// }
+				// }
+			}
+		}
 
 	// ~아이디의 티켓정보를 불러온다.
 	public ArrayList<TicketBean> getTicketInfo(String id) {

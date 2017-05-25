@@ -33,6 +33,9 @@ public class MovieMgr {
 				bean.setReleaseDate(rs.getInt("releaseDate"));
 				bean.setRunningTime(rs.getInt("runningTime"));
 				bean.setDescription(rs.getString("description"));
+				bean.setType(rs.getString("type"));
+				bean.setDirector(rs.getString("director"));
+				bean.setCast(rs.getString("cast"));
 				list.add(bean);
 			}
 		} catch (SQLException e) {

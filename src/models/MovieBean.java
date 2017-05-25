@@ -1,10 +1,14 @@
 package models;
+
 public class MovieBean {
 	private String title;
 	private String genre;
 	private int releaseDate;
 	private int runningTime;
 	private String description;
+	private String type;
+	private String director;
+	private String cast;
 
 	// Getters and Setters
 	public String getTitle() {
@@ -46,4 +50,29 @@ public class MovieBean {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public String getDirector() {
+		return director;
+	}
+
+	public void setDirector(String director) {
+		this.director = director;
+	}
+
+	public String getCast() {
+		return cast;
+	}
+
+	public void setCast(String cast) {
+		this.cast = cast;
+	}
+
 }

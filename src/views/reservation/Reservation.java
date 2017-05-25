@@ -81,6 +81,7 @@ public class Reservation extends CinemaFrame implements ActionListener {
 		}
 		listMovie = new JList<>(moviesListModel);
 		listMovie.setSelectedIndex(0);	//기본 선택값
+		title = listMovie.getSelectedValue();
 		showPoster();
 		listMovie.addListSelectionListener(new ListSelectionListener() {
 			@Override
@@ -150,9 +151,15 @@ public class Reservation extends CinemaFrame implements ActionListener {
 
 		// JList for select Theater
 		theaterListModel = new DefaultListModel<>();
-		theaterListModel.addElement("영화를 선택해 주세요");
+		// theaterListModel.addElement("영화를 선택해 주세요");
+		/* 기본 선택값 */
+		theaters = dbMgr.getTheaters(title);
+		for (int i = 0; i < theaters.size(); i++) {
+			theaterListModel.addElement(theaters.get(i).getName());
+		}
+		/* end of 기본 선택값 */
 		listTheater = new JList<>(theaterListModel);
-		listTheater.setEnabled(false);
+		// listTheater.setEnabled(false);
 		listTheater.addListSelectionListener(new ListSelectionListener() {
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
@@ -216,9 +223,8 @@ public class Reservation extends CinemaFrame implements ActionListener {
 		cb.addActionListener(this);
 		cb.setBounds(30, 50, 200, 30);
 
-		// todo : 요금정보 표시
 		JLabel label5 = new JLabel("5. 예매 정보");
-		lblTitle = new JLabel();
+		lblTitle = new JLabel(title);
 		lblTheater = new JLabel();
 		lblDate = new JLabel();
 		lblTicketAmount = new JLabel("1명");
@@ -407,8 +413,8 @@ public class Reservation extends CinemaFrame implements ActionListener {
 	}
 
 	public void panelInit() {
-		GridLayout gridLayout1 = new GridLayout(7, 7);
-		daysPanel.setLayout(gridLayout1);
+		GridLayout gridLayout = new GridLayout(7, 7);
+		daysPanel.setLayout(gridLayout);
 	}
 
 	public void updateMonth(int gap) {

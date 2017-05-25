@@ -126,7 +126,7 @@ public class Login extends JFrame implements ActionListener {
 		}
 
 		if (e.getSource() == btnFind) {
-			// new Find();
+			new Find();
 		}
 
 		if (e.getSource() == btnExit) {

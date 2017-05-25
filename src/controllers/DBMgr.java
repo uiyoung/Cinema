@@ -50,9 +50,7 @@ public class DBMgr {
 			// }
 		}
 	}
-	
-	
-	
+
 	// 티켓 생성
 	public void insertTicket(String title, String theater, String date, String time, String seat, int price,
 			String user_id) {
@@ -320,8 +318,8 @@ public class DBMgr {
 	}
 
 	/* --------------------------우재----------------------------------- */
-	public ArrayList<MemberBean> updateMember(String id, String name,
-			 String birthdate, String phone/* ,String point */) {
+	public ArrayList<MemberBean> updateMember(String id, String name, String birthdate,
+			String phone/* ,String point */) {
 		Connection con = null; // 내 pc의 db에 접속
 		PreparedStatement pstmt = null;
 		ArrayList<MemberBean> list = new ArrayList<MemberBean>();
@@ -351,7 +349,7 @@ public class DBMgr {
 		Statement stmt = null; // db에 sql을 적을 수 있는 판을 만듬
 		ResultSet rs = null; // sql한 결과를 담는 그릇을 만든다.
 		ArrayList<MemberBean> list = new ArrayList<MemberBean>();
-		String sql = "select *from MEMBER_TB where id = '" + id + "' AND  PASSWORD = '" + password + "'";
+		String sql = "select * from MEMBER_TB where id = '" + id + "' AND  PASSWORD = '" + password + "'";
 		try {
 			con = db.getConnection();
 			stmt = con.createStatement();
@@ -373,7 +371,6 @@ public class DBMgr {
 		} // try catch
 		return list;
 	}
-	
 
 	public ArrayList<MemberBean> UpdatePw2(String id, String password) {
 		Connection con = null; // 내 pc의 db에 접속
@@ -418,9 +415,59 @@ public class DBMgr {
 		} // try catch
 		return list;
 	}
+
+	public ArrayList<MemberBean> find(String name, String birthdate, String phone) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<MemberBean> list = new ArrayList<MemberBean>();
+		MemberBean bean;
+		String sql = "SELECT * FROM MEMBER_TB WHERE NAME = ? AND birthdate = ? AND phone = ?";
+
+		try {
+			con = db.getConnection();
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, name);
+			pstmt.setString(2, birthdate);
+			pstmt.setString(3, phone);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				bean = new MemberBean();
+				bean.setId(rs.getString("id"));
+				bean.setPassword(rs.getString("password"));
+				bean.setName(rs.getString("name"));
+				bean.setBirthdate(rs.getString("birthdate"));
+				bean.setPhone(rs.getString("phone"));
+				list.add(bean);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			// if (conn != null) {
+			// try {
+			// conn.close();
+			// } catch (SQLException e) {
+			// e.printStackTrace();
+			// }
+			// }
+		}
+		return list;
+	}
 	/* ----------------------end of 우재----------------------------------- */
-
-
 
 	// ~극장 ~일자 ~시간의 ~좌석의 예매상태 y로 바꾸기
 	public void reserveSeat(String theater, String date, String time, String seat) {
@@ -455,40 +502,40 @@ public class DBMgr {
 			// }
 		}
 	}
-	
-	// ~극장 ~일자 ~시간의 ~좌석의 예매상태 n으로 바꾸기
-		public void cancelSeat(String theater, String date, String time, String seat) {
-			Connection conn = null;
-			PreparedStatement pstmt = null;
-			String sql = "update seat_tb as s join theater_tb as t on s.theater_no = t.no and t.name=? and s.date=? and s.time=? and s.seat_no=? set s.state='n'";
 
-			try {
-				conn = db.getConnection();
-				pstmt = conn.prepareStatement(sql);
-				pstmt.setString(1, theater);
-				pstmt.setString(2, date);
-				pstmt.setString(3, time);
-				pstmt.setString(4, seat);
-				pstmt.executeUpdate();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			} finally {
-				if (pstmt != null) {
-					try {
-						pstmt.close();
-					} catch (SQLException e) {
-						e.printStackTrace();
-					}
+	// ~극장 ~일자 ~시간의 ~좌석의 예매상태 n으로 바꾸기
+	public void cancelSeat(String theater, String date, String time, String seat) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String sql = "update seat_tb as s join theater_tb as t on s.theater_no = t.no and t.name=? and s.date=? and s.time=? and s.seat_no=? set s.state='n'";
+
+		try {
+			conn = db.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, theater);
+			pstmt.setString(2, date);
+			pstmt.setString(3, time);
+			pstmt.setString(4, seat);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
 				}
-				// if (conn != null) {
-				// try {
-				// conn.close();
-				// } catch (SQLException e) {
-				// e.printStackTrace();
-				// }
-				// }
 			}
+			// if (conn != null) {
+			// try {
+			// conn.close();
+			// } catch (SQLException e) {
+			// e.printStackTrace();
+			// }
+			// }
 		}
+	}
 
 	// ~아이디의 티켓정보를 불러온다.
 	public ArrayList<TicketBean> getTicketInfo(String id) {

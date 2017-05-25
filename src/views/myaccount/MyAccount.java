@@ -24,33 +24,33 @@ public class MyAccount extends CinemaFrame implements ActionListener {
 	ArrayList<MemberBean> list;
 	MemberBean bean;
 
-	JButton bt = new JButton("예매 정보 확인");
-	JButton bt2 = new JButton("회원 탈퇴");
-	JButton bt3 = new JButton("비밀번호 변경");
+	JButton bt = new JButton("前売り情報を確認");
+	JButton bt2 = new JButton("会員脱退");
+	JButton bt3 = new JButton("パスワードの変更");
 	JPanel pan1 = new JPanel();
 
-	JButton bt1 = new JButton("회원 정보 수정");
-	JLabel lab = new JLabel("비밀번호 : ");
+	JButton bt1 = new JButton("会員情報の変更");
+	JLabel lab = new JLabel("パスワード : ");
 	JTextField txtf = new JPasswordField(10);
-	JButton bt4 = new JButton("확인");
+	JButton bt4 = new JButton("確認");
 	JPanel pan2 = new JPanel();
 
 	JLabel lab1 = new JLabel("\n  ID");
 	JTextField txtf1 = new JTextField(10);
-	JLabel lab2 = new JLabel("\n  이름");
+	JLabel lab2 = new JLabel("\n  名前");
 	JTextField txtf2 = new JTextField(10);
-	JLabel lab3 = new JLabel("\n  생년월일");
+	JLabel lab3 = new JLabel("\n  生年月日");
 	JTextField txtf3 = new JTextField(10);
-	JLabel lab4 = new JLabel("\n  핸드폰 번호");
+	JLabel lab4 = new JLabel("\n  携帯電話番号");
 	JTextField txtf4 = new JTextField(10);
-	JLabel lab5 = new JLabel("\n  잔여포인트");
+	JLabel lab5 = new JLabel("\n  残りのポイント");
 	JTextField txtf5 = new JTextField(10);
-	JButton bt5 = new JButton("저장");
-	JButton bt6 = new JButton("닫기");
+	JButton bt5 = new JButton("保存");
+	JButton bt6 = new JButton("閉じる");
 	JPanel pan3 = new JPanel();
 
 	public MyAccount() {
-		this.setSize(400, 270);
+		this.setSize(500, 270);
 		this.setTitle("MyAccount");
 		init();
 	}
@@ -106,7 +106,7 @@ public class MyAccount extends CinemaFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getActionCommand().equals("예매 정보 확인")) {
+		if (e.getActionCommand().equals("前売り情報を確認")) {
 			/* 열려있는 모든 창 닫기 */
 			java.awt.Window win[] = java.awt.Window.getWindows();
 			for (int i = 0; i < win.length; i++) {
@@ -116,19 +116,19 @@ public class MyAccount extends CinemaFrame implements ActionListener {
 
 			new MyTicket();
 		}
-		if (e.getActionCommand().equals("비밀번호 변경")) {
+		if (e.getActionCommand().equals("パスワードの変更")) {
 			new UpdatePW();
 			dispose();
 		}
-		if (e.getActionCommand().equals("회원 탈퇴")) {
+		if (e.getActionCommand().equals("会員脱退")) {
 			new DeleteMember();
 			dispose();
 		}
-		if (e.getActionCommand().equals("회원 정보 수정")) {
+		if (e.getActionCommand().equals("会員情報の変更")) {
 			txtf.setEditable(true);
 			bt4.addActionListener(this);
 		}
-		if (e.getActionCommand().equals("확인")) {
+		if (e.getActionCommand().equals("確認")) {
 
 			String password = txtf.getText();
 			if (Login.staticPassword.equals(password)) {
@@ -137,17 +137,17 @@ public class MyAccount extends CinemaFrame implements ActionListener {
 				txtf4.setEditable(true);
 				bt5.addActionListener(this);
 			} else {
-				JOptionPane.showMessageDialog(null, "비밀번호를 확인해주세요");
+				JOptionPane.showMessageDialog(null, "パスワードを確認してください。");
 			}
 		}
-		if (e.getActionCommand().equals("저장")) {
+		if (e.getActionCommand().equals("保存")) {
 			String id = Login.staticId;
 			String name = txtf2.getText();
 			String birthdate = txtf3.getText();
 			String phone = txtf4.getText();
 
 			list = mgr.updateMember(id, name, birthdate, phone);
-			JOptionPane.showMessageDialog(null, "회원정보가 저장되었습니다");
+			JOptionPane.showMessageDialog(null, "会員情報が保存されました。");
 			txtf.setEditable(false);
 			txtf2.setEditable(false);
 			txtf3.setEditable(false);
@@ -163,7 +163,7 @@ public class MyAccount extends CinemaFrame implements ActionListener {
 			Login.staticPhone = txtf4.getText();
 			new MyAccount();
 		}
-		if (e.getActionCommand().equals("닫기")) {
+		if (e.getActionCommand().equals("閉じる")) {
 			dispose();
 		}
 	}

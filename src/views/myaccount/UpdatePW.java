@@ -18,25 +18,25 @@ import views.CinemaFrame;
 import views.login.Login;
 
 public class UpdatePW extends CinemaFrame implements ActionListener {
-	JLabel lab = new JLabel("비밀번호 변경");
+	JLabel lab = new JLabel("パスワードの変更");
 	JPanel pan = new JPanel();
 
-	JLabel lab1 = new JLabel("기존 비밀번호 : ");
+	JLabel lab1 = new JLabel("現在のパスワード : ");
 	JTextField txtf1 = new JTextField(10);
-	JButton bt = new JButton("확인");
-	JLabel lab2 = new JLabel("새 비밀번호 : ");
+	JButton bt = new JButton("確認");
+	JLabel lab2 = new JLabel("新しいパスワード : ");
 	JTextField txtf2 = new JTextField(10);
 	JPanel cpan = new JPanel();
 
-	JButton bt1 = new JButton("변경");
-	JButton bt2 = new JButton("취소");
+	JButton bt1 = new JButton("変更");
+	JButton bt2 = new JButton("キャンセル");
 	JPanel span = new JPanel();
 	DBMgr mgr = new DBMgr();
 	ArrayList<MemberBean> list;
 
 	public UpdatePW() {
-		this.setSize(300, 200);
-		this.setTitle("비밀번호 변경");
+		this.setSize(400, 200);
+		this.setTitle("パスワードの変更");
 		init();
 	}
 
@@ -64,20 +64,20 @@ public class UpdatePW extends CinemaFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getActionCommand().equals("확인")) {
+		if (e.getActionCommand().equals("確認")) {
 			String id = Login.staticId;
 			String password = txtf1.getText();
 			list = mgr.UpdatePw(id, password);
 			txtf2.setText(list.get(0).getPassword());
-		} else if (e.getActionCommand().equals("취소")) {
+		} else if (e.getActionCommand().equals("キャンセル")) {
 			txtf1.setText("");
 			new MyAccount();
 			dispose();
-		} else if (e.getActionCommand().equals("변경")) {
+		} else if (e.getActionCommand().equals("変更")) {
 			String id = Login.staticId;
 			String password = txtf2.getText();
 			mgr.UpdatePw2(id, password);
-			JOptionPane.showMessageDialog(null, "성공적으로 변경되었습니다");
+			JOptionPane.showMessageDialog(null, "正常に変更されました。");
 			new MyAccount();
 			dispose();
 		}

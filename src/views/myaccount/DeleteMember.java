@@ -22,19 +22,19 @@ public class DeleteMember extends CinemaFrame implements ActionListener {
 	ArrayList<MemberBean> list;
 
 	JPanel pan = new JPanel();
-	JLabel lab = new JLabel("회원 탈퇴");
+	JLabel lab = new JLabel("会員脱退");
 
 	JPanel cpan = new JPanel();
-	JLabel lab1 = new JLabel("비밀번호 : ");
+	JLabel lab1 = new JLabel("パスワード : ");
 	JTextField txtf = new JTextField(10);
 
 	JPanel span = new JPanel();
-	JButton bt = new JButton("탈퇴");
-	JButton bt1 = new JButton("취소");
+	JButton bt = new JButton("脱退");
+	JButton bt1 = new JButton("キャンセル");
 
 	public DeleteMember() {
 		this.setSize(300, 200);
-		this.setTitle("회원 탈퇴");
+		this.setTitle("会員脱退");
 		init();
 	}
 
@@ -58,12 +58,12 @@ public class DeleteMember extends CinemaFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getActionCommand().equals("탈퇴")) {
+		if (e.getActionCommand().equals("脱退")) {
 			String id = Login.staticId;
 			String password = txtf.getText();
 			list = mgr.deleteMb(id, password);
 			if (Login.staticPassword.equals(password)) {
-				JOptionPane.showMessageDialog(null, "탈퇴되었습니다");
+				JOptionPane.showMessageDialog(null, "脱退しました。");
 				/* 열려있는 모든 창 닫기 */
 				java.awt.Window win[] = java.awt.Window.getWindows();
 				for (int i = 0; i < win.length; i++) {
@@ -72,9 +72,9 @@ public class DeleteMember extends CinemaFrame implements ActionListener {
 				}
 				new Login();
 			} else {
-				JOptionPane.showMessageDialog(null, "비밀번호를 확인해주세요");
+				JOptionPane.showMessageDialog(null, "パスワードを確認してください。");
 			}
-		} else if (e.getActionCommand().equals("취소")) {
+		} else if (e.getActionCommand().equals("キャンセル")) {
 			txtf.setText(" ");
 			new MyAccount();
 			dispose();

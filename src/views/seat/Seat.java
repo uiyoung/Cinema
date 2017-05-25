@@ -27,7 +27,6 @@ public class Seat extends CinemaFrame implements ActionListener {
 	private DBMgr mgr = new DBMgr(); // DAO
 	private ArrayList<SeatBean> list;
 
-//	private String c[] = { "0", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J" };
 	private String title, theater, date, time, ticket, seat;
 	private int selectionCounter = 0;
 	private JButton btnPayment, btnReset, btnPrev;
@@ -93,6 +92,8 @@ public class Seat extends CinemaFrame implements ActionListener {
 
 						if (source.isSelected()) {
 							selectionCounter++;
+						} else {
+							selectionCounter--;
 						}
 
 						if (selectionCounter >= MAX_SELECTIONS) {
@@ -104,6 +105,15 @@ public class Seat extends CinemaFrame implements ActionListener {
 									}
 								}
 							}
+						} else {
+							for (int i = 0; i < seats.length; i++) {
+								for (int j = 0; j < seats[i].length; j++) {
+									if (!seats[i][j].isSelected()) {
+										seats[i][j].setEnabled(true);
+									}
+								}
+							}
+							checkSoldSeats();
 						}
 						System.out.println(selectionCounter);
 					}
@@ -111,19 +121,27 @@ public class Seat extends CinemaFrame implements ActionListener {
 				seats[i][j].setBounds(posX, posY, 70, 45);
 				posX += 77;
 
-				// sold 상태의 좌석의 체크박스는 disable 상태로 만들기
-				if (list.get(Integer.parseInt(i + "" + j)).getState().equals("y")) {
-					seats[i][j].setEnabled(false);
-					seats[i][j].setToolTipText("좌석번호:" + seatNo + " sold");
-				}
-
 				seatPanel.add(seats[i][j]);
 			}
 			posX = 0;
 			posY += 50;
 		}
 
+		checkSoldSeats();
 		add(seatPanel);
+	}
+
+	// sold 상태의 좌석의 체크박스는 disable 상태로 만들기
+	private void checkSoldSeats() {
+		for (int i = 0; i < seats.length; i++) {
+			for (int j = 0; j < seats[i].length; j++) {
+				String seatNo = list.get(Integer.parseInt(i + "" + j)).getSeat_no();
+				if (list.get(Integer.parseInt(i + "" + j)).getState().equals("y")) {
+					seats[i][j].setEnabled(false);
+					seats[i][j].setToolTipText("좌석번호:" + seatNo + " sold");
+				}
+			}
+		}
 	}
 
 	// TODO : 좌석상태 정보 아이콘(Available, Sold, Selected 정보 표시)
@@ -188,21 +206,12 @@ public class Seat extends CinemaFrame implements ActionListener {
 				for (int j = 0; j < seats[i].length; j++) {
 					seats[i][j].setEnabled(true);
 					seats[i][j].setSelected(false);
-					selectionCounter = 0;
 				}
 			}
-
-			for (int i = 0; i < seats.length; i++) {
-				for (int j = 0; j < seats[i].length; j++) {
-					// sold 상태의 좌석의 체크박스는 disable 상태로 만들기
-					String seatNo = list.get(Integer.parseInt(i + "" + j)).getSeat_no();
-					if (list.get(Integer.parseInt(i + "" + j)).getState().equals("y")) {
-						seats[i][j].setEnabled(false);
-						seats[i][j].setToolTipText("좌석번호:" + seatNo + " sold");
-					}
-				}
-			}
+			selectionCounter = 0;
+			checkSoldSeats();
 		}
+
 		if (e.getSource() == btnPrev) {
 			new Reservation();
 			dispose();

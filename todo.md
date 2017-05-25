@@ -52,8 +52,8 @@
 - [x] 로그인 후에 영화선택페이지 이동
 
 ### Admin App
-- [ ] 영화 정보 입력 - movie_tb에 insert, update, delete
-- [ ] 상영 schedule 입력 - schedule_tb에 insert, update, delete. 콤보박스 사용하여 날자는 201752 형식으로 입력.
+- [x] 영화 정보 입력 - movie_tb에 insert, update, delete
+- [x] 상영 schedule 입력 - schedule_tb에 insert, update, delete. 콤보박스 사용하여 날자는 201752 형식으로 입력.
 - [ ] 매출 확인, 통계 그래프   
 => 신민정, 이민영
 

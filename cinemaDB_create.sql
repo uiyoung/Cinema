@@ -30,11 +30,16 @@ CREATE TABLE `movie_tb` (
 	`releaseDate` INT(11) NULL DEFAULT NULL,
 	`runningTime` INT(11) NULL DEFAULT NULL,
 	`description` VARCHAR(900) NULL DEFAULT NULL,
+	`type` VARCHAR(20) NULL DEFAULT NULL,
+	`director` VARCHAR(20) NULL DEFAULT NULL,
+	`cast` VARCHAR(50) NULL DEFAULT NULL,
 	PRIMARY KEY (`no`)
 )
 COLLATE='utf8_general_ci'
 ENGINE=InnoDB
+AUTO_INCREMENT=4
 ;
+
 
 /*Insert movie info*/
 INSERT INTO MOVIE_TB VALUES(NULL, "美女と野獣", "ロマンス", 170421, 130,"進歩的な考え方が原因で、閉鎖的な村人たちとなじめないことに悩む美女ベル（エマ・ワトソン）。ある日、彼女は野獣（ダン・スティーヴンス）と遭遇する。彼は魔女の呪いによって変身させられた王子で、魔女が置いていったバラの花びらが散ってしまう前に誰かを愛し、愛されなければ元の姿に戻ることができない身であった。その恐ろしい外見にたじろぎながらも、野獣に心惹（ひ）かれていくベル。一方の野獣は……。");

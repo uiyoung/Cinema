@@ -4,6 +4,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -16,12 +17,13 @@ import models.Selected;
 import views.CinemaFrame;
 import views.CinemaMenu;
 import views.login.Login;
-import views.reservation.Reservation;
+import views.seat.Seat;
 
 public class Payment extends CinemaFrame implements ActionListener {
 	private DBMgr mgr = new DBMgr(); // DAO
 	private final int PRICE = 1800;
-	private String title, theater, date, time, ticket, seat;
+	private String title, theater, date, time, ticket;
+	private ArrayList<String> seats;
 	private JPanel firstPanel = new JPanel();
 	private JPanel secondPanel = new JPanel();
 	private JLabel titleT, theaterT, timeT, personNumT, seatNumT, moneyT;
@@ -31,13 +33,13 @@ public class Payment extends CinemaFrame implements ActionListener {
 	private JButton btnPayByCreditcard, btnPayByPhone, btnPayByKakao, btnPayByAccount;
 	private JButton btnPrev, btnReserve;
 
-	public Payment(String title, String theater, String date, String time, String ticket, String seat) {
+	public Payment(String title, String theater, String date, String time, String ticket, ArrayList<String> seats) {
 		this.title = title;
 		this.theater = theater;
 		this.date = date;
 		this.time = time;
 		this.ticket = ticket;
-		this.seat = seat;
+		this.seats = seats;
 
 		setTitle("결제");
 		setLayout(new GridLayout(1, 2));
@@ -56,7 +58,7 @@ public class Payment extends CinemaFrame implements ActionListener {
 		lblTheater = new JLabel(theater);
 		lblTime = new JLabel(time);
 		lblPersonNum = new JLabel(ticket);
-		lblSeatNo = new JLabel(seat);
+		lblSeatNo = new JLabel(seats.toString());
 
 		lblPayment = new JLabel("결제수단");
 		moneyT = new JLabel("총결제금액");
@@ -161,11 +163,10 @@ public class Payment extends CinemaFrame implements ActionListener {
 			int result = JOptionPane.showConfirmDialog(null, "예매하시겠습니까?", "예매", JOptionPane.YES_NO_OPTION);
 			if (result == JOptionPane.CLOSED_OPTION) {
 			} else if (result == JOptionPane.YES_OPTION) {
-
 				for (int i = 0; i < Selected.seats.size(); i++) {
-					// ticket 테이블에 티켓 생성
+					/* ticket 테이블에 티켓 생성 */
 					mgr.insertTicket(title, theater, date, time, Selected.seats.get(i), PRICE, Login.staticId);
-					// 해당좌석 state y로 바꾸기
+					/* 해당좌석 state y로 바꾸기 */
 					mgr.reserveSeat(theater, date, time, Selected.seats.get(i));
 				}
 				Selected.seats.clear();
@@ -175,7 +176,7 @@ public class Payment extends CinemaFrame implements ActionListener {
 			}
 		}
 		if (e.getSource() == btnPrev) {
-			new Reservation();
+			new Seat(title,theater,date,time,ticket);
 			dispose();
 		}
 	}

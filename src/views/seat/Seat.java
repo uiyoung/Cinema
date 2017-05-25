@@ -17,7 +17,6 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import controllers.DBMgr;
-import models.MemberBean;
 import models.SeatBean;
 import models.Selected;
 import views.CinemaFrame;
@@ -26,17 +25,14 @@ import views.reservation.Reservation;
 
 public class Seat extends CinemaFrame implements ActionListener {
 	private DBMgr mgr = new DBMgr(); // DAO
-	private MemberBean bean; // DTO
 	private ArrayList<SeatBean> list;
 
-	private String c[] = { "0", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J" };
+//	private String c[] = { "0", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J" };
 	private String title, theater, date, time, ticket, seat;
 	private int selectionCounter = 0;
 	private JButton btnPayment, btnReset, btnPrev;
 	private JPanel seatPanel;
-	private JLabel lblSeatNumber = new JLabel();
 	private JCheckBox[][] seats;
-	private String[] seatNumbers;
 
 	public Seat(String title, String theater, String date, String time, String ticket) {
 		this.title = title;
@@ -72,25 +68,6 @@ public class Seat extends CinemaFrame implements ActionListener {
 		// TODO: seatSelected 색상 추가하기
 		ImageIcon available = new ImageIcon("images/seatAvailable.png");
 		ImageIcon sold = new ImageIcon("images/seatSold.png");
-
-		// Labels for show seat number
-		// seatNumbers = new String[list.size()];
-		// for (int i = 0; i < seatNumbers.length; i++) {
-		// seatNumbers[i] = list.get(i).getSeatNo();
-		// System.out.println(seatNumbers[i]);
-		// }
-		// int x = 0, y = 0;
-		// for (int i = 0; i < seatNumbers.length; i++) {
-		// lblSeatNumber = new JLabel(seatNumbers[i]);
-		//
-		// if (i % 10 == 0 && i != 0) {
-		// x = 0;
-		// y += 50;
-		// }
-		// lblSeatNumber.setBounds(x + 12, y, 75, 45);
-		// x += 77;
-		// seatPanel.add(lblSeatNumber);
-		// }
 
 		// CheckBoxes for select seats
 		list = mgr.getSeats(theater, date, time);
@@ -202,7 +179,7 @@ public class Seat extends CinemaFrame implements ActionListener {
 				return;
 			}
 
-			new Payment(title, theater, date, time, ticket, seat);
+			new Payment(title, theater, date, time, ticket, Selected.seats);
 			dispose();
 		}
 

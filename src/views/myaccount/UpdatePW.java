@@ -74,8 +74,9 @@ public class UpdatePW extends CinemaFrame implements ActionListener {
 			new MyAccount();
 			dispose();
 		} else if (e.getActionCommand().equals("변경")) {
+			String id = Login.staticId;
 			String password = txtf2.getText();
-			mgr.UpdatePw2(password);
+			mgr.UpdatePw2(id, password);
 			JOptionPane.showMessageDialog(null, "성공적으로 변경되었습니다");
 			new MyAccount();
 			dispose();

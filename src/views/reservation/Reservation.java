@@ -46,7 +46,6 @@ public class Reservation extends CinemaFrame implements ActionListener {
 	JScrollPane spSchedule = new JScrollPane();
 	ImageIcon poster;
 	JLabel lblPoster = new JLabel();
-	// TODO:예매 정보 : 영화제목, 일자, 시간, 인원, 금액 나오는 라벨 만들기
 	JLabel lblTitle, lblTheater, lblDate, lblTicketAmount, lblTime;
 	JButton btnBackToMain, btnMovieInfo, btnSeat;
 
@@ -81,6 +80,8 @@ public class Reservation extends CinemaFrame implements ActionListener {
 			moviesListModel.addElement(movies.get(i).getTitle());
 		}
 		listMovie = new JList<>(moviesListModel);
+		listMovie.setSelectedIndex(0);	//기본 선택값
+		showPoster();
 		listMovie.addListSelectionListener(new ListSelectionListener() {
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
@@ -134,6 +135,12 @@ public class Reservation extends CinemaFrame implements ActionListener {
 		firstPanel.add(btnBackToMain);
 		firstPanel.add(btnMovieInfo);
 		add(firstPanel);
+	}
+
+	private void showPoster() {
+		poster = new ImageIcon("./images/" + listMovie.getSelectedValue() + ".jpg");
+		lblPoster.setIcon(poster);
+		lblPoster.setBounds(60, 170, 320, 452);		
 	}
 
 	private void initSecondPanel() {

@@ -15,6 +15,6 @@ next 쭉 누르다가 finish
 `Project->Properties->Java Build Path->Libraries->Add External JARs`
 
 ### 4. DB
-[SQL파일](https://github.com/UiyoungSeo/Cinema/blob/master/cinemaDB.sql) 열어서 추가
+[SQL파일](https://github.com/UiyoungSeo/Cinema/blob/master/cinemaDB_create.sql) 열어서 추가
 
 happy coding

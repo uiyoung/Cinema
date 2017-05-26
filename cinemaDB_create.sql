@@ -2,6 +2,15 @@
 CREATE DATABASE cinemaDB;
 USE cinemaDB;
 
+/*admin table*/
+CREATE TABLE admin(
+	id VARCHAR(10) NOT NULL, 
+	pw VARCHAR(10) NOT NULL
+);
+
+INSERT INTO admin VALUES ('admin','1234');
+
+
 /*Member Table*/
 CREATE TABLE `member_tb` (
 	`no` INT(11) NOT NULL AUTO_INCREMENT,

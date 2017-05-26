@@ -225,5 +225,4 @@ CREATE TABLE `ticket_tb` (
 )
 COLLATE='utf8_general_ci'
 ENGINE=InnoDB
-AUTO_INCREMENT=6
 ;

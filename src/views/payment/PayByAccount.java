@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 public class PayByAccount extends JFrame implements ActionListener {
@@ -36,7 +37,7 @@ public class PayByAccount extends JFrame implements ActionListener {
 		number = new JLabel("계좌번호");
 		passwd = new JLabel("비밀번호");
 		number1 = new JTextField(10);
-		passwdT = new JTextField(20);
+		passwdT = new JPasswordField(20);
 
 		accountpay.setFont(new Font("굴림", Font.BOLD, 20));
 

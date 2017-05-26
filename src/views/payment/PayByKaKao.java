@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 public class PayByKaKao extends JFrame implements ActionListener {
@@ -34,7 +35,7 @@ public class PayByKaKao extends JFrame implements ActionListener {
 		kakaoPay = new JLabel("카카오결제");
 		kakao = new JLabel("카드선택");
 		passwd = new JLabel("비밀번호");
-		passwdT = new JTextField(20);
+		passwdT = new JPasswordField(20);
 
 		kakaoPay.setFont(new Font("굴림", Font.BOLD, 20));
 

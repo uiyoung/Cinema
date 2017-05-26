@@ -97,6 +97,7 @@ INSERT INTO schedule_tb values(3,'201752','22:00',1,1);
 INSERT INTO schedule_tb values(4,'201752','19:00',1,2);
 INSERT INTO schedule_tb values(5,'201753','22:00',3,1);
 
+
 /* Seat Table */
 CREATE TABLE `seat_tb` (
 	`theater_no` INT(11) NOT NULL,
@@ -104,11 +105,9 @@ CREATE TABLE `seat_tb` (
 	`time` CHAR(5) NOT NULL,
 	`seat_no` VARCHAR(10) NOT NULL,
 	`state` CHAR(3) NOT NULL DEFAULT 'n',
-	PRIMARY KEY (`theater_no`, `seat_no`),
 	INDEX `FK__schedule_tb` (`theater_no`),
 	INDEX `date` (`date`),
 	INDEX `time` (`time`),
-	INDEX `seat_no` (`seat_no`),
 	CONSTRAINT `seat_tb_ibfk_1` FOREIGN KEY (`theater_no`) REFERENCES `theater_tb` (`no`),
 	CONSTRAINT `seat_tb_ibfk_2` FOREIGN KEY (`date`) REFERENCES `schedule_tb` (`date`),
 	CONSTRAINT `seat_tb_ibfk_3` FOREIGN KEY (`time`) REFERENCES `schedule_tb` (`time`)
@@ -116,6 +115,7 @@ CREATE TABLE `seat_tb` (
 COLLATE='utf8_general_ci'
 ENGINE=InnoDB
 ;
+
 
 /* 좌석정보 입력*/
 INSERT INTO `cinemadb`.`seat_tb` (`theater_no`, `seat_no`, `date`, `time`) VALUES ('1', 'A01', '201752', '14:00');

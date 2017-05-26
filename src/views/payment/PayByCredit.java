@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 public class PayByCredit extends JFrame implements ActionListener{
@@ -38,7 +39,7 @@ public class PayByCredit extends JFrame implements ActionListener{
 		number2 = new JTextField(10);
 		number3 = new JTextField(10);
 		number4 = new JTextField(10);
-		passwdT = new JTextField(20);
+		passwdT = new JPasswordField(20);
 		
 		creditpay.setFont(new Font("굴림", Font.BOLD, 20));
 		

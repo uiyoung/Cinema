@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 public class PayByPhone extends JFrame implements ActionListener {
@@ -37,7 +38,7 @@ public class PayByPhone extends JFrame implements ActionListener {
 		number1 = new JTextField(10);
 		number2 = new JTextField(10);
 		number3 = new JTextField(10);
-		passwdT = new JTextField(20);
+		passwdT = new JPasswordField(20);
 
 		phonepay.setFont(new Font("굴림", Font.BOLD, 20));
 

@@ -59,7 +59,6 @@ CREATE TABLE `movie_tb` (
 )
 COLLATE='utf8_general_ci'
 ENGINE=InnoDB
-AUTO_INCREMENT=2
 ;
 
 

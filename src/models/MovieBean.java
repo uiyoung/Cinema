@@ -3,8 +3,8 @@ package models;
 public class MovieBean {
 	private String title;
 	private String genre;
-	private int releaseDate;
-	private int runningTime;
+	private String releaseDate;
+	private String runningTime;
 	private String description;
 	private String type;
 	private String director;
@@ -27,19 +27,19 @@ public class MovieBean {
 		this.genre = genre;
 	}
 
-	public int getReleaseDate() {
+	public String getReleaseDate() {
 		return releaseDate;
 	}
 
-	public void setReleaseDate(int releaseDate) {
+	public void setReleaseDate(String releaseDate) {
 		this.releaseDate = releaseDate;
 	}
 
-	public int getRunningTime() {
+	public String getRunningTime() {
 		return runningTime;
 	}
 
-	public void setRunningTime(int runningTime) {
+	public void setRunningTime(String runningTime) {
 		this.runningTime = runningTime;
 	}
 
@@ -74,5 +74,4 @@ public class MovieBean {
 	public void setCast(String cast) {
 		this.cast = cast;
 	}
-
 }

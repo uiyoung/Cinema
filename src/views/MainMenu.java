@@ -12,10 +12,10 @@ import views.myaccount.MyAccount;
 import views.myticket.MyTicket;
 import views.reservation.Reservation;
 
-public class CinemaMenu extends CinemaFrame implements ActionListener {
+public class MainMenu extends CinemaFrame implements ActionListener {
 	private JButton btnMovieInfo, btnReserve, btnMyTicket, btnMyAccount, btnLogout, btnExit;
 
-	public CinemaMenu() {
+	public MainMenu() {
 		setTitle("cinema");
 		init();
 	}

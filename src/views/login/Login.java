@@ -17,7 +17,7 @@ import javax.swing.JTextField;
 
 import controllers.DBMgr;
 import models.MemberBean;
-import views.CinemaMenu;
+import views.MainMenu;
 
 public class Login extends JFrame implements ActionListener {
 	public static String staticId, staticPassword, staticName, staticBirthdate, staticPhone;
@@ -51,7 +51,6 @@ public class Login extends JFrame implements ActionListener {
 		tfId = new JTextField();
 		tfPassword = new JPasswordField();
 		tfId.setBounds(100, 150, 220, 30);
-		tfId.requestFocus();
 		tfPassword.setBounds(100, 200, 220, 30);
 
 		btnLogin = new JButton("Login");
@@ -109,7 +108,7 @@ public class Login extends JFrame implements ActionListener {
 					staticPoint = list.get(i).getPoint();
 					JOptionPane.showMessageDialog(null, staticName + "님 환영합니다.", "Login", JOptionPane.DEFAULT_OPTION);
 
-					new CinemaMenu();
+					new MainMenu();
 					dispose();
 
 					return;

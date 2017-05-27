@@ -14,7 +14,7 @@ import models.TicketBean;
 
 public class DBMgr {
 	DBConnection db;
-	final int EVENT_POINT = 5000; // 회원가입 이벤트 point
+	final int EVENT_POINT = 500; // 회원가입 이벤트 point
 
 	public DBMgr() {
 		db = new DBConnection();
@@ -95,7 +95,7 @@ public class DBMgr {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		ArrayList<String> list = new ArrayList<String>();
-		String sql = "select time from movie_tb m left join schedule_tb s on m.no = s.movie_no right join theater_tb t on s.theater_no = t.no where m.title=?and t.name=? and s.date=?";
+		String sql = "select time from movie_tb m left join schedule_tb2 s on m.no = s.movie_no right join theater_tb t on s.theater_no = t.no where m.title=?and t.name=? and s.date=?";
 
 		try {
 			conn = db.getConnection();
@@ -141,7 +141,7 @@ public class DBMgr {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		ArrayList<TheaterBean> list = new ArrayList<>();
-		String sql = "select distinct t.name from movie_tb m left join schedule_tb s on m.no = s.movie_no right join theater_tb t on s.theater_no = t.no  where m.title = ?";
+		String sql = "select distinct name from movie_tb m left join schedule_tb2 s on m.no = s.movie_no right join theater_tb t on s.theater_no = t.no where m.title=?";
 		TheaterBean bean;
 
 		try {
@@ -188,7 +188,7 @@ public class DBMgr {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		ArrayList<SeatBean> list = new ArrayList<>();
-		String sql = "select distinct seat_no, date,time, state from theater_tb join seat_tb where theater_tb.name=? and date=? and time=?";
+		String sql = "select distinct seat_no, date,time, state from theater_tb join seat_tb2 where theater_tb.name=? and date=? and time=?";
 		SeatBean bean;
 
 		try {
@@ -473,7 +473,7 @@ public class DBMgr {
 	public void reserveSeat(String theater, String date, String time, String seat) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
-		String sql = "update seat_tb as s join theater_tb as t on s.theater_no = t.no and t.name=? and s.date=? and s.time=? and s.seat_no=? set s.state='y'";
+		String sql = "update seat_tb2 as s join theater_tb as t on s.theater_no = t.no and t.name=? and s.date=? and s.time=? and s.seat_no=? set s.state='y'";
 
 		try {
 			conn = db.getConnection();
@@ -507,7 +507,7 @@ public class DBMgr {
 	public void cancelSeat(String theater, String date, String time, String seat) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
-		String sql = "update seat_tb as s join theater_tb as t on s.theater_no = t.no and t.name=? and s.date=? and s.time=? and s.seat_no=? set s.state='n'";
+		String sql = "update seat_tb2 as s join theater_tb as t on s.theater_no = t.no and t.name=? and s.date=? and s.time=? and s.seat_no=? set s.state='n'";
 
 		try {
 			conn = db.getConnection();

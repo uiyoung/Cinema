@@ -27,7 +27,7 @@ import controllers.MovieMgr;
 import models.MovieBean;
 import models.TheaterBean;
 import views.CinemaFrame;
-import views.CinemaMenu;
+import views.MainMenu;
 import views.movieinfo.MovieInfo;
 import views.seat.Seat;
 
@@ -475,7 +475,7 @@ public class Reservation extends CinemaFrame implements ActionListener {
 		}
 
 		if (e.getSource() == btnBackToMain) {
-			new CinemaMenu();
+			new MainMenu();
 			dispose();
 		}
 	}

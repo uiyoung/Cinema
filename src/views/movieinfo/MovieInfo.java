@@ -16,7 +16,7 @@ import javax.swing.JTextArea;
 import controllers.MovieMgr;
 import models.MovieBean;
 import views.CinemaFrame;
-import views.CinemaMenu;
+import views.MainMenu;
 import views.reservation.Reservation;
 
 public class MovieInfo extends CinemaFrame implements ActionListener {
@@ -136,7 +136,7 @@ public class MovieInfo extends CinemaFrame implements ActionListener {
 			// new Reserve(title);
 		}
 		if (e.getSource() == btnBack) {
-			new CinemaMenu();
+			new MainMenu();
 			dispose();
 		}
 	}

@@ -15,7 +15,7 @@ import javax.swing.JPanel;
 import controllers.DBMgr;
 import models.Selected;
 import views.CinemaFrame;
-import views.CinemaMenu;
+import views.MainMenu;
 import views.login.Login;
 import views.seat.Seat;
 
@@ -142,6 +142,7 @@ public class Payment extends CinemaFrame implements ActionListener {
 		btnReserve.addActionListener(this);
 
 		this.setVisible(true);
+		repaint();
 	}
 
 	@Override
@@ -171,7 +172,7 @@ public class Payment extends CinemaFrame implements ActionListener {
 				}
 				Selected.seats.clear();
 				JOptionPane.showMessageDialog(null, "예매되었습니다.", "예매", JOptionPane.INFORMATION_MESSAGE);
-				new CinemaMenu();
+				new MainMenu();
 				dispose();
 			}
 		}

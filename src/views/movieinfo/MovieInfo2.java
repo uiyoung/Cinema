@@ -18,7 +18,7 @@ import javax.swing.JTextArea;
 import controllers.MovieMgr;
 import models.MovieBean;
 import views.CinemaFrame;
-import views.CinemaMenu;
+import views.MainMenu;
 import views.reservation.Reservation;
 
 public class MovieInfo2 extends CinemaFrame implements ActionListener {
@@ -173,7 +173,7 @@ public class MovieInfo2 extends CinemaFrame implements ActionListener {
 			btnBack.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					new CinemaMenu();
+					new MainMenu();
 					dispose();
 				}
 			});

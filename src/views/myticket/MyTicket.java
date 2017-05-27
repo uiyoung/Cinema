@@ -20,7 +20,7 @@ import javax.swing.table.DefaultTableModel;
 import controllers.DBMgr;
 import models.TicketBean;
 import views.CinemaFrame;
-import views.CinemaMenu;
+import views.MainMenu;
 import views.login.Login;
 
 public class MyTicket extends CinemaFrame implements ActionListener {
@@ -115,7 +115,7 @@ public class MyTicket extends CinemaFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnBack) {
-			new CinemaMenu();
+			new MainMenu();
 			dispose();
 		}
 		if (e.getSource() == btnCancelReserve) {

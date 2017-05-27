@@ -30,8 +30,8 @@ public class MovieMgr {
 				bean = new MovieBean();
 				bean.setTitle(rs.getString("title"));
 				bean.setGenre(rs.getString("genre"));
-				bean.setReleaseDate(rs.getInt("releaseDate"));
-				bean.setRunningTime(rs.getInt("runningTime"));
+				bean.setReleaseDate(rs.getString("releaseDate"));
+				bean.setRunningTime(rs.getString("runningTime"));
 				bean.setDescription(rs.getString("description"));
 				bean.setType(rs.getString("type"));
 				bean.setDirector(rs.getString("director"));

@@ -18,10 +18,10 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import controllers.DBMgr;
+import models.MemberInfo;
 import models.TicketBean;
 import views.CinemaFrame;
 import views.MainMenu;
-import views.login.Login;
 
 public class MyTicket extends CinemaFrame implements ActionListener {
 	DBMgr mgr = new DBMgr();
@@ -42,7 +42,7 @@ public class MyTicket extends CinemaFrame implements ActionListener {
 		setLayout(new BorderLayout());
 
 		JPanel tablePanel = new JPanel(new BorderLayout());
-		list = mgr.getTicketInfo(Login.staticId);
+		list = mgr.getTicketInfo(MemberInfo.ID);
 		String[] columnNames = { "예매번호", "영화제목", "극장", "상영날짜", "상영시간", "좌석", "가격" };
 		String[][] records = new String[list.size()][columnNames.length];
 		for (int i = 0; i < list.size(); i++) {

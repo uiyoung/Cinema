@@ -17,13 +17,11 @@ import javax.swing.JTextField;
 
 import controllers.DBMgr;
 import models.MemberBean;
+import models.MemberInfo;
 import views.MainMenu;
 
 public class Login extends JFrame implements ActionListener {
-	public static String staticId, staticPassword, staticName, staticBirthdate, staticPhone;
-	public static int staticPoint;
 	private DBMgr mgr = new DBMgr(); // DAO
-	private MemberBean bean; // DTO
 	private ArrayList<MemberBean> list;
 
 	private JPanel loginPanel;
@@ -100,13 +98,15 @@ public class Login extends JFrame implements ActionListener {
 			String pw = tfPassword.getText();
 			for (int i = 0; i < list.size(); i++) {
 				if (id.equals(list.get(i).getId()) && pw.equals(list.get(i).getPassword())) {
-					staticId = list.get(i).getId();
-					staticPassword = list.get(i).getPassword();
-					staticName = list.get(i).getName();
-					staticBirthdate = list.get(i).getBirthdate();
-					staticPhone = list.get(i).getPhone();
-					staticPoint = list.get(i).getPoint();
-					JOptionPane.showMessageDialog(null, staticName + "님 환영합니다.", "Login", JOptionPane.DEFAULT_OPTION);
+					MemberInfo.ID = list.get(i).getId();
+					MemberInfo.PW = list.get(i).getPassword();
+					MemberInfo.NAME = list.get(i).getName();
+					MemberInfo.BIRTHDATE = list.get(i).getBirthdate();
+					MemberInfo.PHONE = list.get(i).getPhone();
+					MemberInfo.POINT = list.get(i).getPoint();
+
+					JOptionPane.showMessageDialog(null, MemberInfo.NAME + "님 환영합니다.", "Login",
+							JOptionPane.DEFAULT_OPTION);
 
 					new MainMenu();
 					dispose();

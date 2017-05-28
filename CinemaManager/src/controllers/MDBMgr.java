@@ -96,9 +96,7 @@ public class MDBMgr {
 	public ArrayList<MovieBean> input_movie(String title, String genre, String releaseDate, String runningTime,
 			String description, String type, String director, String cast) {
 		Connection con = null;
-		Statement stmt = null;
 		PreparedStatement pstmt = null;
-		ResultSet rs = null;
 		ArrayList<MovieBean> list = new ArrayList<MovieBean>();
 		String sql = "INSERT INTO `cinemadb`.`movie_tb` (`title`, `genre`, `releaseDate`, `runningTime`, `description`, `type`, `director`, `cast`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 		try {
@@ -168,7 +166,6 @@ public class MDBMgr {
 	public ArrayList<MovieBean> delete_Movie(String title) {
 		Connection con = null;
 		Statement stmt = null;
-		ResultSet rs = null;
 		ArrayList<MovieBean> list = new ArrayList<MovieBean>();
 		String sql = "delete from MOVIE_TB where title = '" + title + "'";
 		try {
@@ -451,7 +448,7 @@ public class MDBMgr {
 		Statement stmt = null;
 		ResultSet rs = null;
 		ArrayList<RevenuBean> list = new ArrayList<RevenuBean>();
-		String sql = "SELECT title, price, COUNT(title) AS sold FROM ticket_tb GROUP BY title ORDER BY title ASC;";
+		String sql = "SELECT title, price, COUNT(title) AS sold FROM ticket_tb GROUP BY title ORDER BY sold DESC";
 		try {
 			con = conn.getConnection();
 			stmt = con.createStatement();
@@ -668,7 +665,6 @@ public class MDBMgr {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		ArrayList<String> list = new ArrayList<String>();
 		String sql = "select * from `cinemadb`.`seat_tb2` where theater_no=? and date=? and time=?";
 		try {
 			con = conn.getConnection();

@@ -27,9 +27,9 @@ public class Login extends MFrame implements ActionListener {
 
 	JPanel pan = new JPanel();
 
-	JLabel idlab = new JLabel("ID : ");
+	JLabel idlab = new JLabel("ID  ");
 	JTextField txtf = new JTextField(13);
-	JLabel pwlab = new JLabel("  PW : ");
+	JLabel pwlab = new JLabel("  PW  ");
 	JTextField txtf1 = new JPasswordField(13);
 
 	JPanel pan1 = new JPanel();
@@ -91,7 +91,7 @@ public class Login extends MFrame implements ActionListener {
 			String id = txtf.getText();
 			String pw = txtf1.getText();
 			if (id.equals(list.get(0).getId()) && pw.equals(list.get(0).getPw())) {
-				MainMenu mList = new MainMenu();
+				new MainMenu();
 				dispose();
 
 			} else {

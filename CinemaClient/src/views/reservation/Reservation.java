@@ -55,7 +55,7 @@ public class Reservation extends CinemaFrame implements ActionListener {
 	int year, month, day, memoday;
 	String[] WEEK_DAY_NAMES = { "Su", "Mo", "Tu", "We", "Th", "Fr", "Sa" };
 	JButton btnPrevMonth, btnNextMonth;
-	JButton[] btnCalendar = new JButton[49];
+	JButton[] btnDay = new JButton[49];
 	JLabel lblMonth, lblYear;
 
 	public Reservation() {
@@ -80,7 +80,7 @@ public class Reservation extends CinemaFrame implements ActionListener {
 			moviesListModel.addElement(movies.get(i).getTitle());
 		}
 		listMovie = new JList<>(moviesListModel);
-		listMovie.setSelectedIndex(0);	//기본 선택값
+		listMovie.setSelectedIndex(0); // 기본 선택값
 		title = listMovie.getSelectedValue();
 		showPoster();
 		listMovie.addListSelectionListener(new ListSelectionListener() {
@@ -141,7 +141,7 @@ public class Reservation extends CinemaFrame implements ActionListener {
 	private void showPoster() {
 		poster = new ImageIcon("./images/" + listMovie.getSelectedValue() + ".jpg");
 		lblPoster.setIcon(poster);
-		lblPoster.setBounds(60, 170, 320, 452);		
+		lblPoster.setBounds(60, 170, 320, 452);
 	}
 
 	private void initSecondPanel() {
@@ -252,7 +252,7 @@ public class Reservation extends CinemaFrame implements ActionListener {
 		add(thirdPanel);
 	}
 
-	///////////////////////// CALENDAR THINGS //////////////////////////
+	/////////////////////// CALENDAR THINGS //////////////////////////
 	public void initCalendar() {
 		calendarPanel = new JPanel(new BorderLayout());
 		today = Calendar.getInstance(); // 디폴트 타입 존 및 로케일을 사용해 달력생성
@@ -312,7 +312,7 @@ public class Reservation extends CinemaFrame implements ActionListener {
 		// 일요일부터 그달의 첫시작 요일까지 빈칸으로 셋팅
 		hopping = j;
 		for (int kk = 0; kk < hopping; kk++) {
-			btnCalendar[kk + 7].setText("");
+			btnDay[kk + 7].setText("");
 		}
 		for (int i = cal.getMinimum(Calendar.DAY_OF_MONTH); i <= cal.getMaximum(Calendar.DAY_OF_MONTH); i++) {
 			cal.set(Calendar.DATE, i);
@@ -321,56 +321,58 @@ public class Reservation extends CinemaFrame implements ActionListener {
 			}
 
 			if (memoday == 1) {
-				btnCalendar[i + 6 + hopping].setForeground(new Color(0, 255, 0));
+				btnDay[i + 6 + hopping].setForeground(new Color(0, 255, 0));
 			} else {
-				btnCalendar[i + 6 + hopping].setForeground(new Color(0, 0, 0));
+				btnDay[i + 6 + hopping].setForeground(new Color(0, 0, 0));
 				if ((i + hopping - 1) % 7 == 0) {// 일요일
-					btnCalendar[i + 6 + hopping].setForeground(new Color(255, 0, 0));
+					btnDay[i + 6 + hopping].setForeground(new Color(255, 0, 0));
 				}
 				if ((i + hopping) % 7 == 0) {// 토요일
-					btnCalendar[i + 6 + hopping].setForeground(new Color(0, 0, 255));
+					btnDay[i + 6 + hopping].setForeground(new Color(0, 0, 255));
 				}
 			}
 			/*
 			 * 요일을 찍은 다음부터 계산해야 하니 요일을 찍은 버튼의 갯수를 더하고 인덱스가 0부터 시작이니 -1을 해준 값으로
 			 * 연산을 해주고 버튼을 변경
 			 */
-			btnCalendar[i + 6 + hopping].setText((i) + "");
+			btnDay[i + 6 + hopping].setText((i) + "");
 		}
 	}// end Calset()
 
 	// 일이 찍히지 않은 나머지 버튼을 비활성화
 	public void hideInit() {
-		for (int i = 0; i < btnCalendar.length; i++) {
-			if ((btnCalendar[i].getText()).equals(""))
-				btnCalendar[i].setEnabled(false);
+		for (int i = 0; i < btnDay.length; i++) {
+			if ((btnDay[i].getText()).equals("")) {
+				btnDay[i].setEnabled(false);
+				btnDay[i].setVisible(false);
+			}
 		}
 	}
 
 	public void gridInit() {
 		// 일월화수목금토 버튼
 		for (int i = 0; i < WEEK_DAY_NAMES.length; i++) {
-			daysPanel.add(btnCalendar[i] = new JButton(WEEK_DAY_NAMES[i]));
-			btnCalendar[i].setContentAreaFilled(false);
-			btnCalendar[i].setBorderPainted(false);
-			btnCalendar[i].setOpaque(true);
-			btnCalendar[i].setFocusPainted(false);
-			btnCalendar[i].setForeground(Color.WHITE);
+			daysPanel.add(btnDay[i] = new JButton(WEEK_DAY_NAMES[i]));
+			btnDay[i].setContentAreaFilled(false);
+			btnDay[i].setBorderPainted(false);
+			btnDay[i].setOpaque(true);
+			btnDay[i].setFocusPainted(false);
+			btnDay[i].setForeground(Color.WHITE);
 
 			if (i == 0) // sun
-				btnCalendar[i].setBackground(new Color(200, 50, 50));
+				btnDay[i].setBackground(new Color(200, 50, 50));
 			else if (i == 6) // sat
-				btnCalendar[i].setBackground(new Color(50, 100, 200));
+				btnDay[i].setBackground(new Color(50, 100, 200));
 			else // mo, tu, we, th, fr
-				btnCalendar[i].setBackground(new Color(150, 150, 150));
+				btnDay[i].setBackground(new Color(150, 150, 150));
 		}
 		// 날짜 버튼
 		for (int i = WEEK_DAY_NAMES.length; i < 49; i++) {
-			daysPanel.add(btnCalendar[i] = new JButton(""));
-			btnCalendar[i].setContentAreaFilled(false);
-			btnCalendar[i].setBorderPainted(false);
-			btnCalendar[i].setFocusPainted(true);
-			btnCalendar[i].addActionListener(new ActionListener() {
+			daysPanel.add(btnDay[i] = new JButton(""));
+			btnDay[i].setContentAreaFilled(false);
+			btnDay[i].setBorderPainted(false);
+			btnDay[i].setFocusPainted(true);
+			btnDay[i].addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					if (title == null) {
@@ -386,10 +388,15 @@ public class Reservation extends CinemaFrame implements ActionListener {
 						date = year + "" + month + "" + day + "";
 						// TODO : 날짜버튼을 누르면 yyMMdd 형식으로 나오게 구현
 
+						// TODO : 선택된 날의 배경색 하이라이트
+						// btnDay[Integer.parseInt(e.getActionCommand()) +
+						// 7].setBackground(Color.GREEN);
+						// btnDay[Integer.parseInt(e.getActionCommand()) +
+						// 7].setOpaque(true);
+
 						// update 시간선택 JList
 						timesListModel.removeAllElements(); // 시간 list 초기화
 						times = dbMgr.getTime(title, theater, date);
-						// System.out.println(times.get(0));
 						if (times.size() == 0) {
 							date = null;
 							time = null;
@@ -438,13 +445,11 @@ public class Reservation extends CinemaFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		/* for combobox */
 		if (e.getSource() == cb) {
 			numOfTicket = (String) cb.getSelectedItem();
 			lblTicketAmount.setText(numOfTicket + "명");
 		}
 
-		/* for buttons */
 		if (e.getSource() == btnSeat) {
 			if (title == null) {
 				JOptionPane.showMessageDialog(null, "영화를 선택해주세요.", "예매오류", JOptionPane.ERROR_MESSAGE);
@@ -470,8 +475,6 @@ public class Reservation extends CinemaFrame implements ActionListener {
 		if (e.getSource() == btnMovieInfo) {
 			new MovieInfo();
 			dispose();
-
-			// TODO : 현재 선택한 영화의 정보가 나오게.
 		}
 
 		if (e.getSource() == btnBackToMain) {

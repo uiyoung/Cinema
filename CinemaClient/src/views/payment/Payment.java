@@ -13,15 +13,16 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import controllers.DBMgr;
+import models.MemberInfo;
 import models.Selected;
 import views.CinemaFrame;
 import views.MainMenu;
-import views.login.Login;
 import views.seat.Seat;
 
 public class Payment extends CinemaFrame implements ActionListener {
+	private final int MOVIE_PRICE = 1800;
+
 	private DBMgr mgr = new DBMgr(); // DAO
-	private final int PRICE = 1800;
 	private String title, theater, date, time, ticket;
 	private ArrayList<String> seats;
 	private JPanel firstPanel = new JPanel();
@@ -62,7 +63,7 @@ public class Payment extends CinemaFrame implements ActionListener {
 
 		lblPayment = new JLabel("결제수단");
 		moneyT = new JLabel("총결제금액");
-		lblPrice = new JLabel(PRICE * Integer.parseInt(ticket) + "円");
+		lblPrice = new JLabel(MOVIE_PRICE * Integer.parseInt(ticket) + "円");
 
 		btnPrev = new JButton("이전");
 		btnReserve = new JButton("예매");
@@ -166,7 +167,7 @@ public class Payment extends CinemaFrame implements ActionListener {
 			} else if (result == JOptionPane.YES_OPTION) {
 				for (int i = 0; i < Selected.seats.size(); i++) {
 					/* ticket 테이블에 티켓 생성 */
-					mgr.insertTicket(title, theater, date, time, Selected.seats.get(i), PRICE, Login.staticId);
+					mgr.insertTicket(title, theater, date, time, Selected.seats.get(i), MOVIE_PRICE, MemberInfo.ID);
 					/* 해당좌석 state y로 바꾸기 */
 					mgr.reserveSeat(theater, date, time, Selected.seats.get(i));
 				}
@@ -177,7 +178,7 @@ public class Payment extends CinemaFrame implements ActionListener {
 			}
 		}
 		if (e.getSource() == btnPrev) {
-			new Seat(title,theater,date,time,ticket);
+			new Seat(title, theater, date, time, ticket);
 			dispose();
 		}
 	}

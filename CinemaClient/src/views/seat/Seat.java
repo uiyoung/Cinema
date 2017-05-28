@@ -65,7 +65,7 @@ public class Seat extends CinemaFrame implements ActionListener {
 		seatPanel.setBounds(450, 140, 762, 500);
 
 		// TODO: seatSelected 색상 추가하기
-		ImageIcon available = new ImageIcon("images/seatAvailable.png");
+		ImageIcon available = new ImageIcon("images/seatAvailable2.png");
 		ImageIcon sold = new ImageIcon("images/seatSold.png");
 
 		// CheckBoxes for select seats
@@ -145,24 +145,24 @@ public class Seat extends CinemaFrame implements ActionListener {
 	}
 
 	// TODO : 좌석상태 정보 아이콘(Available, Sold, Selected 정보 표시)
-	private void initSeatInfo() {
-		// ImageIcon i1 = new ImageIcon("images/i1.gif");
-		// ImageIcon i2 = new ImageIcon("images/i2.gif");
-		// ImageIcon i3 = new ImageIcon("images/i3.gif");
-		//
-		// JLabel s1 = new JLabel();
-		// s1.setBounds(960, 210, 95, 50);
-		// s1.setIcon(i1);
-		// JLabel s2 = new JLabel();
-		// s2.setBounds(960, 270, 95, 50);
-		// s2.setIcon(i2);
-		// JLabel s3 = new JLabel();
-		// s3.setBounds(960, 330, 95, 50);
-		// s3.setIcon(i3);
-		// add(s1);
-		// add(s2);
-		// add(s3);
-	}
+	// private void initSeatInfo() {
+	// ImageIcon available = new ImageIcon("images/seatAvailable.png");
+	// ImageIcon sold = new ImageIcon("images/seatSold.png");
+	// ImageIcon selected = new ImageIcon("images/seatSelected.png");
+	//
+	// JLabel s1 = new JLabel();
+	// s1.setBounds(960, 210, 95, 50);
+	// s1.setIcon(available);
+	// JLabel s2 = new JLabel();
+	// s2.setBounds(960, 270, 95, 50);
+	// s2.setIcon(sold);
+	// JLabel s3 = new JLabel();
+	// s3.setBounds(960, 330, 95, 50);
+	// s3.setIcon(selected);
+	// add(s1);
+	// add(s2);
+	// add(s3);
+	// }
 
 	private void initButtons() {
 		btnPrev = new JButton("prev");

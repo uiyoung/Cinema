@@ -14,8 +14,8 @@ import javax.swing.JTextField;
 
 import controllers.DBMgr;
 import models.MemberBean;
+import models.MemberInfo;
 import views.CinemaFrame;
-import views.login.Login;
 
 public class UpdatePW extends CinemaFrame implements ActionListener {
 	JLabel lab = new JLabel("パスワードの変更");
@@ -65,7 +65,7 @@ public class UpdatePW extends CinemaFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getActionCommand().equals("確認")) {
-			String id = Login.staticId;
+			String id = MemberInfo.ID;
 			String password = txtf1.getText();
 			list = mgr.UpdatePw(id, password);
 			txtf2.setText(list.get(0).getPassword());
@@ -74,7 +74,7 @@ public class UpdatePW extends CinemaFrame implements ActionListener {
 			new MyAccount();
 			dispose();
 		} else if (e.getActionCommand().equals("変更")) {
-			String id = Login.staticId;
+			String id = MemberInfo.ID;
 			String password = txtf2.getText();
 			mgr.UpdatePw2(id, password);
 			JOptionPane.showMessageDialog(null, "正常に変更されました。");

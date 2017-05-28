@@ -14,6 +14,7 @@ import javax.swing.JTextField;
 
 import controllers.DBMgr;
 import models.MemberBean;
+import models.MemberInfo;
 import views.CinemaFrame;
 import views.login.Login;
 
@@ -59,10 +60,10 @@ public class DeleteMember extends CinemaFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getActionCommand().equals("脱退")) {
-			String id = Login.staticId;
+			String id = MemberInfo.ID;
 			String password = txtf.getText();
 			list = mgr.deleteMb(id, password);
-			if (Login.staticPassword.equals(password)) {
+			if (MemberInfo.PW.equals(password)) {
 				JOptionPane.showMessageDialog(null, "脱退しました。");
 				/* 열려있는 모든 창 닫기 */
 				java.awt.Window win[] = java.awt.Window.getWindows();

@@ -15,8 +15,8 @@ import javax.swing.JTextField;
 
 import controllers.DBMgr;
 import models.MemberBean;
+import models.MemberInfo;
 import views.CinemaFrame;
-import views.login.Login;
 import views.myticket.MyTicket;
 
 public class MyAccount extends CinemaFrame implements ActionListener {
@@ -56,11 +56,11 @@ public class MyAccount extends CinemaFrame implements ActionListener {
 	}
 
 	private void init() {
-		txtf1.setText(Login.staticId);
-		txtf2.setText(Login.staticName);
-		txtf3.setText(Login.staticBirthdate);
-		txtf4.setText(Login.staticPhone);
-		txtf5.setText(Login.staticPoint + "点");
+		txtf1.setText(MemberInfo.ID);
+		txtf2.setText(MemberInfo.NAME);
+		txtf3.setText(MemberInfo.BIRTHDATE);
+		txtf4.setText(MemberInfo.PHONE);
+		txtf5.setText(MemberInfo.POINT + "点");
 
 		Container con = this.getContentPane();
 		pan1.add(bt);
@@ -131,7 +131,7 @@ public class MyAccount extends CinemaFrame implements ActionListener {
 		if (e.getActionCommand().equals("確認")) {
 
 			String password = txtf.getText();
-			if (Login.staticPassword.equals(password)) {
+			if (MemberInfo.PW.equals(password)) {
 				txtf2.setEditable(true);
 				txtf3.setEditable(true);
 				txtf4.setEditable(true);
@@ -141,7 +141,7 @@ public class MyAccount extends CinemaFrame implements ActionListener {
 			}
 		}
 		if (e.getActionCommand().equals("保存")) {
-			String id = Login.staticId;
+			String id = MemberInfo.ID;
 			String name = txtf2.getText();
 			String birthdate = txtf3.getText();
 			String phone = txtf4.getText();
@@ -152,16 +152,13 @@ public class MyAccount extends CinemaFrame implements ActionListener {
 			txtf2.setEditable(false);
 			txtf3.setEditable(false);
 			txtf4.setEditable(false);
-			// txtf.setText("");
-			// txtf2.setText(list.get(0).getName());
-			// txtf3.setText(list.get(0).getBirthdate());
-			// txtf4.setText(list.get(0).getPhone());
 
-			dispose();
-			Login.staticName = txtf2.getText();
-			Login.staticBirthdate = txtf3.getText();
-			Login.staticPhone = txtf4.getText();
+			MemberInfo.NAME = txtf2.getText();
+			MemberInfo.BIRTHDATE = txtf3.getText();
+			MemberInfo.PHONE = txtf4.getText();
+
 			new MyAccount();
+			dispose();
 		}
 		if (e.getActionCommand().equals("閉じる")) {
 			dispose();

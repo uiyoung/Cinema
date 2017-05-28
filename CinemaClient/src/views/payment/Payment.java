@@ -174,6 +174,7 @@ public class Payment extends CinemaFrame implements ActionListener {
 		btnPayByPhone.addActionListener(this);
 		btnPayByKakao.addActionListener(this);
 		btnPayByAccount.addActionListener(this);
+		btnPayByAu.addActionListener(this);
 		btnPrev.addActionListener(this);
 		btnReserve.addActionListener(this);
 
@@ -193,6 +194,9 @@ public class Payment extends CinemaFrame implements ActionListener {
 		}
 		if (e.getSource() == btnPayByAccount) {
 			new PayByAccount();
+		}
+		if (e.getSource() == btnPayByAu) {
+			new PayByAu();
 		}
 
 		if (e.getSource() == btnReserve) {

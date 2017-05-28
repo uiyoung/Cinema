@@ -92,10 +92,10 @@ public class MovieInfo extends CinemaFrame implements ActionListener {
 			taDescription.setBounds(600, 380, 670, 150);
 			taDescription.setFont(new Font("Yu Gothic", Font.BOLD, 17));
 
-			lblType = new JLabel("자막/더빙/3D");
-			lblDirector = new JLabel("빌 콘돈");
-			lblActor = new JLabel("엠마 왓슨, 댄 스티븐스, 루크 에반스");
-			lblReleasedate = new JLabel("2017.03.06");
+			lblType = new JLabel(list.get(i).getType());
+			lblDirector = new JLabel(list.get(i).getDirector());
+			lblActor = new JLabel(list.get(i).getCast());
+			lblReleasedate = new JLabel(list.get(i).getReleaseDate());
 
 			lblType.setBounds(700, 230, 100, 30);
 			lblDirector.setBounds(700, 260, 100, 30);

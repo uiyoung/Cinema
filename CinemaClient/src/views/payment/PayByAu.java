@@ -13,55 +13,49 @@ import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-public class PayByAccount extends JFrame implements ActionListener {
+public class PayByAu extends JFrame implements ActionListener {
 	Choice choice;
 	JButton bt, bt1;
-	JLabel accountpay, account, number, passwd;
-	JTextField number1, passwdT;
+	JLabel AuPay, Au, passwd;
+	JTextField passwdT;
 
-	public PayByAccount() {
-		this.setTitle("계좌결제");
+	public PayByAu() {
+		this.setTitle("AuPay");
 		this.setLayout(null);
 		this.setSize(400, 300);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		choice = new Choice();
-		choice.add("NH");
+		choice.add("Samsung");
 		choice.add("Shinhan");
-		choice.add("KB");
-		choice.add("Woori");
+		choice.add("BC");
+		choice.add("NH");
 
 		bt = new JButton("입력완료");
 		bt1 = new JButton("취소");
-		accountpay = new JLabel("계좌결제");
-		account = new JLabel("은행선택");
-		number = new JLabel("계좌번호");
+		AuPay = new JLabel("AuPay");
+		Au = new JLabel("카드선택");
 		passwd = new JLabel("비밀번호");
-		number1 = new JTextField(10);
 		passwdT = new JPasswordField(20);
 
-		accountpay.setFont(new Font("굴림", Font.BOLD, 20));
+		AuPay.setFont(new Font("굴림", Font.BOLD, 20));
 
-		bt.setBounds(100, 180,80, 30);
+		bt.setBounds(100, 180, 80, 30);
 		bt1.setBounds(200, 180, 80, 30);
-		accountpay.setBounds(50, 10, 150, 50);
-		account.setBounds(50, 50, 100, 50);
-		number.setBounds(50, 80, 100, 50);
-		passwd.setBounds(50, 110, 100, 50);
-		choice.setBounds(150, 65, 120, 15);
-		number1.setBounds(150, 95, 100, 20);
-		passwdT.setBounds(150, 125, 80, 20);
+		AuPay.setBounds(50, 10, 150, 50);
+		Au.setBounds(50, 60, 100, 50);
+		passwd.setBounds(50, 100, 100, 50);
+		choice.setBounds(150, 75, 120, 15);
+		passwdT.setBounds(150, 115, 80, 20);
 		bt.addActionListener(this);
 		bt1.addActionListener(this);
-		
+
 		add(bt);
 		add(bt1);
-		add(accountpay);
+		add(AuPay);
 		add(choice);
-		add(account);
-		add(number);
+		add(Au);
 		add(passwd);
-		add(number1);
 		add(passwdT);
 
 		// set location in center of screen
@@ -71,7 +65,7 @@ public class PayByAccount extends JFrame implements ActionListener {
 		x = (int) (dim1.getWidth() / 2 - dim2.getWidth() / 2);
 		y = (int) (dim1.getHeight() / 2 - dim2.getHeight() / 2);
 		setLocation(x, y);
-
+		
 		this.setVisible(true);
 	}
 
@@ -83,6 +77,5 @@ public class PayByAccount extends JFrame implements ActionListener {
 		if (e.getSource() == bt1) {
 			dispose();
 		}
-		
 	}
 }

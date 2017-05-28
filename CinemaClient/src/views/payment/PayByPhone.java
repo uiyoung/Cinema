@@ -15,7 +15,7 @@ import javax.swing.JTextField;
 
 public class PayByPhone extends JFrame implements ActionListener {
 	Choice choice;
-	JButton bt;
+	JButton bt, bt1;
 	JLabel phonepay, phone, number, passwd;
 	JTextField number1, number2, number3, number4, passwdT;
 
@@ -31,6 +31,7 @@ public class PayByPhone extends JFrame implements ActionListener {
 		choice.add("LGU+");
 
 		bt = new JButton("입력완료");
+		bt1 = new JButton("취소");
 		phonepay = new JLabel("핸드폰결제");
 		phone = new JLabel("통신사");
 		number = new JLabel("핸드폰번호");
@@ -42,7 +43,8 @@ public class PayByPhone extends JFrame implements ActionListener {
 
 		phonepay.setFont(new Font("굴림", Font.BOLD, 20));
 
-		bt.setBounds(120, 180, 100, 30);
+		bt.setBounds(100, 180, 80, 30);
+		bt1.setBounds(200, 180, 80, 30);
 		phonepay.setBounds(50, 10, 150, 50);
 		phone.setBounds(50, 50, 100, 50);
 		number.setBounds(50, 80, 100, 50);
@@ -53,8 +55,10 @@ public class PayByPhone extends JFrame implements ActionListener {
 		number3.setBounds(250, 95, 40, 20);
 		passwdT.setBounds(150, 125, 80, 20);
 		bt.addActionListener(this);
-
+		bt1.addActionListener(this);
+		
 		add(bt);
+		add(bt1);
 		add(phonepay);
 		add(choice);
 		add(phone);
@@ -79,6 +83,9 @@ public class PayByPhone extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == bt) {
+			dispose();
+		}
+		if (e.getSource() == bt1) {
 			dispose();
 		}
 	}

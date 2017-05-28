@@ -15,7 +15,7 @@ import javax.swing.JTextField;
 
 public class PayByCredit extends JFrame implements ActionListener{
 	Choice choice;
-	JButton bt;
+	JButton bt, bt1;
 	JLabel creditpay, card, number, passwd;
 	JTextField number1, number2, number3, number4, passwdT;
 	public PayByCredit(){
@@ -31,6 +31,7 @@ public class PayByCredit extends JFrame implements ActionListener{
         choice.add("NH");
 		
 		bt = new JButton("입력완료");
+		bt1 = new JButton("취소");
 		creditpay = new JLabel("카드결제");
 		card = new JLabel("카드선택");
 		number = new JLabel("카드번호 입력");
@@ -43,7 +44,8 @@ public class PayByCredit extends JFrame implements ActionListener{
 		
 		creditpay.setFont(new Font("굴림", Font.BOLD, 20));
 		
-		bt.setBounds(120,180,100,30);
+		bt.setBounds(100,180,80,30);
+		bt1.setBounds(200,180,80,30);
 		creditpay.setBounds(50, 10, 150, 50);
 		card.setBounds(50, 50, 100, 50);
 		number.setBounds(50, 80, 100, 50);
@@ -56,7 +58,10 @@ public class PayByCredit extends JFrame implements ActionListener{
 		passwdT.setBounds(150, 125, 80, 20);
 		
 		bt.addActionListener(this);
+		bt1.addActionListener(this);
+		
 		add(bt);
+		add(bt1);
 		add(creditpay);
 		add(choice);
 		add(card);
@@ -82,6 +87,9 @@ public class PayByCredit extends JFrame implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==bt){
+			dispose();
+		}
+		if(e.getSource()==bt1){
 			dispose();
 		}
 	}

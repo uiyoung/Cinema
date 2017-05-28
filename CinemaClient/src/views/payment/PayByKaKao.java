@@ -15,7 +15,7 @@ import javax.swing.JTextField;
 
 public class PayByKaKao extends JFrame implements ActionListener {
 	Choice choice;
-	JButton bt;
+	JButton bt,bt1;
 	JLabel kakaoPay, kakao, passwd;
 	JTextField passwdT;
 
@@ -32,6 +32,7 @@ public class PayByKaKao extends JFrame implements ActionListener {
 		choice.add("NH");
 
 		bt = new JButton("입력완료");
+		bt1 = new JButton("취소");
 		kakaoPay = new JLabel("카카오결제");
 		kakao = new JLabel("카드선택");
 		passwd = new JLabel("비밀번호");
@@ -39,15 +40,18 @@ public class PayByKaKao extends JFrame implements ActionListener {
 
 		kakaoPay.setFont(new Font("굴림", Font.BOLD, 20));
 
-		bt.setBounds(120, 180, 100, 30);
+		bt.setBounds(100, 180, 80, 30);
+		bt1.setBounds(200, 180, 80, 30);
 		kakaoPay.setBounds(50, 10, 150, 50);
 		kakao.setBounds(50, 60, 100, 50);
 		passwd.setBounds(50, 100, 100, 50);
 		choice.setBounds(150, 75, 120, 15);
 		passwdT.setBounds(150, 115, 80, 20);
 		bt.addActionListener(this);
+		bt1.addActionListener(this);
 
 		add(bt);
+		add(bt1);
 		add(kakaoPay);
 		add(choice);
 		add(kakao);
@@ -68,6 +72,9 @@ public class PayByKaKao extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == bt) {
+			dispose();
+		}
+		if (e.getSource() == bt1) {
 			dispose();
 		}
 	}

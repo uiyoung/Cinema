@@ -47,7 +47,7 @@ public class UpdatePW extends CinemaFrame implements ActionListener {
 		pan.add(lab);
 
 		bt.addActionListener(this);
-		bt1.addActionListener(this);
+
 		bt2.addActionListener(this);
 		cpan.add(lab1);
 		cpan.add(txtf1);
@@ -56,6 +56,7 @@ public class UpdatePW extends CinemaFrame implements ActionListener {
 		cpan.add(txtf2);
 		cpan.add(bt1);
 		span.add(bt2);
+		txtf2.setEditable(false);
 
 		con.add("North", pan);
 		con.add("Center", cpan);
@@ -67,8 +68,15 @@ public class UpdatePW extends CinemaFrame implements ActionListener {
 		if (e.getActionCommand().equals("確認")) {
 			String id = MemberInfo.ID;
 			String password = txtf1.getText();
-			list = mgr.UpdatePw(id, password);
-			txtf2.setText(list.get(0).getPassword());
+			if (MemberInfo.PW.equals(password)) {
+				txtf1.setEditable(false);
+				bt1.addActionListener(this);
+				txtf2.setEditable(true);
+				list = mgr.UpdatePw(id, password);
+				txtf2.setText(list.get(0).getPassword());
+			} else {
+				JOptionPane.showMessageDialog(null, "パスワードを確認してください。");
+			}
 		} else if (e.getActionCommand().equals("キャンセル")) {
 			txtf1.setText("");
 			new MyAccount();
@@ -77,6 +85,7 @@ public class UpdatePW extends CinemaFrame implements ActionListener {
 			String id = MemberInfo.ID;
 			String password = txtf2.getText();
 			mgr.UpdatePw2(id, password);
+			MemberInfo.PW = txtf2.getText();
 			JOptionPane.showMessageDialog(null, "正常に変更されました。");
 			new MyAccount();
 			dispose();

@@ -1,5 +1,6 @@
 package views.payment;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -27,12 +28,17 @@ public class Payment extends CinemaFrame implements ActionListener {
 	private ArrayList<String> seats;
 	private JPanel firstPanel = new JPanel();
 	private JPanel secondPanel = new JPanel();
-	private JLabel titleT, theaterT, timeT, personNumT, seatNumT, moneyT;
+	private JPanel thirdPanel = new JPanel();
+	private JLabel titleT, theaterT, timeT, personNumT, seatNumT, moneyT, infoT, posterT;
 	private JLabel lblTitle, lblTheater, lblTime, lblPersonNum, lblSeatNo, lblPayment, lblPrice;
 	private JLabel posterLabel = new JLabel();
 	private ImageIcon poster;
-	private JButton btnPayByCreditcard, btnPayByPhone, btnPayByKakao, btnPayByAccount;
+	private JButton btnPayByCreditcard, btnPayByPhone, btnPayByKakao, btnPayByAccount, btnPayByAu;
 	private JButton btnPrev, btnReserve;
+	ImageIcon im = new ImageIcon("images/payment/a1.png");
+	ImageIcon im1 = new ImageIcon("images/payment/a2.png");
+	JLabel la = new JLabel(im);
+	JLabel la1 = new JLabel(im1);
 
 	public Payment(String title, String theater, String date, String time, String ticket, ArrayList<String> seats) {
 		this.title = title;
@@ -43,17 +49,23 @@ public class Payment extends CinemaFrame implements ActionListener {
 		this.seats = seats;
 
 		setTitle("결제");
-		setLayout(new GridLayout(1, 2));
+		setLayout(new GridLayout(1, 3));
 		firstPanel.setLayout(null);
+		firstPanel.setBackground(Color.LIGHT_GRAY);
 		secondPanel.setLayout(null);
+		// secondPanel.setBackground(Color.white);
+		thirdPanel.setLayout(null);
+		thirdPanel.setBackground(Color.LIGHT_GRAY);
 
 		poster = new ImageIcon("images/" + title + ".jpg");
 		posterLabel.setIcon(poster);
-		titleT = new JLabel("영화");
-		timeT = new JLabel("시간");
-		theaterT = new JLabel("관람극장");
-		personNumT = new JLabel("인원");
-		seatNumT = new JLabel("좌석번호");
+		titleT = new JLabel("映画       :");
+		timeT = new JLabel("時間       :");
+		theaterT = new JLabel("観覧劇場:");
+		personNumT = new JLabel("人員       :");
+		seatNumT = new JLabel("座席番号:");
+		posterT = new JLabel("お選びの映画");
+		infoT = new JLabel("ご購入内容");
 
 		lblTitle = new JLabel(title);
 		lblTheater = new JLabel(theater);
@@ -61,79 +73,102 @@ public class Payment extends CinemaFrame implements ActionListener {
 		lblPersonNum = new JLabel(ticket);
 		lblSeatNo = new JLabel(seats.toString());
 
-		lblPayment = new JLabel("결제수단");
-		moneyT = new JLabel("총결제금액");
+		lblPayment = new JLabel();
+		lblPayment.setIcon(new ImageIcon("images/payment/pay2.png"));
+		moneyT = new JLabel("決済金額");
 		lblPrice = new JLabel(MOVIE_PRICE * Integer.parseInt(ticket) + "円");
 
-		btnPrev = new JButton("이전");
-		btnReserve = new JButton("예매");
+		btnPrev = new JButton();
+		btnPrev.setIcon(new ImageIcon("images/payment/per.jpg"));
+		btnReserve = new JButton();
+		btnReserve.setIcon(new ImageIcon("images/payment/reg.jpg"));
 
-		titleT.setFont(new Font("맑은 고딕", Font.BOLD, 25));
-		timeT.setFont(new Font("맑은 고딕", Font.BOLD, 25));
-		theaterT.setFont(new Font("맑은 고딕", Font.BOLD, 25));
-		personNumT.setFont(new Font("맑은 고딕", Font.BOLD, 25));
-		seatNumT.setFont(new Font("맑은 고딕", Font.BOLD, 25));
+		titleT.setFont(new Font("Arial Unicode MS", Font.BOLD, 25));
+		timeT.setFont(new Font("Arial Unicode MS", Font.BOLD, 25));
+		theaterT.setFont(new Font("Arial Unicode MS", Font.BOLD, 25));
+		personNumT.setFont(new Font("Arial Unicode MS", Font.BOLD, 25));
+		seatNumT.setFont(new Font("Arial Unicode MS", Font.BOLD, 25));
+		infoT.setFont(new Font("Arial Unicode MS", Font.BOLD, 30));
+		posterT.setFont(new Font("Arial Unicode MS", Font.BOLD, 30));
 		lblTitle.setFont(new Font("Yu Gothic", Font.BOLD, 25));
 		lblTime.setFont(new Font("Yu Gothic", Font.BOLD, 25));
 		lblTheater.setFont(new Font("Yu Gothic", Font.BOLD, 25));
 		lblPersonNum.setFont(new Font("Yu Gothic", Font.BOLD, 25));
 		lblSeatNo.setFont(new Font("Yu Gothic", Font.BOLD, 25));
 		lblPayment.setFont(new Font("맑은 고딕", Font.BOLD, 30));
-		moneyT.setFont(new Font("맑은 고딕", Font.BOLD, 30));
+		moneyT.setFont(new Font("Arial Unicode MS", Font.BOLD, 30));
 		lblPrice.setFont(new Font("Yu Gothic", Font.BOLD, 40));
 
-		titleT.setBounds(200, 500, 200, 100);
-		timeT.setBounds(200, 530, 200, 100);
-		theaterT.setBounds(200, 560, 200, 100);
-		personNumT.setBounds(200, 590, 200, 100);
-		seatNumT.setBounds(200, 620, 200, 100);
-		lblTitle.setBounds(320, 500, 200, 100);
-		lblTime.setBounds(320, 530, 200, 100);
-		lblTheater.setBounds(320, 560, 200, 100);
-		lblPersonNum.setBounds(320, 590, 200, 100);
-		lblSeatNo.setBounds(320, 620, 200, 100);
-		posterLabel.setBounds(200, 60, 320, 452);
-		lblPayment.setBounds(100, 30, 200, 100);
-		moneyT.setBounds(100, 450, 200, 100);
-		lblPrice.setBounds(100, 500, 270, 100);
-		btnPrev.setBounds(10, 690, 70, 40);
-		btnReserve.setBounds(600, 690, 70, 40);
+		titleT.setBounds(100, 120, 200, 100);
+		timeT.setBounds(100, 150, 200, 100);
+		theaterT.setBounds(100, 180, 200, 100);
+		personNumT.setBounds(100, 210, 200, 100);
+		seatNumT.setBounds(100, 240, 200, 100);
+		infoT.setBounds(100, 50, 200, 100);
+		posterT.setBounds(70, 50, 200, 100);
+		lblTitle.setBounds(230, 120, 200, 100);
+		lblTime.setBounds(230, 150, 200, 100);
+		lblTheater.setBounds(230, 180, 200, 100);
+		lblPersonNum.setBounds(230, 210, 200, 100);
+		lblSeatNo.setBounds(230, 240, 200, 100);
+		posterLabel.setBounds(70, 150, 320, 452);
+		lblPayment.setBounds(120, 80, 200, 100);
+		moneyT.setBounds(100, 350, 200, 100);
+		lblPrice.setBounds(150, 450, 270, 100);
+		btnPrev.setBounds(70, 660, 150, 60);
+		btnReserve.setBounds(250, 660, 150, 60);
+		la.setBounds(2, 140, 450, 190);
 
-		btnPayByCreditcard = new JButton("신용카드");
-		btnPayByPhone = new JButton("핸드폰결제");
-		btnPayByKakao = new JButton("카카오페이");
-		btnPayByAccount = new JButton("계좌이체");
+		btnPayByCreditcard = new JButton();
+		btnPayByCreditcard.setIcon(new ImageIcon("images/payment/sin.jpg"));
+		btnPayByPhone = new JButton();
+		btnPayByPhone.setIcon(new ImageIcon("images/payment/pon.jpg"));
+		btnPayByKakao = new JButton();
+		btnPayByKakao.setIcon(new ImageIcon("images/payment/rakutenPay.jpg"));
+		btnPayByAccount = new JButton();
+		btnPayByAccount.setIcon(new ImageIcon("images/payment/ban.jpg"));
+		btnPayByAu = new JButton();
+		btnPayByAu.setIcon(new ImageIcon("images/payment/auPay.jpg"));
 
-		btnPayByCreditcard.setBounds(100, 150, 270, 50);
-		btnPayByPhone.setBounds(100, 220, 270, 50);
-		btnPayByKakao.setBounds(100, 290, 270, 50);
-		btnPayByAccount.setBounds(100, 360, 270, 50);
+		btnPayByCreditcard.setBounds(100, 190, 270, 50);
+		btnPayByPhone.setBounds(100, 270, 270, 50);
+		btnPayByKakao.setBounds(100, 350, 270, 50);
+		btnPayByAccount.setBounds(100, 430, 270, 50);
+		btnPayByAu.setBounds(100, 510, 270, 50);
+		la1.setBounds(90, 430, 250, 150);
 
-		firstPanel.add(btnPrev);
 		firstPanel.add(posterLabel);
-		firstPanel.add(titleT);
-		firstPanel.add(timeT);
-		firstPanel.add(theaterT);
-		firstPanel.add(personNumT);
-		firstPanel.add(seatNumT);
-		firstPanel.add(lblTitle);
-		firstPanel.add(lblTime);
-		firstPanel.add(lblTheater);
-		firstPanel.add(lblPersonNum);
-		firstPanel.add(lblSeatNo);
-		firstPanel.add(posterLabel);
+		firstPanel.add(posterT);
 
-		secondPanel.add(btnReserve);
-		secondPanel.add(lblPayment);
-		secondPanel.add(moneyT);
-		secondPanel.add(lblPrice);
+		thirdPanel.add(titleT);
+		thirdPanel.add(timeT);
+		thirdPanel.add(theaterT);
+		thirdPanel.add(personNumT);
+		thirdPanel.add(seatNumT);
+		thirdPanel.add(infoT);
+		thirdPanel.add(lblTitle);
+		thirdPanel.add(lblTime);
+		thirdPanel.add(lblTheater);
+		thirdPanel.add(lblPersonNum);
+		thirdPanel.add(lblSeatNo);
+		thirdPanel.add(la);
+
 		secondPanel.add(btnPayByCreditcard);
 		secondPanel.add(btnPayByPhone);
 		secondPanel.add(btnPayByKakao);
 		secondPanel.add(btnPayByAccount);
+		secondPanel.add(btnPayByAu);
+		secondPanel.add(lblPayment);
+
+		thirdPanel.add(lblPrice);
+		thirdPanel.add(la1);
+		thirdPanel.add(btnReserve);
+		thirdPanel.add(btnPrev);
+		thirdPanel.add(moneyT);
 
 		add(firstPanel);
 		add(secondPanel);
+		add(thirdPanel);
 
 		btnPayByCreditcard.addActionListener(this);
 		btnPayByPhone.addActionListener(this);
@@ -143,7 +178,6 @@ public class Payment extends CinemaFrame implements ActionListener {
 		btnReserve.addActionListener(this);
 
 		this.setVisible(true);
-		repaint();
 	}
 
 	@Override

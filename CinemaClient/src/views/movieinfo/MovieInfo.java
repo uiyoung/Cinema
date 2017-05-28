@@ -21,13 +21,12 @@ import views.CinemaFrame;
 import views.MainMenu;
 import views.reservation.Reservation;
 
-public class MovieInfo2 extends CinemaFrame implements ActionListener {
+public class MovieInfo extends CinemaFrame implements ActionListener {
 	MovieMgr mgr = new MovieMgr();
 	MovieBean bean;
 	ArrayList<MovieBean> list;
 
-	JLabel movieinfo = new JLabel("映画情報");
-
+	JLabel movieinfo;
 	JButton btnBack, btnReserve;
 
 	JLabel lblTitle;
@@ -37,14 +36,17 @@ public class MovieInfo2 extends CinemaFrame implements ActionListener {
 	JLabel director, lblDirector;
 	JLabel actor, lblActor;
 	JLabel releasedate, lblReleasedate;
-	JLabel description;
+	JLabel rating;
 	JTextArea taDescription;
+	JLabel line, line2;
+	JLabel threeD, imax;
 
 	private ImageIcon poster = null;
 	private final JPanel cards;
 
-	public MovieInfo2() {
+	public MovieInfo() {
 
+		// this.setBackground(Color.black);
 		list = mgr.getMovie();
 
 		// Create the panel that contains the "cards".
@@ -53,14 +55,17 @@ public class MovieInfo2 extends CinemaFrame implements ActionListener {
 		// cards panel에 add할 movie panel 생성
 		JPanel[] movies = new JPanel[list.size()];
 		for (int i = 0; i < list.size(); i++) {
-			movies[i] = new JPanel(null);
+			movies[i] = new JPanel();
+			movies[i].setLayout(null);
 			movies[i].setBackground(Color.WHITE);
 
 			JLabel lblPoster = new JLabel();
 			poster = new ImageIcon("images/" + list.get(i).getTitle() + ".jpg");
 			Image resizedPoster = poster.getImage().getScaledInstance(400, 565, java.awt.Image.SCALE_SMOOTH);
 			lblPoster.setIcon(new ImageIcon(resizedPoster));
-			lblPoster.setBounds(130, 50, 400, 565);
+			lblPoster.setBounds(120, 60, 440, 565);
+
+			// JButton movieinfo = new JButton(1100);
 
 			// html 태그로 포스터 불러올 수 있다는 것
 			// JLabel label = new JLabel("<html><img height='80' width='100'
@@ -71,20 +76,20 @@ public class MovieInfo2 extends CinemaFrame implements ActionListener {
 
 			lblTitle = new JLabel(list.get(i).getTitle());
 			lblTitle.setFont(new Font("Yu Gothic", Font.BOLD, 30));
-			lblTitle.setBounds(670, 80, 600, 50);
+			lblTitle.setBounds(660, 55, 600, 40);
 
 			lblGenre = new JLabel(list.get(i).getGenre());
-			lblGenre.setBounds(700, 200, 120, 30);
+			lblGenre.setBounds(700, 170, 120, 30);
 			lblGenre.setFont(new Font("Yu Gothic", Font.BOLD, 15));
 
 			lblRunningTime = new JLabel(list.get(i).getRunningTime() + "分");
-			lblRunningTime.setBounds(700, 230, 100, 30);
+			lblRunningTime.setBounds(700, 200, 100, 30);
 			lblRunningTime.setFont(new Font("Yu Gothic", Font.BOLD, 15));
 
 			taDescription = new JTextArea(list.get(i).getDescription());
 			taDescription.setEditable(false);
 			taDescription.setLineWrap(true); // 한줄이 너무 길면 자동으로 개행
-			taDescription.setBounds(600, 300, 650, 200);
+			taDescription.setBounds(600, 380, 670, 150);
 			taDescription.setFont(new Font("Yu Gothic", Font.BOLD, 17));
 
 			lblType = new JLabel("자막/더빙/3D");
@@ -92,10 +97,10 @@ public class MovieInfo2 extends CinemaFrame implements ActionListener {
 			lblActor = new JLabel("엠마 왓슨, 댄 스티븐스, 루크 에반스");
 			lblReleasedate = new JLabel("2017.03.06");
 
-			lblType.setBounds(700, 260, 100, 30);
-			lblDirector.setBounds(700, 290, 100, 30);
-			lblActor.setBounds(700, 320, 200, 30);
-			lblReleasedate.setBounds(700, 350, 100, 30);
+			lblType.setBounds(700, 230, 100, 30);
+			lblDirector.setBounds(700, 260, 100, 30);
+			lblActor.setBounds(700, 290, 500, 30);
+			lblReleasedate.setBounds(700, 320, 100, 30);
 
 			lblType.setFont(new Font("Yu Gothic", Font.BOLD, 15));
 			lblDirector.setFont(new Font("Yu Gothic", Font.BOLD, 15));
@@ -103,20 +108,18 @@ public class MovieInfo2 extends CinemaFrame implements ActionListener {
 			lblReleasedate.setFont(new Font("Yu Gothic", Font.BOLD, 15));
 
 			genre = new JLabel("ジャンル");
-			runningTime = new JLabel("상영시간");
-			type = new JLabel("타입");
-			director = new JLabel("감독");
-			actor = new JLabel("출연");
-			releasedate = new JLabel("개봉일자");
-			// description = new JLabel("あらすじ");
+			runningTime = new JLabel("上映時間");
+			type = new JLabel("タイプ");
+			director = new JLabel("監督");
+			actor = new JLabel("キャスト");
+			releasedate = new JLabel("封切り日");
 
-			genre.setBounds(570, 220, 120, 30);
-			runningTime.setBounds(600, 230, 100, 30);
-			type.setBounds(600, 260, 100, 30);
-			director.setBounds(600, 290, 100, 30);
-			actor.setBounds(600, 320, 100, 30);
-			releasedate.setBounds(600, 350, 100, 30);
-			// description.setBounds(60,550,100,30);
+			genre.setBounds(600, 170, 120, 30);
+			runningTime.setBounds(600, 200, 100, 30);
+			type.setBounds(600, 230, 100, 30);
+			director.setBounds(600, 260, 100, 30);
+			actor.setBounds(600, 290, 100, 30);
+			releasedate.setBounds(600, 320, 100, 30);
 
 			genre.setFont(new Font("Yu Gothic", Font.BOLD, 15));
 			runningTime.setFont(new Font("Yu Gothic", Font.BOLD, 15));
@@ -124,10 +127,31 @@ public class MovieInfo2 extends CinemaFrame implements ActionListener {
 			director.setFont(new Font("Yu Gothic", Font.BOLD, 15));
 			actor.setFont(new Font("Yu Gothic", Font.BOLD, 15));
 			releasedate.setFont(new Font("Yu Gothic", Font.BOLD, 15));
-			// description.setFont(new Font("Yu Gothic", Font.BOLD, 15));
 
-			JLabel star = new JLabel(new ImageIcon("Star.png"));
-			star.setBounds(500, 130, 300, 50);
+			JLabel stars = new JLabel(new ImageIcon("images/movieInfo/Star.png"));
+			stars.setBounds(670, 105, 300, 50);
+
+			JLabel ageImg = new JLabel(new ImageIcon("images/movieInfo/age1.jpg"));
+			ageImg.setBounds(570, 30, 100, 100);
+
+			rating = new JLabel("評価　8.1");
+			rating.setFont(new Font("Yu Gothic", Font.BOLD, 25));
+			rating.setBounds(600, 115, 120, 30);
+
+			line = new JLabel(new ImageIcon("images/movieInfo/line1.png"));
+			line.setBounds(600, 155, 700, 10);
+
+			line2 = new JLabel(new ImageIcon("images/movieInfo/line1.png"));
+			line2.setBounds(600, 360, 700, 10);
+
+			threeD = new JLabel(new ImageIcon("images/movieInfo/3d.png"));
+			threeD.setBounds(1170, 270, 100, 80);
+
+			imax = new JLabel(new ImageIcon("images/movieInfo/imax.png"));
+			imax.setBounds(1070, 270, 100, 80);
+
+			movieinfo = new JLabel(new ImageIcon("images/movieInfo/movieinfo.png"));
+			movieinfo.setBounds(-315, 0, 1360, 50);
 
 			movies[i].add(lblType);
 			movies[i].add(lblDirector);
@@ -140,7 +164,6 @@ public class MovieInfo2 extends CinemaFrame implements ActionListener {
 			movies[i].add(director);
 			movies[i].add(actor);
 			movies[i].add(releasedate);
-			// movies[i].add(description);
 
 			movies[i].add(lblPoster);
 			movies[i].add(lblTitle);
@@ -148,28 +171,17 @@ public class MovieInfo2 extends CinemaFrame implements ActionListener {
 			movies[i].add(lblRunningTime);
 			movies[i].add(taDescription);
 
-			ImageIcon age = new ImageIcon("age.png");
-			JLabel ageImg = new JLabel(age);
-			ageImg.setBounds(580, 60, 100, 100);
+			movies[i].add(stars);
 			movies[i].add(ageImg);
-			movies[i].add(star);
-
-			JButton btnNext = new JButton("NEXT");
-			btnNext.setActionCommand("NEXT");
-			btnNext.setFocusPainted(false);
-			btnNext.addActionListener(this);
-			btnNext.setBounds(700, 650, 100, 60);
-			movies[i].add(btnNext);
-
-			JButton btnPrev = new JButton("PRE");
-			btnPrev.setBounds(500, 650, 100, 60);
-			btnPrev.setActionCommand("PREVIOUS");
-			btnPrev.setFocusPainted(false);
-			btnPrev.addActionListener(this);
-			movies[i].add(btnPrev);
+			movies[i].add(movieinfo);
+			movies[i].add(rating);
+			movies[i].add(line);
+			movies[i].add(line2);
+			movies[i].add(threeD);
+			movies[i].add(imax);
 
 			btnBack = new JButton("Back");
-			btnBack = new JButton(new ImageIcon("mainmenu.png"));
+			btnBack = new JButton(new ImageIcon("images/movieInfo/mainmenu.png"));
 			btnBack.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
@@ -177,10 +189,9 @@ public class MovieInfo2 extends CinemaFrame implements ActionListener {
 					dispose();
 				}
 			});
-			btnBack.setBounds(50, 650, 100, 50);
+			btnBack.setBounds(1130, 540, 135, 80);
 
-			// ImageIcon ticket = new ImageIcon("ticket.png");
-			btnReserve = new JButton(new ImageIcon("reserve.png"));
+			btnReserve = new JButton(new ImageIcon("images/movieInfo/reserve.png"));
 			btnReserve.setBorderPainted(false);
 			btnReserve.setBackground(Color.WHITE);
 			btnReserve.setOpaque(false);
@@ -193,31 +204,33 @@ public class MovieInfo2 extends CinemaFrame implements ActionListener {
 					// new Reserve(title);
 				}
 			});
-			btnReserve.setBounds(1000, 200, 150, 80);
+			btnReserve.setBounds(960, 540, 135, 80);
 
 			movies[i].add(btnBack);
 			movies[i].add(btnReserve);
 
+			JButton btnNext = new JButton(new ImageIcon("images/movieInfo/next4.png"));
+			btnNext.setActionCommand("NEXT");
+			btnNext.setFocusPainted(false);
+			btnNext.addActionListener(this);
+			btnNext.setBorderPainted(false);
+			btnNext.setOpaque(false);
+			btnNext.setBounds(700, 655, 100, 80);
+			movies[i].add(btnNext);
+
+			JButton btnPrev = new JButton(new ImageIcon("images/movieInfo/back4.png"));
+			btnPrev.setBounds(500, 660, 100, 80);
+			btnPrev.setActionCommand("PREVIOUS");
+			btnPrev.setFocusPainted(false);
+			btnPrev.addActionListener(this);
+			movies[i].add(btnPrev);
+
 			cards.add(movies[i]);
 		}
 
-		// JButton btnFirst = new JButton("<<");
-		// btnFirst.setActionCommand("FIRST");
-		// btnFirst.addActionListener(this);
-		// JButton btnLast = new JButton(">>");
-		// btnLast.setActionCommand("LAST");
-		// btnLast.addActionListener(this);
-
-		JPanel btnPanel = new JPanel();
-		btnPanel.setLayout(null);
-		btnPanel.setBackground(Color.WHITE);
-		// btnPanel.setBounds(0, 0, 500, 200);*/
-
-		add(movieinfo, BorderLayout.NORTH);
 		add(cards, BorderLayout.CENTER);
-		add(btnPanel, BorderLayout.SOUTH);
 
-		setTitle("상영영화 정보");
+		setTitle("上映映画情報");
 		setVisible(true);
 	}
 
@@ -237,9 +250,21 @@ public class MovieInfo2 extends CinemaFrame implements ActionListener {
 		} else if (cmd.equals("LAST")) {
 			cl.last(cards);
 		}
+
+		if (e.getSource() == btnReserve) {
+			new Reservation();
+			dispose();
+
+			// TODO : 해당 영화가 Reserve 페이지에서 선택되어지게 매개변수로 넘기기.
+			// new Reserve(title);
+		}
+		if (e.getSource() == btnBack) {
+			new MainMenu();
+			dispose();
+		}
 	}
 
 	public static void main(String[] args) {
-		new MovieInfo2();
+		new MovieInfo();
 	}
 }

@@ -22,30 +22,28 @@ import views.MainMenu;
 import views.reservation.Reservation;
 
 public class MovieInfo extends CinemaFrame implements ActionListener {
-	MovieMgr mgr = new MovieMgr();
-	MovieBean bean;
-	ArrayList<MovieBean> list;
+	private MovieMgr mgr = new MovieMgr();
+	private ArrayList<MovieBean> list;
 
-	JLabel movieinfo;
-	JButton btnBack, btnReserve;
+	private JLabel movieinfo;
+	private JButton btnBack, btnReserve;
 
-	JLabel lblTitle;
-	JLabel genre, lblGenre;
-	JLabel runningTime, lblRunningTime;
-	JLabel type, lblType;
-	JLabel director, lblDirector;
-	JLabel actor, lblActor;
-	JLabel releasedate, lblReleasedate;
-	JLabel rating;
-	JTextArea taDescription;
-	JLabel line, line2;
-	JLabel threeD, imax;
+	private JLabel lblTitle;
+	private JLabel genre, lblGenre;
+	private JLabel runningTime, lblRunningTime;
+	private JLabel type, lblType;
+	private JLabel director, lblDirector;
+	private JLabel actor, lblActor;
+	private JLabel releasedate, lblReleasedate;
+	private JLabel rating;
+	private JTextArea taDescription;
+	private JLabel line, line2;
+	private JLabel threeD, imax;
 
 	private ImageIcon poster = null;
 	private final JPanel cards;
 
 	public MovieInfo() {
-
 		// this.setBackground(Color.black);
 		list = mgr.getMovie();
 
@@ -97,10 +95,10 @@ public class MovieInfo extends CinemaFrame implements ActionListener {
 			lblActor = new JLabel(list.get(i).getCast());
 			lblReleasedate = new JLabel(list.get(i).getReleaseDate());
 
-			lblType.setBounds(700, 230, 100, 30);
+			lblType.setBounds(700, 230, 300, 30);
 			lblDirector.setBounds(700, 260, 100, 30);
 			lblActor.setBounds(700, 290, 500, 30);
-			lblReleasedate.setBounds(700, 320, 100, 30);
+			lblReleasedate.setBounds(700, 320, 200, 30);
 
 			lblType.setFont(new Font("Yu Gothic", Font.BOLD, 15));
 			lblDirector.setFont(new Font("Yu Gothic", Font.BOLD, 15));
@@ -145,10 +143,10 @@ public class MovieInfo extends CinemaFrame implements ActionListener {
 			line2.setBounds(600, 360, 700, 10);
 
 			threeD = new JLabel(new ImageIcon("images/movieInfo/3d.png"));
-			threeD.setBounds(1170, 270, 100, 80);
+			threeD.setBounds(1170, 80, 100, 80);
 
 			imax = new JLabel(new ImageIcon("images/movieInfo/imax.png"));
-			imax.setBounds(1070, 270, 100, 80);
+			imax.setBounds(1070, 80, 100, 80);
 
 			movieinfo = new JLabel(new ImageIcon("images/movieInfo/movieinfo.png"));
 			movieinfo.setBounds(-315, 0, 1360, 50);
@@ -209,17 +207,19 @@ public class MovieInfo extends CinemaFrame implements ActionListener {
 			movies[i].add(btnBack);
 			movies[i].add(btnReserve);
 
-			JButton btnNext = new JButton(new ImageIcon("images/movieInfo/next4.png"));
+			JButton btnNext = new JButton(new ImageIcon("images/movieInfo/next.png"));
+			btnNext.setRolloverIcon(new ImageIcon("images/movieInfo/next_2.png"));
 			btnNext.setActionCommand("NEXT");
 			btnNext.setFocusPainted(false);
 			btnNext.addActionListener(this);
 			btnNext.setBorderPainted(false);
 			btnNext.setOpaque(false);
-			btnNext.setBounds(700, 655, 100, 80);
+			btnNext.setBounds(700, 650, 100, 80);
 			movies[i].add(btnNext);
 
-			JButton btnPrev = new JButton(new ImageIcon("images/movieInfo/back4.png"));
-			btnPrev.setBounds(500, 660, 100, 80);
+			JButton btnPrev = new JButton(new ImageIcon("images/movieInfo/prev.png"));
+			btnPrev.setRolloverIcon(new ImageIcon("images/movieInfo/prev_2.png"));
+			btnPrev.setBounds(500, 655, 100, 80);
 			btnPrev.setActionCommand("PREVIOUS");
 			btnPrev.setFocusPainted(false);
 			btnPrev.addActionListener(this);

@@ -68,15 +68,15 @@ public class MDBMgr {
 			rs = stmt.executeQuery(sql);
 			while (rs.next()) {
 				MovieBean bean = new MovieBean();
-				bean.setNo(rs.getInt(1));
-				bean.setTitle(rs.getString(2));
-				bean.setGenre(rs.getString(3));
-				bean.setType(rs.getString(4));
-				bean.setDirector(rs.getString(5));
-				bean.setCast(rs.getString(6));
-				bean.setReleaseDate(rs.getString(7));
-				bean.setRunningTime(rs.getString(8));
-				bean.setDescription(rs.getString(9));
+				bean.setNo(rs.getInt("no"));
+				bean.setTitle(rs.getString("title"));
+				bean.setGenre(rs.getString("genre"));
+				bean.setType(rs.getString("type"));
+				bean.setDirector(rs.getString("director"));
+				bean.setCast(rs.getString("cast"));
+				bean.setReleaseDate(rs.getString("releaseDate"));
+				bean.setRunningTime(rs.getString("runningTime"));
+				bean.setDescription(rs.getString("description"));
 
 				list.add(bean);
 			}

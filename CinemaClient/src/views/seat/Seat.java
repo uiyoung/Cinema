@@ -33,6 +33,10 @@ public class Seat extends CinemaFrame implements ActionListener {
 	private JPanel seatPanel;
 	private JCheckBox[][] seats;
 
+	ImageIcon available = new ImageIcon("images/seat/seatAvailable.png");
+	ImageIcon sold = new ImageIcon("images/seat/seatSold.png");
+	ImageIcon selected = new ImageIcon("images/seat/seatSelected.png");
+
 	public Seat(String title, String theater, String date, String time, String ticket) {
 		this.title = title;
 		this.theater = theater;
@@ -45,28 +49,30 @@ public class Seat extends CinemaFrame implements ActionListener {
 		initScreenLabel();
 		initSeats();
 		initButtons();
+		initSeatInfo();
+
+		JLabel la = new JLabel(new ImageIcon("images/seat/seatBackground.png"));
+		la.setBounds(0, 0, 1366, 768);
+		add(la);
 		setVisible(true);
 		repaint();
 	}
 
 	private void initScreenLabel() {
 		JLabel lblScreen = new JLabel("SCREEN");
-		lblScreen.setFont(new Font(null, Font.BOLD, 25));
+		lblScreen.setFont(new Font("Consolas", Font.BOLD, 30));
 		lblScreen.setHorizontalAlignment(SwingConstants.CENTER);
-		lblScreen.setBackground(Color.ORANGE);
-		lblScreen.setForeground(Color.WHITE);
+		lblScreen.setBackground(new Color(246, 204, 42));
+		lblScreen.setForeground(Color.black);
 		lblScreen.setOpaque(true);
-		lblScreen.setBounds(600, 30, 500, 50);
+		lblScreen.setBounds(460, 30, 500, 50);
 		add(lblScreen);
 	}
 
 	private void initSeats() {
 		seatPanel = new JPanel(null);
-		seatPanel.setBounds(450, 140, 762, 500);
-
-		// TODO: seatSelected 색상 추가하기
-		ImageIcon available = new ImageIcon("images/seatAvailable2.png");
-		ImageIcon sold = new ImageIcon("images/seatSold.png");
+		seatPanel.setBackground(Color.BLACK);
+		seatPanel.setBounds(310, 140, 765, 498);
 
 		// CheckBoxes for select seats
 		list = mgr.getSeats(theater, date, time);
@@ -80,8 +86,8 @@ public class Seat extends CinemaFrame implements ActionListener {
 				String seatNo = list.get(Integer.parseInt(i + "" + j)).getSeat_no();
 				seats[i][j].setText(seatNo);
 				seats[i][j].setToolTipText("좌석번호:" + seatNo);
-				seats[i][j].setRolloverIcon(sold);
-				seats[i][j].setSelectedIcon(sold);
+				seats[i][j].setRolloverIcon(selected);
+				seats[i][j].setSelectedIcon(selected);
 				seats[i][j].setOpaque(false);
 				seats[i][j].addItemListener(new ItemListener() {
 					private final int MAX_SELECTIONS = Integer.parseInt(ticket);
@@ -145,35 +151,57 @@ public class Seat extends CinemaFrame implements ActionListener {
 	}
 
 	// TODO : 좌석상태 정보 아이콘(Available, Sold, Selected 정보 표시)
-	// private void initSeatInfo() {
-	// ImageIcon available = new ImageIcon("images/seatAvailable.png");
-	// ImageIcon sold = new ImageIcon("images/seatSold.png");
-	// ImageIcon selected = new ImageIcon("images/seatSelected.png");
-	//
-	// JLabel s1 = new JLabel();
-	// s1.setBounds(960, 210, 95, 50);
-	// s1.setIcon(available);
-	// JLabel s2 = new JLabel();
-	// s2.setBounds(960, 270, 95, 50);
-	// s2.setIcon(sold);
-	// JLabel s3 = new JLabel();
-	// s3.setBounds(960, 330, 95, 50);
-	// s3.setIcon(selected);
-	// add(s1);
-	// add(s2);
-	// add(s3);
-	// }
+	private void initSeatInfo() {
+
+		JLabel s1 = new JLabel();
+		s1.setBounds(1100, 460, 60, 40);
+		s1.setIcon(available);
+		JLabel s2 = new JLabel();
+		s2.setBounds(1100, 520, 60, 40);
+		s2.setIcon(sold);
+		JLabel s3 = new JLabel();
+		s3.setBounds(1100, 580, 60, 40);
+		s3.setIcon(selected);
+
+		JLabel lblAvailable = new JLabel("Available");
+		lblAvailable.setForeground(Color.white);
+		lblAvailable.setFont(new Font("Consolas", Font.PLAIN, 20));
+		lblAvailable.setBounds(1170, 460, 100, 40);
+
+		JLabel lblSold = new JLabel("Sold");
+		lblSold.setForeground(Color.white);
+		lblSold.setFont(new Font("Consolas", Font.PLAIN, 20));
+		lblSold.setBounds(1170, 520, 100, 40);
+
+		JLabel lblSelected = new JLabel("Selected");
+		lblSelected.setForeground(Color.white);
+		lblSelected.setFont(new Font("Consolas", Font.PLAIN, 20));
+		lblSelected.setBounds(1170, 580, 100, 40);
+
+		add(s1);
+		add(lblAvailable);
+		add(s2);
+		add(lblSold);
+		add(s3);
+		add(lblSelected);
+	}
 
 	private void initButtons() {
 		btnPrev = new JButton("prev");
 		btnReset = new JButton("reset");
 		btnPayment = new JButton("payment");
+		btnPrev.setIcon(new ImageIcon("images/seat/prev.png"));
+		btnReset.setIcon(new ImageIcon("images/seat/reset.png"));
+		btnPayment.setIcon(new ImageIcon("images/seat/pay.png"));
+		btnPrev.setContentAreaFilled(false);
+		btnReset.setContentAreaFilled(false);
+		btnPayment.setContentAreaFilled(false);
 		btnPrev.addActionListener(this);
 		btnReset.addActionListener(this);
 		btnPayment.addActionListener(this);
-		btnPrev.setBounds(40, 650, 130, 65);
-		btnReset.setBounds(1050, 650, 130, 65);
-		btnPayment.setBounds(1200, 650, 130, 65);
+		btnPrev.setBounds(40, 650, 140, 65);
+		btnReset.setBounds(1050, 650, 140, 65);
+		btnPayment.setBounds(1200, 650, 140, 65);
 		add(btnPrev);
 		add(btnReset);
 		add(btnPayment);

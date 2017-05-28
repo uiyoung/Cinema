@@ -51,6 +51,7 @@ public class MyAccount extends CinemaFrame implements ActionListener {
 
 	public MyAccount() {
 		this.setSize(500, 270);
+		this.setLocation(400, 300);
 		this.setTitle("MyAccount");
 		init();
 	}

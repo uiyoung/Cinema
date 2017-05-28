@@ -17,7 +17,7 @@ public class CinemaFrame extends JFrame {
 		}
 
 		setSize(1366, 768);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
 		// set location in center of screen
 		Dimension dim1 = Toolkit.getDefaultToolkit().getScreenSize();

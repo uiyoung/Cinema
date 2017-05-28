@@ -23,7 +23,7 @@ public class Movie_Input extends MFrame implements ActionListener {
 	JPanel pan = new JPanel();
 
 	JLabel lab1 = new JLabel("映画のタイトル");
-	JLabel lab2 = new JLabel("映画のジャンル");
+	JLabel lab2 = new JLabel("ジャンル");
 	JLabel lab3 = new JLabel("タイプ");
 	JLabel lab4 = new JLabel("監督");
 	JLabel lab5 = new JLabel("出演");

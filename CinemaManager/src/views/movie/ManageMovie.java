@@ -42,7 +42,7 @@ public class ManageMovie extends MFrame implements ActionListener {
 
 	JTable table;
 	JScrollPane scpan;
-	String col[] = { "映画のタイトル", "映画のジャンル", "タイプ", "監督", "出演", "公開日", "上映時間", "ストーリー" };
+	String col[] = { "映画のタイトル", "ジャンル", "タイプ", "監督", "出演", "公開日", "上映時間", "ストーリー" };
 	MDBMgr mgr = new MDBMgr();
 	ArrayList<MovieBean> list;
 	MovieBean bean;

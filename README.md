@@ -17,7 +17,7 @@ next 쭉 누르다가 finish
 예전의 cinemaDB 데이터베이스가 존재한다면, `drop database cinemaDB;` db드롭 후에 
 [SQL파일](https://github.com/UiyoungSeo/Cinema/blob/master/cinemaDB_create.sql) 열어서 Execute All Queries
 
-###### *happy coding*
+
 ---
 
 
@@ -38,7 +38,7 @@ next 쭉 누르다가 finish
 - グレートウォール
 - LION／ライオン ～25年目のただいま
 
-
+[영화정보입력예시](https://github.com/UiyoungSeo/Cinema/blob/master/CinemaManager/InsertMovieExample.md)
 
 #### ③ 상영스케줄 입력
 스케줄관리에서 등록버튼을 누르고 상영일, 시간, 영화제목, 극장을 선택해주세요. 이 조건에 맞는 스케줄만 사용자 프로그램에서 예매 할 수 있습니다.

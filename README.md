@@ -30,15 +30,15 @@ next 쭉 누르다가 finish
 
 #### ②영화정보 입력
 영화관리에서 등록버튼을 누르고 사용자에게 보여질 영화에 대한 정보를 입력해주세요.    
-지금은 영화제목이 아래와 같을 때만 *(CinemaClient의 images폴더안에 있는 이미지파일)* 예매 프로그램에서 포스터가 보입니다. 
- 
+지금은 영화제목이 아래와 같을 때만 *(CinemaClient의 images폴더안에 있는 이미지파일)* 예매 프로그램에서 포스터가 보입니다.     
+[영화정보입력예시](https://github.com/UiyoungSeo/Cinema/blob/master/CinemaManager/InsertMovieExample.md)
 - 美女と野獣
 - 名探偵コナン　から紅の恋歌（ラブレター）
 - ゴースト・イン・ザ・シェル
 - グレートウォール
 - LION／ライオン ～25年目のただいま
 
-[영화정보입력예시](https://github.com/UiyoungSeo/Cinema/blob/master/CinemaManager/InsertMovieExample.md)
+
 
 #### ③ 상영스케줄 입력
 스케줄관리에서 등록버튼을 누르고 상영일, 시간, 영화제목, 극장을 선택해주세요. 이 조건에 맞는 스케줄만 사용자 프로그램에서 예매 할 수 있습니다.

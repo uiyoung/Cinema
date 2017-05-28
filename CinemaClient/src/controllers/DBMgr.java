@@ -188,7 +188,7 @@ public class DBMgr {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		ArrayList<SeatBean> list = new ArrayList<>();
-		String sql = "select distinct seat_no, date,time, state from theater_tb join seat_tb2 where theater_tb.name=? and date=? and time=?";
+		String sql = "select distinct * from theater_tb join seat_tb2 on theater_tb.`no` = seat_tb2.theater_no where theater_tb.name=? and date=? and time=?";
 		SeatBean bean;
 
 		try {

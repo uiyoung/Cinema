@@ -140,13 +140,17 @@ public class MyTicket extends CinemaFrame implements ActionListener {
 						// 좌석 state='n'으로 바꾸는 코드
 						mgr.cancelSeat(theater, date, time, seat);
 						// TODO : 적립포인트 회수하는 코드
+
+						JOptionPane.showMessageDialog(null,
+								date + ", " + time + "시 " + theater + "극장" + seat + "좌석의 예매가 취소되었습니다. ", "예매 취소",
+								JOptionPane.DEFAULT_OPTION);
 						dispose();
 						new MyTicket();
 					}
 					return;
 				}
 			}
-			JOptionPane.showMessageDialog(null, "취소할 예매목록을 선택해 주세요 ", "Error", JOptionPane.DEFAULT_OPTION);
+			JOptionPane.showMessageDialog(null, "취소할 예매목록을 선택해 주세요 ", "Error", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 }

@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import controllers.MDBMgr;
@@ -17,10 +18,10 @@ import models.MovieBean;
 import views.MFrame;
 
 public class DeleteTheater extends MFrame implements ActionListener {
-	JLabel lab = new JLabel("映画削除");
+	JLabel lab = new JLabel("劇場削除");
 	JPanel pan = new JPanel();
 
-	JLabel lab1 = new JLabel("삭제할 극장 번호");
+	JLabel lab1 = new JLabel("削除する劇場番号");
 	JPanel cpan = new JPanel();
 
 	JButton bt = new JButton("削除");
@@ -31,7 +32,7 @@ public class DeleteTheater extends MFrame implements ActionListener {
 	private int theaterNo;
 
 	public DeleteTheater() {
-		this.setTitle("映画削除");
+		this.setTitle("劇場削除");
 		this.setSize(550, 350);
 		init();
 	}
@@ -92,6 +93,12 @@ public class DeleteTheater extends MFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getActionCommand().equals("削除")) {
 			mgr.deleteTheater(theaterNo);
+			
+			int result = JOptionPane.showConfirmDialog(null, "本当に削除しますか。", "メッセージ",
+					JOptionPane.YES_NO_OPTION);
+			if (result == JOptionPane.CLOSED_OPTION) {
+			} else if (result == JOptionPane.YES_OPTION) {
+			
 			/* 열려있는 모든 창 닫기 */
 			java.awt.Window win[] = java.awt.Window.getWindows();
 			for (int i = 0; i < win.length; i++) {
@@ -99,7 +106,7 @@ public class DeleteTheater extends MFrame implements ActionListener {
 				win[i] = null;
 			}
 			new ManageTheater();
-		} else if (e.getActionCommand().equals("取り消す")) {
+			}} else if (e.getActionCommand().equals("取り消す")) {
 			dispose();
 		}
 	}

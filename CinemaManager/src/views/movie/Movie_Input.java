@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -146,8 +147,15 @@ public class Movie_Input extends MFrame implements ActionListener {
 			String type = txtf3.getText();
 			String director = txtf4.getText();
 			String cast = txtf5.getText();
-			
-			mgr.input_movie(title, genre, releaseDate, runningTime, description, type, director, cast);
+
+			// 메시지 창뜨기
+			int result = JOptionPane.showConfirmDialog(null, "本当に登録しますか。", "メッセージ", JOptionPane.YES_NO_OPTION);
+			if (result == JOptionPane.CLOSED_OPTION) {
+			} else if (result == JOptionPane.YES_OPTION) {
+				mgr.input_movie(title, genre, releaseDate, runningTime, description, type, director, cast);
+				JOptionPane.showConfirmDialog(null, "登録されました。", "メッセージ", JOptionPane.DEFAULT_OPTION);
+
+			}
 			/* 열려있는 모든 창 닫기 */
 			java.awt.Window win[] = java.awt.Window.getWindows();
 			for (int i = 0; i < win.length; i++) {

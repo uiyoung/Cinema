@@ -19,6 +19,7 @@ import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumnModel;
 
 import controllers.MDBMgr;
@@ -63,6 +64,7 @@ public class ManageMovie extends MFrame implements ActionListener {
 
 		JPanel moviepan2 = new JPanel();
 		// 하위버튼의 색상과 폰트지정
+		moviepan1.setBackground(Color.WHITE);
 		bt.setFont(new Font("EPSON 太丸ゴシック体Ｂ", Font.PLAIN, 18));
 		bt.setBackground(Color.DARK_GRAY);
 		bt.setForeground(Color.WHITE);
@@ -75,7 +77,7 @@ public class ManageMovie extends MFrame implements ActionListener {
 		bt3.setFont(new Font("EPSON 太丸ゴシック体Ｂ", Font.PLAIN, 18));
 		bt3.setBackground(Color.DARK_GRAY);
 		bt3.setForeground(Color.WHITE);
-
+		
 		moviepan1.add(bt);
 		moviepan1.add(bt1);
 		moviepan1.add(bt2);
@@ -102,8 +104,14 @@ public class ManageMovie extends MFrame implements ActionListener {
 		table = new JTable(record, col);
 		table.setPreferredScrollableViewportSize(new Dimension(1350, 675));
 		scpan = new JScrollPane(table);
+		JTableHeader th = table.getTableHeader();
+	      th.setFont(new Font("EPSON 太丸ゴシック体Ｂ", Font.BOLD, 18));
+	      th.setBackground(Color.white);
+	      th.setForeground(Color.DARK_GRAY);
+	
 		JPanel panline = new JPanel(new BorderLayout());
 		panline.setBorder((Border) new TitledBorder(new EtchedBorder(), "映画のリスト"));
+		panline.setFont(new Font("EPSON 太丸ゴシック体Ｂ", Font.BOLD, 18));
 		panline.add(scpan, BorderLayout.CENTER);
 
 		// 테이블 내용 가운데 정렬

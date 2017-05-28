@@ -25,28 +25,28 @@ public class CreateTheater extends MFrame implements ActionListener {
 	String theaterName, theaterAddress, theaterPhone, theaterDescription;
 	int theaterNo, theaterCapacity;
 
-	JLabel lab = new JLabel("극장登録");
+	JLabel lab = new JLabel("劇場登録");
 	JPanel pan = new JPanel();
 
-	JLabel lbl0 = new JLabel("극장번호");
-	JLabel lab1 = new JLabel("극장이름");
-	JLabel lab2 = new JLabel("주소");
-	JLabel lab3 = new JLabel("전화번호");
-	JLabel lab4 = new JLabel("수용인원");
-	JLabel lab8 = new JLabel("극장 정보");
+	JLabel lbl0 = new JLabel("劇場番号");
+	JLabel lab1 = new JLabel("劇場の名前");
+	JLabel lab2 = new JLabel("住所");
+	JLabel lab3 = new JLabel("電話番号");
+	JLabel lab4 = new JLabel("立ち見客数");
+	JLabel lab8 = new JLabel("劇場情報");
 
 	JTextField tfTheaterNo = new JTextField(10);
 	JTextField tfTheaterName = new JTextField(10);
 	JTextField tfTheaterAddress = new JTextField(10);
 	JTextField tfTheaterPhone = new JTextField(10);
-//	JTextField tfTheaterCapacity = new JTextField(10);
+	// JTextField tfTheaterCapacity = new JTextField(10);
 	JTextArea taTheaterDescription = new JTextArea("内容を入力してください。", 10, 30);
 
 	JButton bt = new JButton("確認");
 	JButton bt1 = new JButton("取り消す");
 
 	public CreateTheater() {
-		this.setTitle("극장 수정");
+		this.setTitle("劇場修正");
 		this.setSize(530, 680);
 		init();
 	}
@@ -106,7 +106,7 @@ public class CreateTheater extends MFrame implements ActionListener {
 		theaterCapacity = cbCapacityList.getItemAt(cbCapacityList.getSelectedIndex());
 		System.out.println("numOfSeats : " + theaterCapacity);
 		cbCapacityList.setBounds(200, 275, 250, 25);
-		
+
 		lab8.setBounds(50, 320, 150, 50);
 		taTheaterDescription.setBounds(50, 370, 400, 150);
 		taTheaterDescription.setLineWrap(true); // 한줄이 너무 길면 자동으로 개행
@@ -145,13 +145,13 @@ public class CreateTheater extends MFrame implements ActionListener {
 			theaterName = tfTheaterName.getText();
 			theaterAddress = tfTheaterAddress.getText();
 			theaterPhone = tfTheaterPhone.getText();
-			// theaterCapacity = Integer.parseInt(tfTheaterCapacity.getText());
+			//theaterCapacity = Integer.parseInt(tfTheaterCapacity.getText());
 			theaterDescription = taTheaterDescription.getText();
 
 			mgr.insertTheater(theaterNo, theaterName, theaterAddress, theaterPhone, theaterCapacity,
 					theaterDescription);
 
-			JOptionPane.showMessageDialog(null, theaterName + "극장이 생성되었습니다", "message", JOptionPane.DEFAULT_OPTION);
+			JOptionPane.showMessageDialog(null, theaterName + "劇場が生成されました。", "メッセージ", JOptionPane.DEFAULT_OPTION);
 			/* 열려있는 모든 창 닫기 */
 			java.awt.Window win[] = java.awt.Window.getWindows();
 			for (int i = 0; i < win.length; i++) {

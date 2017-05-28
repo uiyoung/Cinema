@@ -25,15 +25,15 @@ public class UpdateTheater extends MFrame implements ActionListener {
 	String theaterName, theaterAddress, theaterPhone, theaterDescription;
 	int theaterNo, theaterCapacity;
 
-	JLabel lab = new JLabel("극장登録");
+	JLabel lab = new JLabel("劇場修正");
 	JPanel pan = new JPanel();
 
-	JLabel lbl0 = new JLabel("극장번호");
-	JLabel lab1 = new JLabel("극장이름");
-	JLabel lab2 = new JLabel("주소");
-	JLabel lab3 = new JLabel("전화번호");
-	JLabel lab4 = new JLabel("수용인원");
-	JLabel lab8 = new JLabel("극장 정보");
+	JLabel lbl0 = new JLabel("劇場番号");
+	JLabel lab1 = new JLabel("劇場の名前");
+	JLabel lab2 = new JLabel("住所");
+	JLabel lab3 = new JLabel("電話番号");
+	JLabel lab4 = new JLabel("立ち見客数");
+	JLabel lab8 = new JLabel("劇場情報");
 
 	// JTextField tfTheaterNo = new JTextField(10);
 	JTextField tfTheaterName = new JTextField(10);
@@ -46,7 +46,7 @@ public class UpdateTheater extends MFrame implements ActionListener {
 	JButton btnCancel = new JButton("取り消す");
 
 	public UpdateTheater() {
-		this.setTitle("극장 수정");
+		this.setTitle("劇場修正");
 		this.setSize(530, 680);
 		init();
 	}
@@ -174,7 +174,7 @@ public class UpdateTheater extends MFrame implements ActionListener {
 			mgr.updateTheater(theaterNo, theaterName, theaterAddress, theaterPhone, theaterCapacity,
 					theaterDescription);
 
-			JOptionPane.showMessageDialog(null, theaterName + "극장정보가 수정되었습니다", "message", JOptionPane.DEFAULT_OPTION);
+			JOptionPane.showMessageDialog(null, theaterName + "劇場情報が修正されました。", "メッセージ", JOptionPane.DEFAULT_OPTION);
 			/* 열려있는 모든 창 닫기 */
 			java.awt.Window win[] = java.awt.Window.getWindows();
 			for (int i = 0; i < win.length; i++) {

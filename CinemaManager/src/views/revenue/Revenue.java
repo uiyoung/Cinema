@@ -19,6 +19,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumnModel;
 
 import controllers.MDBMgr;
@@ -57,14 +58,19 @@ public class Revenue extends MFrame implements ActionListener {
 	private void init() {
 		Container mccon = this.getContentPane();
 		// 상위 버튼에 색상과 폰트지정
-		exit.setBackground(Color.WHITE);
+		pan1.setBackground(Color.WHITE);
+		exit.setBackground(Color.DARK_GRAY);
+		exit.setForeground(Color.WHITE);
 		exit.setFont(new Font("EPSON 太丸ゴシック体Ｂ", Font.PLAIN, 18));
+		cal1.setFont(new Font("EPSON 太丸ゴシック体Ｂ", Font.PLAIN, 18));
 
 		pan1.add(pan2);
 		pan1.add(exit);
 
 		calpan.add(cal1);
-
+		calpan.setBackground(Color.WHITE);
+		calpan.setForeground(Color.DARK_GRAY);
+		
 		exit.addActionListener(this);
 
 		// table 관련
@@ -83,6 +89,11 @@ public class Revenue extends MFrame implements ActionListener {
 
 		mctable = new JTable(mcrecord, mc);
 		mctable.setPreferredScrollableViewportSize(new Dimension(1350, 675));
+		JTableHeader th = mctable.getTableHeader();
+	      th.setFont(new Font("EPSON 太丸ゴシック体Ｂ", Font.BOLD, 18));
+	      th.setBackground(Color.white);
+	      th.setForeground(Color.DARK_GRAY);
+	
 		mcpan = new JScrollPane(mctable);
 		calpan.add(cal2);
 		JPanel mcpanline = new JPanel(new BorderLayout());

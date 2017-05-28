@@ -23,9 +23,9 @@ import views.theater.ManageTheater;
 
 public class MainMenu extends MFrame implements ActionListener {
 	ButtonGroup mgroup = new ButtonGroup();
-	JButton btnTheater = new JButton("①シネマ管理");
-	JButton btnInsertMovie = new JButton("②映画管理");// 映画情報
-	JButton btnInsertSchedule = new JButton("③スケジュール管理");// 上映情報
+	JButton btnTheater = new JButton("シネマ管理");
+	JButton btnInsertMovie = new JButton("映画管理");// 映画情報
+	JButton btnInsertSchedule = new JButton("スケジュール管理");// 上映情報
 	JButton reconfirm = new JButton("予約情報");// 予約情報
 	JButton cal = new JButton("精算");// 精算
 	JButton exit = new JButton("終了");
@@ -55,9 +55,18 @@ public class MainMenu extends MFrame implements ActionListener {
 		reconfirm.setFont(new Font("EPSON 太丸ゴシック体Ｂ", Font.PLAIN, 18));
 		exit.setFont(new Font("EPSON 太丸ゴシック体Ｂ", Font.PLAIN, 18));
 
-		btnTheater.setBackground(Color.WHITE);
-		btnInsertSchedule.setBackground(Color.WHITE);
-		btnInsertMovie.setBackground(Color.WHITE);
+		//btnTheater.setBackground(Color.decode("#D6FFFF"));
+		btnTheater.setBackground(Color.darkGray);
+		btnTheater.setForeground(Color.decode("#ffffff"));
+		btnInsertSchedule.setBackground(Color.darkGray);
+		btnInsertSchedule.setForeground(Color.decode("#ffffff"));
+		btnInsertMovie.setBackground(Color.darkGray);
+		btnInsertMovie.setForeground(Color.decode("#ffffff"));
+		//btnTheater.setForeground(Color.decode("#353535"));
+		//btnInsertSchedule.setBackground(Color.decode("#D6FFFF"));
+		//btnInsertSchedule.setForeground(Color.decode("#353535"));
+		//btnInsertMovie.setBackground(Color.decode("#D6FFFF"));
+		//btnInsertMovie.setForeground(Color.decode("#353535"));
 		reconfirm.setBackground(Color.white);
 		cal.setBackground(Color.white);
 		exit.setBackground(Color.WHITE);
@@ -87,12 +96,12 @@ public class MainMenu extends MFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String button = e.getActionCommand();
-		
+
 		if (e.getSource() == btnTheater) {
 			new ManageTheater();
 			dispose();
 		}
-		
+
 		if (e.getSource() == btnInsertMovie) {
 			new ManageMovie();
 			dispose();
@@ -110,7 +119,7 @@ public class MainMenu extends MFrame implements ActionListener {
 			dispose();
 		}
 		if (button.equals(exit.getText())) {
-			int choice = JOptionPane.showConfirmDialog(null, "종료하시겠습니까?", "exit", JOptionPane.YES_NO_OPTION);
+			int choice = JOptionPane.showConfirmDialog(null, "終了しますか。", "Exit", JOptionPane.YES_NO_OPTION);
 			if (choice == JOptionPane.YES_OPTION)
 				System.exit(0);
 		}

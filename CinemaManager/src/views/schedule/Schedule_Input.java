@@ -33,7 +33,7 @@ public class Schedule_Input extends MFrame implements ActionListener {
 	JLabel schlab3 = new JLabel("上映時間");// 상영시간
 	JLabel schlab4 = new JLabel("映画");// 영화
 	JLabel schlab5 = new JLabel("劇場");// 극장
-	JLabel lblNumofSeats = new JLabel("좌석 수");// 극장
+	JLabel lblNumofSeats = new JLabel("座席数");// 극장
 
 	JTextField tfYear = new JTextField();
 	JTextField tfMonth = new JTextField();
@@ -212,14 +212,14 @@ public class Schedule_Input extends MFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getActionCommand().equals("確認")) {
 			if (tfYear.getText().equals("") || tfMonth.getText().equals("") || tfDay.getText().equals("")) {
-				JOptionPane.showMessageDialog(null, "날짜를 입력해주세요.", "Error", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, "日付を入力してください。", "Error", JOptionPane.ERROR_MESSAGE);
 				return;
 			}
 
 			date = tfYear.getText() + tfMonth.getText() + tfDay.getText();
 
 			if (mgr.isDuplicateSchedule(date, time, theaterNo)) {
-				JOptionPane.showMessageDialog(null, date + "일, " + time + "시에  " + theaterNo + "극장에서 이미 영화를 상영중입니다.",
+				JOptionPane.showMessageDialog(null, date + "日, " + time + "時に  " + theaterNo + "劇場ですでに映画を上映中です。",
 						"Error", JOptionPane.ERROR_MESSAGE);
 				return;
 			}
@@ -228,7 +228,7 @@ public class Schedule_Input extends MFrame implements ActionListener {
 
 			/*----------------------------- 좌석정보 입력---------------------------------*/
 			if (mgr.isSeatInserted(theater, date, time)) {
-				JOptionPane.showMessageDialog(null, theater + "극장, " + date + "일, " + time + "시에 이미 좌석이 생성되어 있습니다.",
+				JOptionPane.showMessageDialog(null, theater + "劇場, " + date + "日, " + time + "時に すでに座席が生成されています。",
 						"Error", JOptionPane.ERROR_MESSAGE);
 				return;
 			}
@@ -248,7 +248,7 @@ public class Schedule_Input extends MFrame implements ActionListener {
 				mgr.insertSeats(Integer.toString(theaterNo), seatNo, date, time);
 			}
 			JOptionPane.showMessageDialog(null,
-					theater + "극장, " + date + "일, " + time + "시에 " + numOfSeats + "개의 좌석이 생성되었습니다.", "Insert Seat Info",
+					theater + "劇場, " + date + "日, " + time + "時に " + numOfSeats + "個の座席が生成されました", "メッセージ",
 					JOptionPane.DEFAULT_OPTION);
 			/*---------------------------------end of 좌석정보입력---------------------------*/
 

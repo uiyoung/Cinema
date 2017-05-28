@@ -96,7 +96,7 @@ public class Login extends MFrame implements ActionListener {
 
 			} else {
 				String[] buttons = { "確認", "取り消す" };
-				JOptionPane.showOptionDialog(null, "ログイン エラー...", "エラーメッセージ", JOptionPane.YES_NO_CANCEL_OPTION,
+				JOptionPane.showOptionDialog(null, "もう一度入力してください。", "Error", JOptionPane.YES_NO_CANCEL_OPTION,
 						JOptionPane.QUESTION_MESSAGE, null, buttons, "確認");
 				txtf.setText("");
 				txtf1.setText("");

@@ -19,6 +19,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumnModel;
 
 import controllers.MDBMgr;
@@ -54,7 +55,7 @@ public class ManageSchedule extends MFrame implements ActionListener {
 
 	private void init() {
 		Container mcon = this.getContentPane();
-
+		mcon.setBackground(Color.WHITE);
 		JPanel mschpan2 = new JPanel();
 		// 하위버튼의 색상과 폰트지정
 		mschbt1.setFont(new Font("EPSON 太丸ゴシック体Ｂ", Font.PLAIN, 18));
@@ -69,7 +70,7 @@ public class ManageSchedule extends MFrame implements ActionListener {
 		mschbt4.setFont(new Font("EPSON 太丸ゴシック体Ｂ", Font.PLAIN, 18));
 		mschbt4.setBackground(Color.DARK_GRAY);
 		mschbt4.setForeground(Color.WHITE);
-
+		mschpan1.setBackground(Color.WHITE);
 		mschpan1.add(mschbt1);
 		mschpan1.add(mschbt2);
 		mschpan1.add(mschbt3);
@@ -93,6 +94,11 @@ public class ManageSchedule extends MFrame implements ActionListener {
 		table = new JTable(mschrecord, col);
 		table.setPreferredScrollableViewportSize(new Dimension(1350, 675));
 		mschfpan = new JScrollPane(table);
+		JTableHeader th = table.getTableHeader();
+	      th.setFont(new Font("EPSON 太丸ゴシック体Ｂ", Font.BOLD, 18));
+	      th.setBackground(Color.white);
+	      th.setForeground(Color.DARK_GRAY);
+	
 		JPanel panline = new JPanel(new BorderLayout());
 		panline.setBorder(new TitledBorder(new EtchedBorder(), "上映のリスト"));
 		panline.add(mschfpan, BorderLayout.CENTER);
@@ -134,14 +140,14 @@ public class ManageSchedule extends MFrame implements ActionListener {
 					System.out.println(scheduleNo);
 					System.out.println(theaterNo + "," + date + "," + time);
 
-					int result = JOptionPane.showConfirmDialog(null, scheduleNo + "번 상영일정을 삭제하시겠습니까?", "상영일정 삭제",
+					int result = JOptionPane.showConfirmDialog(null, scheduleNo + "番上映日程を削除します。", "上映日程の削除",
 							JOptionPane.YES_NO_OPTION);
 					if (result == JOptionPane.CLOSED_OPTION) {
 					} else if (result == JOptionPane.YES_OPTION) {
 						mgr.deleteSchedule(scheduleNo); // 상영정보 삭제
 						mgr.deleteSeats(theaterNo, date, time); // 좌석정보 삭제
 
-						JOptionPane.showMessageDialog(null, "상영일정과 좌석이 삭제되었습니다.", "완료", JOptionPane.DEFAULT_OPTION);
+						JOptionPane.showMessageDialog(null, "上映日程と座席が削除されました。", "完了", JOptionPane.DEFAULT_OPTION);
 
 						new ManageSchedule();
 						dispose();
@@ -149,7 +155,7 @@ public class ManageSchedule extends MFrame implements ActionListener {
 					return;
 				}
 			}
-			JOptionPane.showMessageDialog(null, "삭제할 상영일정을 선택해 주세요 ", "Error", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "削除する上映日程を選択してください。 ", "Error", JOptionPane.ERROR_MESSAGE);
 		}
 		if (e.getActionCommand().equals("戻る")) {
 			new MainMenu();

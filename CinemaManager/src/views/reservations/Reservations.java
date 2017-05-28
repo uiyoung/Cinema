@@ -18,6 +18,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumnModel;
 
 import controllers.MDBMgr;
@@ -53,7 +54,8 @@ public class Reservations extends MFrame implements ActionListener {
 		Container mrcon = this.getContentPane();
 		pan1.setBackground(Color.WHITE);
 		// 상위 버튼에 색상과 폰트지정
-		exit.setBackground(Color.WHITE);
+		exit.setBackground(Color.DARK_GRAY);
+		exit.setForeground(Color.white);
 		exit.setFont(new Font("EPSON 太丸ゴシック体Ｂ", Font.PLAIN, 18));
 
 		pan1.add(pan2);
@@ -79,6 +81,11 @@ public class Reservations extends MFrame implements ActionListener {
 		mrtable = new JTable(mrrecord, mr);
 		mrtable.setPreferredScrollableViewportSize(new Dimension(1350, 675));
 		mrpan = new JScrollPane(mrtable);
+		JTableHeader th = mrtable.getTableHeader();
+	      th.setFont(new Font("EPSON 太丸ゴシック体Ｂ", Font.BOLD, 18));
+	      th.setBackground(Color.white);
+	      th.setForeground(Color.DARK_GRAY);
+	
 		JPanel mrpanline = new JPanel(new BorderLayout());
 		mrpanline.setBorder(new TitledBorder(new EtchedBorder()));
 		mrpanline.add(mrpan, BorderLayout.CENTER);

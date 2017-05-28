@@ -157,8 +157,7 @@ public class Schedule_Update extends MFrame implements ActionListener {
 			list = mgr.getScheduleInfo(scheduleNo);
 
 			if (list.size() == 0) {
-				JOptionPane.showMessageDialog(null, scheduleNo + "번 상영번호가 존재하지 않습니다.", "Error",
-						JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, scheduleNo + "番上映番号が存在しません。", "Error", JOptionPane.ERROR_MESSAGE);
 				return;
 			}
 
@@ -183,7 +182,7 @@ public class Schedule_Update extends MFrame implements ActionListener {
 			mgr.updateSchedule(newDate, newTime, newMovieNo, newTheaterNo, no);
 			mgr.updateSeats(Integer.parseInt(newTheaterNo), newDate, newTime, theaterNo, date, time);
 
-			JOptionPane.showMessageDialog(null, no + "번  상영정보가 수정되었습니다.", "Error", JOptionPane.DEFAULT_OPTION);
+			JOptionPane.showMessageDialog(null, no + "番上映情報が修正されました。", "メッセージ", JOptionPane.DEFAULT_OPTION);
 			/* 열려있는 모든 창 닫기 */
 			java.awt.Window win[] = java.awt.Window.getWindows();
 			for (int i = 0; i < win.length; i++) {

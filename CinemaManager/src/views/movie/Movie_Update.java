@@ -222,7 +222,7 @@ public class Movie_Update extends MFrame implements ActionListener {
 			if (result == JOptionPane.CLOSED_OPTION) {
 			} else if (result == JOptionPane.YES_OPTION) {
 				mgr.updateMovie(no, title, genre, releasDate, runningTime, description, type, director, cast);
-				JOptionPane.showConfirmDialog(null, "수정되었습니다.", "メッセージ", JOptionPane.DEFAULT_OPTION);
+				JOptionPane.showConfirmDialog(null, "修正されました。", "メッセージ", JOptionPane.DEFAULT_OPTION);
 
 				/* 열려있는 모든 창 닫기 */
 				java.awt.Window win[] = java.awt.Window.getWindows();

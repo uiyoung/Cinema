@@ -75,7 +75,7 @@ public class Schedule_Delete extends MFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if (e.getActionCommand().equals("削除")) {
-			int result = JOptionPane.showConfirmDialog(null, "상영정보 삭제 시 좌석정보도 함께 삭제됩니다. 本当に削除しますか。", "メッセージ",
+			int result = JOptionPane.showConfirmDialog(null, "上映情報削除の際座席情報も一緒に削除されます。 本当に削除しますか。", "メッセージ",
 					JOptionPane.YES_NO_OPTION);
 			if (result == JOptionPane.CLOSED_OPTION) {
 			} else if (result == JOptionPane.YES_OPTION) {

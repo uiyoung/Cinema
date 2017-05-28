@@ -21,7 +21,7 @@ next 쭉 누르다가 finish
 ---
 
 
-### [1. 영화정보 입력하기(관리자)](https://github.com/UiyoungSeo/CinemaManager)
+### [1. 영화정보 입력하기(관리자)](https://github.com/UiyoungSeo/Cinema/tree/master/CinemaManager)
 
 이제 모든 데이터는 관리자프로그램을 이용해서 db에 집어넣습니다. 따라서 관리자 프로그램에서 순서대로 `①극장생성->②영화정보입력->③상영스케줄입력`을 해야 사용자가 예매프로그램에서 예매를 할 수 있습니다.     
 `CinemaManger에서 views.login 패키지의 Login.java를 실행합니다.`
@@ -45,7 +45,7 @@ next 쭉 누르다가 finish
 
 ---
 
-### [2. 예매하기(사용자)](https://github.com/UiyoungSeo/Cinema)
+### [2. 예매하기(사용자)](https://github.com/UiyoungSeo/Cinema/tree/master/CinemaClient)
 
 관리자가 입력한 영화정보를 db에서 불러와 확인하고 영화, 극장, 날짜, 시간, 좌석을 선택하여 티켓을 예매할 수 있습니다.    
  `CinemaClient에서 views.login 패키지의 Login.java를 실행합니다.`   

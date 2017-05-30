@@ -21,7 +21,7 @@ import views.MFrame;
 import views.MainMenu;
 
 public class Login extends MFrame implements ActionListener {
-	ImageIcon img = new ImageIcon("main3.png");
+	ImageIcon img = new ImageIcon("login.png");
 	JLabel labimg = new JLabel(img);
 	JPanel cpn = new JPanel();
 
@@ -81,7 +81,8 @@ public class Login extends MFrame implements ActionListener {
 		txtf.requestFocus();
 		login.addActionListener(this);
 		close.addActionListener(this);
-		this.pack();
+		// this.pack();
+		setVisible(true);
 	}
 
 	@Override

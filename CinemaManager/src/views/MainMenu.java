@@ -32,7 +32,7 @@ public class MainMenu extends MFrame implements ActionListener {
 	JPanel pan = new JPanel();
 	JPanel pan1 = new JPanel();
 	JPanel pan1_1 = new JPanel();
-	ImageIcon listImg = new ImageIcon("m_list.png");
+	ImageIcon listImg = new ImageIcon("main.png");
 	JLabel mlab = new JLabel(listImg);
 	JPanel pan2 = new JPanel();
 	MDBMgr li_mgr = new MDBMgr();
@@ -90,7 +90,9 @@ public class MainMenu extends MFrame implements ActionListener {
 		mcon.add("North", pan1);
 		mcon.add("South", pan);
 		// mcon.add("South", pan2);
-		this.pack();
+		// this.pack();
+		setVisible(true);
+
 	}
 
 	@Override

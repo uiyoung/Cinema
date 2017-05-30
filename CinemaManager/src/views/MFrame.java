@@ -4,8 +4,8 @@ import javax.swing.JFrame;
 
 public class MFrame extends JFrame {
 	public MFrame() {
-		//setSize(1366, 768);
-		setBounds(200, 80, 1366, 768);
+		setSize(1366, 768);
+		// setBounds(200, 80, 1366, 768);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
 		/*// set location in center of screen

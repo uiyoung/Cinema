@@ -1,6 +1,8 @@
 package views.login;
 
+import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -84,12 +86,12 @@ public class Login extends JFrame implements ActionListener {
 		add(loginPanel);
 
 		// set location in center of screen
-		// Dimension dim1 = Toolkit.getDefaultToolkit().getScreenSize();
-		// Dimension dim2 = this.getSize();
-		// int x, y;
-		// x = (int) (dim1.getWidth() / 2 - dim2.getWidth() / 2);
-		// y = (int) (dim1.getHeight() / 2 - dim2.getHeight() / 2);
-		// setLocation(x, y);
+		Dimension dim1 = Toolkit.getDefaultToolkit().getScreenSize();
+		Dimension dim2 = this.getSize();
+		int x, y;
+		x = (int) (dim1.getWidth() / 2 - dim2.getWidth() / 2);
+		y = (int) (dim1.getHeight() / 2 - dim2.getHeight() / 2);
+		setLocation(x, y);
 
 
 		setVisible(true);
@@ -110,6 +112,9 @@ public class Login extends JFrame implements ActionListener {
 					MemberInfo.BIRTHDATE = list.get(i).getBirthdate();
 					MemberInfo.PHONE = list.get(i).getPhone();
 					MemberInfo.POINT = list.get(i).getPoint();
+
+					// TODO : static쓰지말고 id값을 매개변수로 MainMenu로 넘기기.
+					// ex)MainMenu(id);
 
 					JOptionPane.showMessageDialog(null, "ようこそ" + MemberInfo.NAME + "様", "Login",
 							JOptionPane.DEFAULT_OPTION);

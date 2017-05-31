@@ -44,6 +44,8 @@ public class Seat extends CinemaFrame implements ActionListener {
 		this.date = date;
 		this.ticket = ticket;
 
+		Selected.seats.clear();
+
 		setLayout(null);
 		setTitle("좌석선택");
 		initScreenLabel();
@@ -224,6 +226,10 @@ public class Seat extends CinemaFrame implements ActionListener {
 				JOptionPane.showMessageDialog(null, "좌석을 선택해 주세요", "error", JOptionPane.WARNING_MESSAGE);
 				return;
 			}
+			if (Selected.seats.size() < Integer.parseInt(ticket)) {
+				JOptionPane.showMessageDialog(null, ticket + "개의 좌석을 선택해 주세요", "error", JOptionPane.WARNING_MESSAGE);
+				return;
+			}
 
 			new Payment(title, theater, date, time, ticket, Selected.seats);
 			dispose();
@@ -236,6 +242,7 @@ public class Seat extends CinemaFrame implements ActionListener {
 					seats[i][j].setSelected(false);
 				}
 			}
+			Selected.seats.clear();
 			selectionCounter = 0;
 			checkSoldSeats();
 		}

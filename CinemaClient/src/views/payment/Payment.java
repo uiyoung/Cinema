@@ -48,7 +48,7 @@ public class Payment extends CinemaFrame implements ActionListener {
 		this.ticket = ticket;
 		this.seats = seats;
 
-		setTitle("결제");
+		setTitle("決済");
 		setLayout(new GridLayout(1, 3));
 		firstPanel.setLayout(null);
 		firstPanel.setBackground(Color.LIGHT_GRAY);
@@ -95,7 +95,7 @@ public class Payment extends CinemaFrame implements ActionListener {
 		lblTheater.setFont(new Font("Yu Gothic", Font.BOLD, 25));
 		lblPersonNum.setFont(new Font("Yu Gothic", Font.BOLD, 25));
 		lblSeatNo.setFont(new Font("Yu Gothic", Font.BOLD, 25));
-		lblPayment.setFont(new Font("맑은 고딕", Font.BOLD, 30));
+		lblPayment.setFont(new Font("Arial Unicode MS", Font.BOLD, 30));
 		moneyT.setFont(new Font("Arial Unicode MS", Font.BOLD, 30));
 		lblPrice.setFont(new Font("Yu Gothic", Font.BOLD, 40));
 
@@ -200,7 +200,7 @@ public class Payment extends CinemaFrame implements ActionListener {
 		}
 
 		if (e.getSource() == btnReserve) {
-			int result = JOptionPane.showConfirmDialog(null, "예매하시겠습니까?", "예매", JOptionPane.YES_NO_OPTION);
+			int result = JOptionPane.showConfirmDialog(null, "予約しますか。", "予約", JOptionPane.YES_NO_OPTION);
 			if (result == JOptionPane.CLOSED_OPTION) {
 			} else if (result == JOptionPane.YES_OPTION) {
 				for (int i = 0; i < Selected.seats.size(); i++) {
@@ -210,13 +210,14 @@ public class Payment extends CinemaFrame implements ActionListener {
 					mgr.reserveSeat(theater, date, time, Selected.seats.get(i));
 				}
 				Selected.seats.clear();
-				JOptionPane.showMessageDialog(null, "예매되었습니다.", "예매", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(null, "予約しますか。", "予約", JOptionPane.INFORMATION_MESSAGE);
 				new MainMenu();
 				dispose();
 			}
 		}
 		if (e.getSource() == btnPrev) {
 			new Seat(title, theater, date, time, ticket);
+			System.out.println(Selected.seats.size());
 			dispose();
 		}
 	}

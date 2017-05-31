@@ -24,8 +24,6 @@ public class MainMenu extends CinemaFrame implements ActionListener {
 
 	private void init() {
 		setLayout(null);
-		ImageIcon im = new ImageIcon("images/mainMenu/main13.png");
-		JLabel la = new JLabel(im);
 
 
 		btnMovieInfo = new JButton();
@@ -35,19 +33,18 @@ public class MainMenu extends CinemaFrame implements ActionListener {
 		btnLogout = new JButton();
 		btnExit = new JButton();
 
-		btnMovieInfo.setIcon(new ImageIcon("images/mainMenu/bt1_2.png"));
-		btnReserve.setIcon(new ImageIcon("images/mainMenu/bt3_2.png"));
-		btnMyTicket.setIcon(new ImageIcon("images/mainMenu/bt2_2.png"));
-		btnMyAccount.setIcon(new ImageIcon("images/mainMenu/bt5_2.png"));
-		btnLogout.setIcon(new ImageIcon("images/mainMenu/out2.png"));
-		btnExit.setIcon(new ImageIcon("images/mainMenu/bt4_2.png"));
-
-		btnMovieInfo.setRolloverIcon(new ImageIcon("images/mainMenu/info_2.png"));
-		btnReserve.setRolloverIcon(new ImageIcon("images/mainMenu/seat_2.png"));
-		btnMyTicket.setRolloverIcon(new ImageIcon("images/mainMenu/ti_2.png"));
-		btnMyAccount.setRolloverIcon(new ImageIcon("images/mainMenu/my_2.png"));
-		btnLogout.setRolloverIcon(new ImageIcon("images/mainMenu/out3.png"));
-		btnExit.setRolloverIcon(new ImageIcon("images/mainMenu/EXIT.png"));
+		btnMovieInfo.setIcon(new ImageIcon("images/mainMenu/btnMovieInfo.png"));
+		btnReserve.setIcon(new ImageIcon("images/mainMenu/btnReserve.png"));
+		btnMyTicket.setIcon(new ImageIcon("images/mainMenu/btnMyTicket.png"));
+		btnMyAccount.setIcon(new ImageIcon("images/mainMenu/btnMyAccount.png"));
+		btnLogout.setIcon(new ImageIcon("images/mainMenu/btnLogout.png"));
+		btnExit.setIcon(new ImageIcon("images/mainMenu/btnExit.png"));
+		btnMovieInfo.setRolloverIcon(new ImageIcon("images/mainMenu/btnMovieInfo2.png"));
+		btnReserve.setRolloverIcon(new ImageIcon("images/mainMenu/btnReserve2.png"));
+		btnMyTicket.setRolloverIcon(new ImageIcon("images/mainMenu/btnMyTicket2.png"));
+		btnMyAccount.setRolloverIcon(new ImageIcon("images/mainMenu/btnMyAccount2.png"));
+		btnLogout.setRolloverIcon(new ImageIcon("images/mainMenu/btnLogout2.png"));
+		btnExit.setRolloverIcon(new ImageIcon("images/mainMenu/btnExit2.png"));
 
 		btnMovieInfo.setContentAreaFilled(false);
 		btnReserve.setContentAreaFilled(false);
@@ -56,19 +53,12 @@ public class MainMenu extends CinemaFrame implements ActionListener {
 		btnLogout.setContentAreaFilled(false);
 		btnExit.setContentAreaFilled(false);
 
-		// btnMovieInfo.setBounds(1100, 350, 200, 60);
-		// btnReserve.setBounds(1100, 410, 200, 60);
-		// btnMyTicket.setBounds(1100, 470, 200, 60);
-		// btnMyAccount.setBounds(1100, 530, 200, 60);
-		// btnLogout.setBounds(1100, 590, 100, 60);
-		// btnExit.setBounds(1200, 590, 100, 60);
-		
-		btnMovieInfo.setBounds(820, 270, 250, 135);
-		btnReserve.setBounds(1085, 270, 250, 135);
-		btnMyTicket.setBounds(820, 415, 250, 135);
-		btnMyAccount.setBounds(1085, 415, 250, 135);
-		btnLogout.setBounds(820, 560, 250, 135);
-		btnExit.setBounds(1085, 560, 250, 135);
+		btnMovieInfo.setBounds(750, 200, 280, 150);
+		btnReserve.setBounds(1035, 200, 280, 150);
+		btnMyTicket.setBounds(750, 355, 280, 150);
+		btnMyAccount.setBounds(1035, 355, 280, 150);
+		btnLogout.setBounds(750, 510, 280, 150);
+		btnExit.setBounds(1035, 510, 280, 150);
 
 		btnMovieInfo.addActionListener(this);
 		btnReserve.addActionListener(this);
@@ -77,6 +67,8 @@ public class MainMenu extends CinemaFrame implements ActionListener {
 		btnLogout.addActionListener(this);
 		btnExit.addActionListener(this);
 
+		ImageIcon im = new ImageIcon("images/mainMenu/mainMenu_backgorund.jpg");
+		JLabel la = new JLabel(im);
 		la.setBounds(0, 0, 1366, 768);
 
 

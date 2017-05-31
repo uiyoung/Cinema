@@ -1,12 +1,11 @@
 package views.login;
 
-import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -40,28 +39,30 @@ public class Login extends JFrame implements ActionListener {
 		loginPanel = new JPanel(null);
 
 		lblId = new JLabel("ID");
+		lblId.setIcon(new ImageIcon("images/login/id.png"));
 		lblPassword = new JLabel("PW");
-		lblId.setFont(new Font("Consolas", Font.PLAIN, 15));
-		lblId.setBounds(80, 130, 70, 30);
-		lblPassword.setFont(new Font("Consolas", Font.PLAIN, 15));
-		lblPassword.setBounds(80, 180, 70, 30);
+		lblPassword.setIcon(new ImageIcon("images/login/pw.png"));
+		// lblId.setFont(new Font("Consolas", Font.PLAIN, 15));
+		// lblPassword.setFont(new Font("Consolas", Font.PLAIN, 15));
+		lblId.setBounds(47, 240, 70, 30);
+		lblPassword.setBounds(47, 280, 70, 30);
 
 		tfId = new JTextField();
 		tfPassword = new JPasswordField();
-		tfId.setBounds(100, 150, 220, 30);
-		tfPassword.setBounds(100, 200, 220, 30);
+		tfId.setBounds(100, 240, 220, 30);
+		tfPassword.setBounds(100, 280, 220, 30);
 
 		btnLogin = new JButton("Login");
 		btnExit = new JButton("Exit");
 		btnSignUp = new JButton("Sign Up");
 		btnFind = new JButton("Find");
-		btnLogin.setBounds(100, 250, 220, 30);
+		btnLogin.setBounds(100, 315, 220, 30);
 		btnLogin.setFont(new Font("Consolas", Font.PLAIN, 15));
-		btnSignUp.setBounds(250, 350, 100, 40);
+		btnSignUp.setBounds(250, 360, 100, 40);
 		btnSignUp.setFont(new Font("Consolas", Font.PLAIN, 15));
-		btnFind.setBounds(250, 400, 100, 40);
+		btnFind.setBounds(250, 410, 100, 40);
 		btnFind.setFont(new Font("Consolas", Font.PLAIN, 15));
-		btnExit.setBounds(250, 450, 100, 40);
+		btnExit.setBounds(250, 460, 100, 40);
 		btnExit.setFont(new Font("Consolas", Font.PLAIN, 15));
 		btnLogin.addActionListener(this);
 		btnSignUp.addActionListener(this);
@@ -76,15 +77,20 @@ public class Login extends JFrame implements ActionListener {
 		loginPanel.add(btnExit);
 		loginPanel.add(btnSignUp);
 		loginPanel.add(btnFind);
+
+		JLabel la = new JLabel(new ImageIcon("images/login/login_background.jpg"));
+		la.setBounds(0, 0, 400, 580);
+		loginPanel.add(la);
 		add(loginPanel);
 
 		// set location in center of screen
-		Dimension dim1 = Toolkit.getDefaultToolkit().getScreenSize();
-		Dimension dim2 = this.getSize();
-		int x, y;
-		x = (int) (dim1.getWidth() / 2 - dim2.getWidth() / 2);
-		y = (int) (dim1.getHeight() / 2 - dim2.getHeight() / 2);
-		setLocation(x, y);
+		// Dimension dim1 = Toolkit.getDefaultToolkit().getScreenSize();
+		// Dimension dim2 = this.getSize();
+		// int x, y;
+		// x = (int) (dim1.getWidth() / 2 - dim2.getWidth() / 2);
+		// y = (int) (dim1.getHeight() / 2 - dim2.getHeight() / 2);
+		// setLocation(x, y);
+
 
 		setVisible(true);
 	}
@@ -105,7 +111,7 @@ public class Login extends JFrame implements ActionListener {
 					MemberInfo.PHONE = list.get(i).getPhone();
 					MemberInfo.POINT = list.get(i).getPoint();
 
-					JOptionPane.showMessageDialog(null, MemberInfo.NAME + "님 환영합니다.", "Login",
+					JOptionPane.showMessageDialog(null, "ようこそ" + MemberInfo.NAME + "様", "Login",
 							JOptionPane.DEFAULT_OPTION);
 
 					new MainMenu();

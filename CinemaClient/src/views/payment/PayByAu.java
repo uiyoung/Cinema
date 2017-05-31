@@ -26,19 +26,19 @@ public class PayByAu extends JFrame implements ActionListener {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		choice = new Choice();
-		choice.add("Samsung");
-		choice.add("Shinhan");
-		choice.add("BC");
-		choice.add("NH");
+		choice.add("Rakuten");
+        choice.add("Yahoo");
+        choice.add("ANA");
+        choice.add("Parco");
 
-		bt = new JButton("입력완료");
-		bt1 = new JButton("취소");
+		bt = new JButton("完了");
+		bt1 = new JButton("取り消し");
 		AuPay = new JLabel("AuPay");
-		Au = new JLabel("카드선택");
-		passwd = new JLabel("비밀번호");
+		Au = new JLabel("カード選択");
+		passwd = new JLabel("パスワード");
 		passwdT = new JPasswordField(20);
 
-		AuPay.setFont(new Font("굴림", Font.BOLD, 20));
+		AuPay.setFont(new Font("MSMincho", Font.BOLD, 20));
 
 		bt.setBounds(100, 180, 80, 30);
 		bt1.setBounds(200, 180, 80, 30);

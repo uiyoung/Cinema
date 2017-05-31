@@ -20,25 +20,25 @@ public class PayByKaKao extends JFrame implements ActionListener {
 	JTextField passwdT;
 
 	public PayByKaKao() {
-		this.setTitle("카카오결제");
+		this.setTitle("RakutenPay");
 		this.setLayout(null);
 		this.setSize(400, 300);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		choice = new Choice();
-		choice.add("Samsung");
-		choice.add("Shinhan");
-		choice.add("BC");
-		choice.add("NH");
+		choice.add("Rakuten");
+        choice.add("Yahoo");
+        choice.add("ANA");
+        choice.add("Parco");
 
-		bt = new JButton("입력완료");
-		bt1 = new JButton("취소");
-		kakaoPay = new JLabel("카카오결제");
-		kakao = new JLabel("카드선택");
-		passwd = new JLabel("비밀번호");
+		bt = new JButton("完了");
+		bt1 = new JButton("取り消し");
+		kakaoPay = new JLabel("RakutenPay");
+		kakao = new JLabel("カード選択");
+		passwd = new JLabel("パスワード");
 		passwdT = new JPasswordField(20);
 
-		kakaoPay.setFont(new Font("굴림", Font.BOLD, 20));
+		kakaoPay.setFont(new Font("MSMincho", Font.BOLD, 20));
 
 		bt.setBounds(100, 180, 80, 30);
 		bt1.setBounds(200, 180, 80, 30);

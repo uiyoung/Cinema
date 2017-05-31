@@ -51,7 +51,6 @@ public class Revenue extends MFrame implements ActionListener {
 	public Revenue() {
 		this.setTitle("映画精算");
 		list = mgr.allcal();
-		this.setSize(1400, 850);
 		init();
 	}
 

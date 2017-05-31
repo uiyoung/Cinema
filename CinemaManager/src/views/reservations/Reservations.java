@@ -46,7 +46,6 @@ public class Reservations extends MFrame implements ActionListener {
 	public Reservations() {
 		this.setTitle("予約情報");
 		list = mgr.allreserve();
-		this.setSize(1400, 850);
 		init();
 	}
 

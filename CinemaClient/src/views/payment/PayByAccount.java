@@ -20,27 +20,27 @@ public class PayByAccount extends JFrame implements ActionListener {
 	JTextField number1, passwdT;
 
 	public PayByAccount() {
-		this.setTitle("계좌결제");
+		this.setTitle("AccountPay");
 		this.setLayout(null);
 		this.setSize(400, 300);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		choice = new Choice();
-		choice.add("NH");
-		choice.add("Shinhan");
-		choice.add("KB");
-		choice.add("Woori");
+		choice.add("Rakuten");
+        choice.add("Yahoo");
+        choice.add("ANA");
+        choice.add("Parco");
 
-		bt = new JButton("입력완료");
-		bt1 = new JButton("취소");
-		accountpay = new JLabel("계좌결제");
-		account = new JLabel("은행선택");
-		number = new JLabel("계좌번호");
-		passwd = new JLabel("비밀번호");
+		bt = new JButton("完了");
+		bt1 = new JButton("取り消し");
+		accountpay = new JLabel("AccountPay");
+		account = new JLabel("決済口座");
+		number = new JLabel("口座選択");
+		passwd = new JLabel("パスワード");
 		number1 = new JTextField(10);
 		passwdT = new JPasswordField(20);
 
-		accountpay.setFont(new Font("굴림", Font.BOLD, 20));
+		accountpay.setFont(new Font("MSMincho", Font.BOLD, 20));
 
 		bt.setBounds(100, 180,80, 30);
 		bt1.setBounds(200, 180, 80, 30);

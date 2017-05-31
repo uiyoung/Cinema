@@ -10,6 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import controllers.DBMgr;
@@ -27,7 +28,7 @@ public class DeleteMember extends CinemaFrame implements ActionListener {
 
 	JPanel cpan = new JPanel();
 	JLabel lab1 = new JLabel("パスワード : ");
-	JTextField txtf = new JTextField(10);
+	JTextField txtf = new JPasswordField(10);
 
 	JPanel span = new JPanel();
 	JButton bt = new JButton("脱退");

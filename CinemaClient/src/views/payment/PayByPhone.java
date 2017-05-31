@@ -20,28 +20,28 @@ public class PayByPhone extends JFrame implements ActionListener {
 	JTextField number1, number2, number3, number4, passwdT;
 
 	public PayByPhone() {
-		this.setTitle("핸드폰결제");
+		this.setTitle("PhonePay");
 		this.setLayout(null);
 		this.setSize(400, 300);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		choice = new Choice();
-		choice.add("SKT");
-		choice.add("KT");
-		choice.add("LGU+");
+		choice.add("SoftBank");
+		choice.add("DokoMo");
+		choice.add("AU");
 
-		bt = new JButton("입력완료");
-		bt1 = new JButton("취소");
-		phonepay = new JLabel("핸드폰결제");
-		phone = new JLabel("통신사");
-		number = new JLabel("핸드폰번호");
-		passwd = new JLabel("결제비밀번호");
+		bt = new JButton("完了");
+		bt1 = new JButton("取り消し");
+		phonepay = new JLabel("PhonePay");
+		phone = new JLabel("携帯会社");
+		number = new JLabel("携帯番号");
+		passwd = new JLabel("パスワード");
 		number1 = new JTextField(10);
 		number2 = new JTextField(10);
 		number3 = new JTextField(10);
 		passwdT = new JPasswordField(20);
 
-		phonepay.setFont(new Font("굴림", Font.BOLD, 20));
+		phonepay.setFont(new Font("MSMincho", Font.BOLD, 20));
 
 		bt.setBounds(100, 180, 80, 30);
 		bt1.setBounds(200, 180, 80, 30);

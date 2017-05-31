@@ -252,6 +252,7 @@ public class Schedule_Input extends MFrame implements ActionListener {
 					JOptionPane.DEFAULT_OPTION);
 			/*---------------------------------end of 좌석정보입력---------------------------*/
 
+		} else if (e.getActionCommand().equals("取り消す")) {
 			/* 열려있는 모든 창 닫기 */
 			java.awt.Window win[] = java.awt.Window.getWindows();
 			for (int i = 0; i < win.length; i++) {
@@ -259,9 +260,6 @@ public class Schedule_Input extends MFrame implements ActionListener {
 				win[i] = null;
 			}
 			new ManageSchedule();
-
-		} else if (e.getActionCommand().equals("取り消す")) {
-			dispose();
 		}
 	}
 

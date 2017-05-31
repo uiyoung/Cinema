@@ -70,8 +70,9 @@ public class Reservation extends CinemaFrame implements ActionListener {
 	private void initFirstPanel() {
 		JPanel firstPanel = new JPanel(null);
 		firstPanel.setBackground(Color.GRAY);
-		JLabel label1 = new JLabel("1. 영화 선택");
-		label1.setBounds(60, 10, 100, 30);
+		JLabel label1 = new JLabel("1. 映画選択");
+		label1.setBounds(60, 10, 120, 30);
+		label1.setFont(new Font("MS Gothic", Font.BOLD, 18));
 
 		// JList for select movie
 		movies = movieMgr.getMovie();
@@ -101,7 +102,7 @@ public class Reservation extends CinemaFrame implements ActionListener {
 					lblPoster.setBounds(60, 170, 320, 452);
 
 					if (theaters.size() == 0) {
-						theaterListModel.addElement("해당 영화를 상영 중인 극장이 없습니다.");
+						theaterListModel.addElement("選択された映画を上映中の劇場はありません。");
 						listTheater.setEnabled(false);
 						theater = null;
 						lblTheater.setText(theater);
@@ -120,13 +121,13 @@ public class Reservation extends CinemaFrame implements ActionListener {
 		spMovie.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 		spMovie.setBounds(60, 50, 320, 100);
 
-		btnSeat = new JButton("Select Seat");
-
-		btnMovieInfo = new JButton("Movie Info");
+		btnMovieInfo = new JButton();
+		btnMovieInfo.setIcon(new ImageIcon("images/reservation/btnMovieInfo.jpg"));
 		btnMovieInfo.setBounds(300, 650, 130, 65);
 		btnMovieInfo.addActionListener(this);
 
-		btnBackToMain = new JButton("Main Menu");
+		btnBackToMain = new JButton();
+		btnBackToMain.setIcon(new ImageIcon("images/reservation/btnMainMenu.jpg"));
 		btnBackToMain.setBounds(30, 650, 130, 65);
 		btnBackToMain.addActionListener(this);
 
@@ -146,8 +147,9 @@ public class Reservation extends CinemaFrame implements ActionListener {
 
 	private void initSecondPanel() {
 		secondPanel = new JPanel(null);
-		JLabel label2 = new JLabel("2. 극장 선택");
-		label2.setBounds(40, 10, 100, 30);
+		JLabel label2 = new JLabel("2. 劇場選択");
+		label2.setFont(new Font("MS Gothic", Font.BOLD, 18));
+		label2.setBounds(40, 10, 120, 30);
 
 		// JList for select Theater
 		theaterListModel = new DefaultListModel<>();
@@ -177,7 +179,8 @@ public class Reservation extends CinemaFrame implements ActionListener {
 		spTheater.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 		spTheater.setBounds(40, 50, 350, 100);
 
-		JLabel label3 = new JLabel("3. 날짜, 시간 선택");
+		JLabel label3 = new JLabel("3. 日時選択");
+		label3.setFont(new Font("MS Gothic", Font.BOLD, 18));
 		label3.setBounds(40, 200, 200, 30);
 
 		// Calendar for select date
@@ -185,7 +188,7 @@ public class Reservation extends CinemaFrame implements ActionListener {
 
 		// JList for select time
 		timesListModel = new DefaultListModel<>();
-		timesListModel.addElement("날짜를 선택해 주세요");
+		timesListModel.addElement("日付を選んでください");
 		listTime = new JList<>(timesListModel);
 		listTime.setEnabled(false);
 		listTime.addListSelectionListener(new ListSelectionListener() {
@@ -213,8 +216,9 @@ public class Reservation extends CinemaFrame implements ActionListener {
 		thirdPanel = new JPanel(null);
 		thirdPanel.setBackground(Color.LIGHT_GRAY);
 
-		JLabel label4 = new JLabel("4. 인원 선택");
-		label4.setBounds(40, 10, 100, 30);
+		JLabel label4 = new JLabel("4. 人数選択");
+		label4.setFont(new Font("MS Gothic", Font.BOLD, 18));
+		label4.setBounds(40, 10, 120, 30);
 
 		// combo box for select num of tickets
 		String[] numOfTickets = { "1", "2", "3", "4", "5" };
@@ -223,20 +227,25 @@ public class Reservation extends CinemaFrame implements ActionListener {
 		cb.addActionListener(this);
 		cb.setBounds(30, 50, 200, 30);
 
-		JLabel label5 = new JLabel("5. 예매 정보");
+		JLabel label5 = new JLabel("5. 予約情報");
+		label5.setFont(new Font("MS Gothic", Font.BOLD, 18));
 		lblTitle = new JLabel(title);
 		lblTheater = new JLabel();
 		lblDate = new JLabel();
-		lblTicketAmount = new JLabel("1명");
+		lblTicketAmount = new JLabel("1人");
 		lblTime = new JLabel();
-		label5.setBounds(40, 250, 100, 30);
+		label5.setBounds(40, 250, 120, 30);
 		lblTitle.setBounds(40, 300, 300, 30);
 		lblTheater.setBounds(40, 330, 200, 30);
 		lblDate.setBounds(40, 360, 100, 30);
 		lblTime.setBounds(40, 390, 100, 30);
 		lblTicketAmount.setBounds(40, 420, 100, 30);
 
-		btnSeat = new JButton("Select Seat");
+		JLabel lblTicket = new JLabel(new ImageIcon("images/reservation/ticket.png"));
+		lblTicket.setBounds(15, 155, 250, 420);
+
+		btnSeat = new JButton();
+		btnSeat.setIcon(new ImageIcon("images/reservation/btnSeat.jpg"));
 		btnSeat.setBounds(300, 650, 130, 65);
 		btnSeat.addActionListener(this);
 
@@ -249,6 +258,8 @@ public class Reservation extends CinemaFrame implements ActionListener {
 		thirdPanel.add(lblTime);
 		thirdPanel.add(lblTicketAmount);
 		thirdPanel.add(btnSeat);
+
+		thirdPanel.add(lblTicket);
 		add(thirdPanel);
 	}
 
@@ -376,10 +387,10 @@ public class Reservation extends CinemaFrame implements ActionListener {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					if (title == null) {
-						JOptionPane.showMessageDialog(null, "영화를 선택해주세요.", "예매오류", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(null, "映画を選んでください。", "予約ミス", JOptionPane.ERROR_MESSAGE);
 						return;
 					} else if (theater == null) {
-						JOptionPane.showMessageDialog(null, "극장을 선택해주세요.", "예매오류", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(null, "劇場を選んでください。", "予約ミス", JOptionPane.ERROR_MESSAGE);
 						return;
 					}
 
@@ -402,7 +413,7 @@ public class Reservation extends CinemaFrame implements ActionListener {
 							time = null;
 							lblDate.setText(date);
 							lblTime.setText(time);
-							timesListModel.addElement("해당일에 상영 스케줄이 없습니다.");
+							timesListModel.addElement("選択された日は上映スケジュールがありません.");
 							listTime.setEnabled(false);
 							return;
 						} else {
@@ -440,6 +451,7 @@ public class Reservation extends CinemaFrame implements ActionListener {
 		hideInit();
 		lblYear.setText(year + "年");
 		lblMonth.setText(month + "月");
+		repaint();
 	}
 	///////////////////////// END of CALENDAR THINGS //////////////////////////
 
@@ -447,21 +459,21 @@ public class Reservation extends CinemaFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == cb) {
 			numOfTicket = (String) cb.getSelectedItem();
-			lblTicketAmount.setText(numOfTicket + "명");
+			lblTicketAmount.setText(numOfTicket + "人");
 		}
 
 		if (e.getSource() == btnSeat) {
 			if (title == null) {
-				JOptionPane.showMessageDialog(null, "영화를 선택해주세요.", "예매오류", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, "映画を選んでください。", "予約ミス", JOptionPane.ERROR_MESSAGE);
 				return;
 			} else if (theater == null) {
-				JOptionPane.showMessageDialog(null, "극장을 선택해주세요.", "예매오류", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, "劇場を選んでください。", "予約ミス", JOptionPane.ERROR_MESSAGE);
 				return;
 			} else if (time == null) {
-				JOptionPane.showMessageDialog(null, "시간을 선택해주세요.", "예매오류", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, "時間を選んでください。", "予約ミス", JOptionPane.ERROR_MESSAGE);
 				return;
 			} else if (numOfTicket == null) {
-				JOptionPane.showMessageDialog(null, "인원을 선택해주세요.", "예매오류", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, "人数選んでください。", "予約ミス", JOptionPane.ERROR_MESSAGE);
 				return;
 			}
 

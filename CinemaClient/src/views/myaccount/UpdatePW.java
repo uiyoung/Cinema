@@ -10,6 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import controllers.DBMgr;
@@ -22,10 +23,10 @@ public class UpdatePW extends CinemaFrame implements ActionListener {
 	JPanel pan = new JPanel();
 
 	JLabel lab1 = new JLabel("現在のパスワード : ");
-	JTextField txtf1 = new JTextField(10);
+	JTextField txtf1 = new JPasswordField(10);
 	JButton bt = new JButton("確認");
 	JLabel lab2 = new JLabel("新しいパスワード : ");
-	JTextField txtf2 = new JTextField(10);
+	JTextField txtf2 = new JPasswordField(10);
 	JPanel cpan = new JPanel();
 
 	JButton bt1 = new JButton("変更");

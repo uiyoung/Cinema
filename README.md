@@ -1,6 +1,8 @@
 # Cinema
 
 [cinema wiki](https://github.com/UiyoungSeo/Cinema/wiki)
+[demo play](https://www.youtube.com/watch?v=_DUu1m2XeFs&list=PLsUNj5RBJbY0BANflOhiOX2CwOj5c6bkb&index=1)
+
 ### How to run Cinema
 #### 1. git 주소 복사
 `Clone or download->copy to clipboard`

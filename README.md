@@ -1,6 +1,7 @@
 # Cinema
 - [cinema wiki](https://github.com/UiyoungSeo/Cinema/wiki)  
 - [demo play video](https://www.youtube.com/watch?v=_DUu1m2XeFs&list=PLsUNj5RBJbY0BANflOhiOX2CwOj5c6bkb&index=1)
+- [발표 ppt](https://github.com/uiyoung/Cinema/blob/master/cinemaV.pptx)
 
 ### About
 Cinema는 영화관 관리자를 위한 **CinemaManager**와 영화관을 이용하는 유저를 위한 **CinemaClient**로 구성되어 있습니다.

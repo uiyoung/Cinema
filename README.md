@@ -3,7 +3,7 @@
 - [demo play video](https://www.youtube.com/watch?v=_DUu1m2XeFs&list=PLsUNj5RBJbY0BANflOhiOX2CwOj5c6bkb&index=1)
 - [발표 ppt](https://github.com/uiyoung/Cinema/blob/master/cinemaV.pptx)
 
-### About
+## About
 Cinema는 영화관 관리자를 위한 **CinemaManager**와 영화관을 이용하는 유저를 위한 **CinemaClient**로 구성되어 있습니다.
 ### [1. CinemaManager](https://github.com/uiyoung/Cinema/tree/master/CinemaManager)
 사용자가 영화를 예매할 수 있도록 관리자가 극장정보, 영화정보, 상영정보, 좌석정보를 db에 입력하고 예매현황과 영화별 수익, 총 수익을 확인할 수 있습니다.
@@ -11,15 +11,13 @@ Cinema는 영화관 관리자를 위한 **CinemaManager**와 영화관을 이용
 - 예매정보 확인 : 현재 예매 현황 확인
 - 정산 : 영화별 수익, 전체 수익 확인
 
----
-
 ### [2. CinemaClient](https://github.com/uiyoung/Cinema/tree/master/CinemaClient)
 유저는 회원가입을 하고 영화정보를 db에서 불러와 확인하고 영화, 극장, 날짜, 시간, 좌석을 선택하여 티켓을 예매할 수 있습니다.
 - 영화예매 : `회원가입->로그인->메뉴->상영영화정보->영화선택->극장선택->날짜선택->시간선택->좌석선택->결재`
 - MyTicket : 예매정보확인, 예매취소
 - MyAccount : 회원정보수정, 탈퇴
 
-### How to run
+## How to run
 #### 1. git 주소 복사
 `Clone or download->copy to clipboard`
 
@@ -35,7 +33,7 @@ Cinema는 영화관 관리자를 위한 **CinemaManager**와 영화관을 이용
 
 ---
 
-### [1. 영화정보 입력하기(관리자)](https://github.com/uiyoung/Cinema/tree/master/CinemaManager)
+## [1. 영화정보 입력하기(관리자)](https://github.com/uiyoung/Cinema/tree/master/CinemaManager)
 
 이제 모든 데이터는 관리자프로그램을 이용해서 db에 집어넣습니다. 따라서 관리자 프로그램에서 순서대로 `①극장생성->②영화정보입력->③상영스케줄입력`을 해야 사용자가 예매프로그램에서 예매를 할 수 있습니다.     
 `CinemaManger에서 views.login 패키지의 Login.java를 실행합니다.`
@@ -57,7 +55,7 @@ Cinema는 영화관 관리자를 위한 **CinemaManager**와 영화관을 이용
 
 ---
 
-### [2. 예매하기(사용자)](https://github.com/uiyoung/Cinema/tree/master/CinemaClient)
+## [2. 예매하기(사용자)](https://github.com/uiyoung/Cinema/tree/master/CinemaClient)
 
 관리자가 입력한 영화정보를 db에서 불러와 확인하고 영화, 극장, 날짜, 시간, 좌석을 선택하여 티켓을 예매할 수 있습니다.    
  `CinemaClient에서 views.login 패키지의 Login.java를 실행합니다.`   

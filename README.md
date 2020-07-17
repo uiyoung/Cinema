@@ -70,7 +70,7 @@ Cinema는 영화관 관리자를 위한 **CinemaManager**와 영화관을 이용
 
 #### ④ 예매 확인
 현재 예매 현황을 확인할 수 있습니다.
-![Reservations](./img/manager/reservations.png)
+![Reservations](./img/manager/reservations.jpg)
 
 #### ⑤ 정산 확인
 영화별 수익, 전체 수익 정보를 확인 할 수 있습니다.
@@ -110,4 +110,4 @@ Cinema는 영화관 관리자를 위한 **CinemaManager**와 영화관을 이용
 
 #### MyAccount
 회원정보 확인, 수정, 탈퇴를 할 수 있습니다.
-![MyTicket](./img/client/myaccount.png)
+![MyTicket](./img/client/myaccount.jpg)

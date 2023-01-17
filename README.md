@@ -1,6 +1,6 @@
 # Cinema
 - [Demo play](https://www.youtube.com/watch?v=_DUu1m2XeFs&list=PLsUNj5RBJbY0BANflOhiOX2CwOj5c6bkb&index=1)
-- [발표 ppt](https://github.com/uiyoung/Cinema/blob/master/cinemaV.pptx)
+- [발표 ppt(japanese)](https://github.com/uiyoung/Cinema/blob/master/cinemaV.pptx)
 - [wiki](https://github.com/UiyoungSeo/Cinema/wiki)  
 
 ## About
